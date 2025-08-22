@@ -3,7 +3,7 @@
 // @copyright  2021 Glen S. Dayton. All rights reserved. Project Euler has confidentiality rules so do not copy nor publish this code.
 //  @author Glen S.Dayton
 //
-//  Wrapper arpund Posix file operations that protect against inadvertant copying of the file descriptor, and guaranteee
+//  Wrapper arpund Posix File operations that protect against inadvertant copying of the File descriptor, and guaranteee
 //  release of resources.
 //
 // All of the methods may throw a oscpp::SysException (a type of std::runtime_error) on errors.
