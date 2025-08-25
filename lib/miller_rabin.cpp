@@ -28,11 +28,11 @@ auto millerRabin(const unsigned long n) -> bool {
     for (const auto a: aBase)
     {
         if (a > baseLimit) break;
-        auto x = numutil::powmod(a, d, n);
+        auto x = utility::powmod(a, d, n);
         if (x == 1 || x == n1) continue;
         for (auto trial = 1u; trial <= s; ++trial)
         {
-            y = numutil::powmod(x, 2ul, n);
+            y = utility::powmod(x, 2ul, n);
             if ((y == 1) && (x != 1) && (x != n1)) return false;
             x = y;
         }

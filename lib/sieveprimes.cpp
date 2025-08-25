@@ -5,7 +5,7 @@
 #include "sieveprimes.hpp"
 #include <stdexcept>
 
-[[maybe_unused]] auto numutil::sievePrimes(const unsigned long upperLimit, std::vector<unsigned long>& primes) -> std::vector<unsigned long>& {
+[[maybe_unused]] auto utility::sievePrimes(const unsigned long upperLimit, std::vector<unsigned long>& primes) -> std::vector<unsigned long>& {
     std::vector sieve(upperLimit, true);
 
     primes.clear();
@@ -29,7 +29,7 @@
 
 
 template <typename Unsigned>
-[[maybe_unused]] numutil::Sieve<Unsigned>::Sieve(Unsigned upperLimit)
+[[maybe_unused]] utility::Sieve<Unsigned>::Sieve(Unsigned upperLimit)
     : m_sieve(upperLimit,true),
       m_primes()
 {
@@ -50,7 +50,7 @@ template <typename Unsigned>
 
 
 template <typename Unsigned>
-[[maybe_unused]] auto numutil::Sieve<Unsigned>::isPrime(Unsigned number) const -> bool {
+[[maybe_unused]] auto utility::Sieve<Unsigned>::isPrime(Unsigned number) const -> bool {
     if (number < m_sieve.size()) return m_sieve[number];
     if (number > m_sieve.size()*m_sieve.size()) throw std::range_error("Sieve isn't big enough");
 
@@ -63,11 +63,11 @@ template <typename Unsigned>
 }
 
 template <typename Unsigned>
-auto numutil::Sieve<Unsigned>::operator[](int n) const -> Unsigned {
+auto utility::Sieve<Unsigned>::operator[](int n) const -> Unsigned {
     return m_primes[n];
 }
 
 
-template class numutil::Sieve<unsigned int>;
-template class numutil::Sieve<unsigned long>;
-template class numutil::Sieve<unsigned long long>;
+template class utility::Sieve<unsigned int>;
+template class utility::Sieve<unsigned long>;
+template class utility::Sieve<unsigned long long>;

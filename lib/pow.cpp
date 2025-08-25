@@ -13,7 +13,7 @@ namespace {
 }
 
 template <>
-auto numutil::powmod<unsigned long>(unsigned long base, unsigned long exponent, const unsigned long &modulus) -> unsigned long {
+auto utility::powmod<unsigned long>(unsigned long base, unsigned long exponent, const unsigned long &modulus) -> unsigned long {
     if (modulus < 2) return 0;
     unsigned int result = 1;
     base %= modulus;
@@ -30,4 +30,4 @@ auto numutil::powmod<unsigned long>(unsigned long base, unsigned long exponent, 
 }
 
 template<>
-auto numutil::powmod<unsigned int>(unsigned int base, unsigned int exponent, const unsigned int& modulus) -> unsigned int;
+auto utility::powmod<unsigned int>(unsigned int base, unsigned int exponent, const unsigned int& modulus) -> unsigned int;

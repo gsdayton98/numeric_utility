@@ -9,9 +9,9 @@ template <typename T>
 concept Unsigned = ! std::numeric_limits<T>::is_signed;
 
 
-namespace numutil {
+namespace utility {
     ////
-    /// Pow(base, exponent)target_link_libraries(test_socket numutil ${Boost_LIBRARIES})
+    /// Pow(base, exponent)target_link_libraries(test_socket utility ${Boost_LIBRARIES})
 
     /// Evaluate base**exponent. base and exponent must be unsigned or at least non-negative.
     /// Beware, that the result is explicitly modulo the size of the unsigned type, for example,

@@ -8,7 +8,7 @@
 #include <vector>
 
 
-namespace numutil {
+namespace utility {
     [[maybe_unused]] auto sievePrimes(unsigned long upperLimit, std::vector<unsigned long> &primes) -> std::vector<unsigned long> &;
 
     template <typename Unsigned>

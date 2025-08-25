@@ -2,7 +2,7 @@
 #include "sieveprimes.hpp"
 
 BOOST_AUTO_TEST_CASE(test_sieve) {
-    using SieveType = numutil::Sieve<unsigned int>;
+    using SieveType = utility::Sieve<unsigned int>;
     SieveType sieve(10);
 
     BOOST_CHECK(sieve.isPrime(2));
@@ -31,7 +31,7 @@ BOOST_AUTO_TEST_CASE(test_sieve) {
 
 
 BOOST_AUTO_TEST_CASE(test_array_sieve) {
-    using SieveType = numutil::Sieve<unsigned int>;
+    using SieveType = utility::Sieve<unsigned int>;
     SieveType sieve(10);
 
     BOOST_CHECK_EQUAL(sieve[0], 2);

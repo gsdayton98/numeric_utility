@@ -510,7 +510,7 @@ auto Factor::evaluate(const std::vector<Factor> &factors) -> unsigned int
 {
     unsigned int number = 1U;
     for (const auto factor: factors) {
-        number *= numutil::pow(factor.prime, factor.exponent);
+        number *= utility::pow(factor.prime, factor.exponent);
     }
     return number;
 }

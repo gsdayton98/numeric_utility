@@ -4,18 +4,19 @@
 //  @author Glen S.Dayton
 //
 // Explicit instantiations of numeric utility templates
-
+// This file contains implementations of specialized numeric utility functions
+// including square root and primality testing for specific numeric types.
 #include "numerical_utility.hpp"
 #include <algorithm>
 #include <vector>
 #include <boost/multiprecision/cpp_int.hpp>
 #include "pow.hpp"
-using namespace numutil;
+using namespace utility;
 namespace multi = boost::multiprecision;
 
 
 template<>
-unsigned long numutil::sqrt<unsigned long>(const unsigned long c) {
+unsigned long utility::sqrt<unsigned long>(const unsigned long c) {
   unsigned long x0 = c >> 1;
 
   if (x0 == 0) return c;
@@ -31,14 +32,14 @@ unsigned long numutil::sqrt<unsigned long>(const unsigned long c) {
 
 
 template<>
-multi::cpp_int  numutil::sqrt<multi::cpp_int>(const multi::cpp_int  c) {
+multi::cpp_int  utility::sqrt<multi::cpp_int>(const multi::cpp_int  c) {
   return multi::sqrt(c);
 }
 
 
 // Miller-Rabin primality test
 // https://en.wikipedia.org/wiki/Miller%E2%80%93Rabin_primality_test
-template<> bool numutil::millerRabin0<unsigned long>(const unsigned long& number) {
+template<> bool utility::millerRabin0<unsigned long>(const unsigned long& number) {
   static const std::vector<unsigned int> smallPrimes = { 2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61 };
 
   // bit mask of the with a bit set at each position that happens to be prime

@@ -4,8 +4,6 @@
 #ifndef CIRCULAR_BUFFER_HPP
 #define CIRCULAR_BUFFER_HPP
 
-#include <cstdlib>
-#include <cstdint>
 #include <mutex>
 #include <condition_variable>
 
@@ -14,7 +12,7 @@ using std::mutex;
 
 
 /**
- * Circular Buffer, a double ended queue that uses a static array and reuses
+ * Circular Buffer, a double-ended queue that uses a static array and reuses
  * memory.
  *
  * @author Glen Dayton
@@ -24,7 +22,7 @@ class CircularBuffer {
 public:
     /**
      * Create an empty circular buffer at least 'nSize' big.
-     * Actual size of the buffer will be rounded up to a power of 2.
+     * The actual size of the buffer will be rounded up to a power of 2.
      *
      * @param nSize Minimum size of the buffer
      */
@@ -40,10 +38,10 @@ public:
     /// Return the capacity of the buffer
     [[nodiscard]] auto capacity() const -> size_t;
 
-    /// Predicate for testing whether buffer is empty
+    /// Predicate for testing whether the buffer is empty
     [[nodiscard]] auto empty() const-> bool;
 
-    /// Predicate for testing whether buffer is full
+    /// Predicate for testing whether the buffer is full
     [[nodiscard]] auto full() -> bool;
 
     /**
@@ -52,7 +50,7 @@ public:
      */
     auto get() -> ElementType;
 
-    /// returns number of elements in the buffer
+    /// Returns the number of elements in the buffer
     [[nodiscard]] auto size() -> size_t;
 
     /**
@@ -75,7 +73,7 @@ public:
 
 protected:
     // Utility for rounding up the size of the buffer to a power of 2 to
-    // simplify modulo operation
+    // simplify modulo operation.
     static auto roundup(size_t n) -> size_t;
 
     // Utility for getting the index of the next element in the buffer,

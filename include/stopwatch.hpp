@@ -9,7 +9,7 @@
 #define STOPWATCH_HPP_INCL
 #include <chrono>
 
-namespace numutil {
+namespace utility {
     class StopWatch {
         std::chrono::steady_clock::time_point start;
 

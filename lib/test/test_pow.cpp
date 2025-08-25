@@ -23,7 +23,7 @@ BOOST_AUTO_TEST_CASE(test_pow) {
   };
   for (const auto sample : samples)
   {
-    BOOST_CHECK_EQUAL(numutil::pow(sample.base, sample.exponent), sample.expected);
+    BOOST_CHECK_EQUAL(utility::pow(sample.base, sample.exponent), sample.expected);
   }
 }
 
@@ -54,9 +54,9 @@ BOOST_AUTO_TEST_CASE(test_powmod) {
   };
   for (const auto sample : samples)
   {
-    auto result = numutil::powmod(sample.base, sample.exponent, sample.modulus);
+    auto result = utility::powmod(sample.base, sample.exponent, sample.modulus);
     std::cout << "powmod(" << sample.base << "," << sample.exponent << "," << sample.modulus << ") "
     << result << " expecting " << sample.expected << "\n";
-    BOOST_CHECK_EQUAL(numutil::powmod(sample.base, sample.exponent, sample.modulus), sample.expected);
+    BOOST_CHECK_EQUAL(utility::powmod(sample.base, sample.exponent, sample.modulus), sample.expected);
   }
 }
