@@ -6,17 +6,13 @@
 #include "circular_buffer.hpp"
 
 template<typename ElementType>
-CircularBuffer<ElementType>::CircularBuffer(size_t nSize)
-            : bufferCapacity{CircularBuffer::roundup(nSize)},
-              buffer{new ElementType[bufferCapacity]},
-              bufferCapacityMinus1{bufferCapacity - 1UL},
-              head{0UL},
-              tail{0UL},
-              readMutex{},
-              writeMutex{},
-              notEmpty{},
-              notFull{}
-    {}
+CircularBuffer<ElementType>::CircularBuffer(const size_t nSize)
+    : bufferCapacity{roundup(nSize)},
+      buffer{new ElementType[bufferCapacity]},
+      head{0UL},
+      tail{0UL}
+{
+}
 
     /// Deallocate the buffer
     template<typename ElementType>
@@ -32,9 +28,9 @@ CircularBuffer<ElementType>::CircularBuffer(size_t nSize)
     template<typename ElementType>
     [[nodiscard]] auto CircularBuffer<ElementType>::empty() const-> bool { return head == tail; }
 
-    /// Predicate for testing whether buffer is full
+    /// Predicate for testing whether the buffer is full
     template<typename ElementType>
-    [[nodiscard]] auto CircularBuffer<ElementType>::full() -> bool { return next(head) == tail; }
+    [[nodiscard]] auto CircularBuffer<ElementType>::full() const -> bool { return next(head) == tail; }
 
     /**
      * Get a value from the buffer.  Blocks until it is done.
@@ -53,10 +49,10 @@ CircularBuffer<ElementType>::CircularBuffer(size_t nSize)
         return val;
     }
 
-    /// returns number of elements in the buffer
+    /// Returns the number of elements in the buffer.
     template<typename ElementType>
-    [[nodiscard]] auto CircularBuffer<ElementType>::size() -> size_t {
-        return (head + bufferCapacity - tail) & bufferCapacityMinus1;
+    [[nodiscard]] auto CircularBuffer<ElementType>::size() const -> size_t {
+        return head + bufferCapacity - tail & (bufferCapacity - 1);
     }
 
     /**
@@ -99,7 +95,7 @@ auto CircularBuffer<ElementType>::tryPut(ElementType value) -> bool {
  */
 template<typename ElementType>
 auto CircularBuffer<ElementType>::put(ElementType value) -> void {
-    unique_lock<mutex> lock(writeMutex);
+    unique_lock lock(writeMutex);
     notFull.wait(lock, [this]{ return ! full();});
     buffer[head] = value;
     head = next(head);
@@ -108,9 +104,9 @@ auto CircularBuffer<ElementType>::put(ElementType value) -> void {
 }
 
 // Utility for rounding up the size of the buffer to a power of 2 to
-// simplify modulo operation
+// simplify modulo operation.
 template<typename ElementType>
-auto CircularBuffer<ElementType>::roundup(size_t n) -> size_t {
+auto CircularBuffer<ElementType>::roundup(const size_t n) -> size_t {
     unsigned int k = 1;
     while (k < n) {
         k <<= 1;
@@ -121,8 +117,8 @@ auto CircularBuffer<ElementType>::roundup(size_t n) -> size_t {
 // Utility for getting the index of the next element in the buffer,
 // modulo the size of the buffer.
 template<typename ElementType>
-[[nodiscard]] auto CircularBuffer<ElementType>::next(size_t i) -> size_t {
-    return (i + 1) & bufferCapacityMinus1;
+[[nodiscard]] auto CircularBuffer<ElementType>::next(const size_t i) const -> size_t {
+    return i + 1 &  bufferCapacity - 1;
 }
 
 template class CircularBuffer<bool>;

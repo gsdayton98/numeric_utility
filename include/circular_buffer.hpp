@@ -42,7 +42,7 @@ public:
     [[nodiscard]] auto empty() const-> bool;
 
     /// Predicate for testing whether the buffer is full
-    [[nodiscard]] auto full() -> bool;
+    [[nodiscard]] auto full() const -> bool;
 
     /**
      * Get a value from the buffer.  Blocks until it is done.
@@ -51,7 +51,7 @@ public:
     auto get() -> ElementType;
 
     /// Returns the number of elements in the buffer
-    [[nodiscard]] auto size() -> size_t;
+    [[nodiscard]] auto size() const -> size_t;
 
     /**
      * Try getting a value from the buffer
@@ -78,11 +78,10 @@ protected:
 
     // Utility for getting the index of the next element in the buffer,
     // modulo the size of the buffer.
-    [[nodiscard]] auto next(size_t i) -> size_t;
+    [[nodiscard]] auto next(size_t i) const -> size_t;
 
 private:
     const size_t bufferCapacity;
-    const size_t bufferCapacityMinus1;
     ElementType *const buffer;
     volatile size_t head;
     volatile size_t tail;

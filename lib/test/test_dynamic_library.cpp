@@ -17,7 +17,7 @@ BOOST_AUTO_TEST_CASE(testSystemDynamicLibrary) {
     try {
         const auto target = "/usr/lib/libc++.1.dylib";
         oscpp::DynamicLibrary dynamicLibrary {target};
-        auto queryResult = dynamicLibrary.symbol("strlen");
+        const auto queryResult = dynamicLibrary.symbol("strlen");
         BOOST_CHECK_EQUAL(reinterpret_cast<void *>(strlen), queryResult);
 
     }
