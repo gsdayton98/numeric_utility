@@ -11,7 +11,7 @@
 #include <unistd.h>
 
 
-[[maybe_unused]] oscpp::FileDescriptor::FileDescriptor(oscpp::FileDescriptor && original) noexcept
+[[maybe_unused]] oscpp::FileDescriptor::FileDescriptor(FileDescriptor && original) noexcept
 : handle {original.handle}
 {
     original.handle = -1;
@@ -20,18 +20,18 @@
 
 oscpp::FileDescriptor::~FileDescriptor() noexcept {
     if (-1 < handle) {
-        ::close(handle);
+        close(handle);
     }
 }
 
 
 [[maybe_unused]]
-auto oscpp::FileDescriptor::create(int descriptor) noexcept -> FileDescriptor {return std::move(FileDescriptor {descriptor});}
+auto oscpp::FileDescriptor::create(const int descriptor) noexcept -> FileDescriptor {return std::move(FileDescriptor {descriptor});}
 
 
 [[maybe_unused]] [[nodiscard]] auto oscpp::FileDescriptor::clone() const noexcept -> std::pair<FileDescriptor, int> {
     int errorCode = 0;
-    auto newSysDescriptor = ::dup(handle);
+    const auto newSysDescriptor = ::dup(handle);
     if (newSysDescriptor < 0) {
         errorCode = errno;
     }

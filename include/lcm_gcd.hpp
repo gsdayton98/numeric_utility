@@ -5,6 +5,7 @@
 
 #ifndef LCM_GCD_HPP
 #define LCM_GCD_HPP
+#include <vector>
 
 
 namespace numutil {
@@ -29,11 +30,7 @@ namespace numutil {
 
 
     template<typename Number>
-    // clang-tide check is in error — numbersIn is used in line 49.
-#pragma clang diagnostic push
-#pragma ide diagnostic ignored "UnusedParameter"
     auto leastCommonMultiple(const std::vector <Number> &numbersIn) -> Number {
-#pragma clang diagnostic pop
         Number lcm = 1UL;
 
         for (auto n: numbersIn) {

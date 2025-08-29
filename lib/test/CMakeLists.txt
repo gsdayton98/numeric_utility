@@ -6,16 +6,17 @@ find_package (Boost REQUIRED COMPONENTS unit_test_framework CONFIG)
 find_package(CppUnitXLite CONFIG REQUIRED)
 
 add_executable(test_utility test.cpp
-        test_to_digits.cpp
         factor_test.cpp
+        test_dynamic_library.cpp
+        test_file_descriptor.cpp
+        test_isqrt.cpp
+        test_to_digits.cpp
         test_sieve.cpp
         test_pow.cpp
-        test_miller_rabin.cpp)
+        test_miller_rabin.cpp
+        test_lcm_gcd.cpp)
 
 target_link_libraries (test_utility PRIVATE numeric_utility ${Boost_LIBRARIES})
-
-add_executable(test_dynamic_library test_dynamic_library.cpp)
-target_link_libraries(test_dynamic_library PRIVATE numeric_utility ${Boost_LIBRARIES})
 
 add_executable(test_system_exception test_system_exception.cpp mock_strerror.cpp)
 target_link_libraries(test_system_exception PRIVATE numeric_utility ${Boost_LIBRARIES})
@@ -23,23 +24,19 @@ target_link_libraries(test_system_exception PRIVATE numeric_utility ${Boost_LIBR
 add_executable(testTrim test_trim.cpp)
 target_link_libraries(testTrim PRIVATE numeric_utility ${Boost_LIBRARIES})
 
-add_executable(test_file_descriptor test_file_descriptor.cpp)
-target_link_libraries(test_file_descriptor numeric_utility ${Boost_LIBRARIES})
-
 add_executable(test_socket test_socket.cpp)
 target_link_libraries(test_socket numeric_utility ${Boost_LIBRARIES})
 
-add_executable(test_circular_buffer test_circular_buffer.cpp)
+add_executable(test_circular_buffer test_circular_buffer.cpp
+        test_lcm_gcd.cpp)
 target_link_directories(test_circular_buffer PRIVATE "${CppUnitXLite_LIBDIR}")
 target_link_libraries(test_circular_buffer numeric_utility "${CppUnitTestXLite_LIBRARIES}")
 target_include_directories(test_circular_buffer BEFORE PRIVATE "${CppUnitXLite_INCLUDE_DIRS}")
 
 add_test(NAME test_utility COMMAND test_utility)
 add_test(NAME test_circular_buffer COMMAND test_circular_buffer)
-add_test(NAME test_dynamic_library COMMAND test_dynamic_library)
 add_test(NAME test_system_exception COMMAND test_system_exception)
 add_test(NAME testTrim COMMAND testTrim)
-add_test(NAME test_file_descriptor COMMAND test_file_descriptor)
 add_test(NAME test_socket COMMAND test_socket)
 
 include(CTest)

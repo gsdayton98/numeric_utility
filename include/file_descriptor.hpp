@@ -4,8 +4,8 @@
 // Copyright 2023 Glen S. Dayton. Rights reserved according to the included license terms.
 // Created by Glen Dayton on 8/14/23.
 //
-// Captures the use semantics of a typical handle or file descriptor.  Prohibits copying, but provides a clone()
-// method for duplicating the descriptor.  Closes the descriptor on destruction.
+// Captures the use semantics of a typical handle or file descriptor. Prohibits copying but provides a clone()
+// method for duplicating the descriptor. Closes the descriptor on destruction.
 
 #ifndef OSCPP_FILE_DESCRIPTOR_HPP
 #define OSCPP_FILE_DESCRIPTOR_HPP
@@ -15,7 +15,6 @@
 namespace oscpp {
 
     class [[maybe_unused]] FileDescriptor {
-    private:
         /**
          * Implementation dependent file handle or descriptor.
          */
@@ -25,7 +24,7 @@ namespace oscpp {
          * Use the create() method to create new file descriptors
          * @param fileDescriptor
          */
-        [[maybe_unused]] explicit FileDescriptor(int fileDescriptor) noexcept : handle {fileDescriptor} {}
+        [[maybe_unused]] explicit FileDescriptor(const int fileDescriptor) noexcept : handle {fileDescriptor} {}
 
     public:
 
@@ -37,7 +36,7 @@ namespace oscpp {
         FileDescriptor(FileDescriptor &) = delete;
 
         /**
-         * Move constructor creates a new FileDescriptor with the same handle, the disables the old handle to prevent
+         * Move constructor creates a new FileDescriptor with the same handle and disables the old handle to prevent
          * it from getting closed.
          */
         [[maybe_unused]] FileDescriptor(FileDescriptor &&) noexcept;
@@ -65,7 +64,7 @@ namespace oscpp {
         [[maybe_unused]] [[nodiscard]] auto clone() const noexcept -> std::pair<FileDescriptor, int>;
 
         /**
-         * Return the low-level implementation specific file descriptor.
+         * Return the low-level implementation-specific file descriptor.
          * @return Operating system file handle
          */
         [[maybe_unused]] [[nodiscard]] auto descriptor() const noexcept -> int { return handle; }
