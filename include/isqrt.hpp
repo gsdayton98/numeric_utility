@@ -7,6 +7,7 @@
 #define ISQRT_HPP
 namespace numutil {
     template<typename NumberType>
+    requires std::is_integral_v<NumberType> && std::is_unsigned_v<NumberType>
     auto isqrt(const NumberType &c) -> NumberType {
         auto x = c / 2;
 

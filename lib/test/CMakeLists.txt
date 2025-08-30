@@ -11,10 +11,10 @@ add_executable(test_utility test.cpp
         test_file.cpp
         test_file_descriptor.cpp
         test_isqrt.cpp
+        test_miller_rabin.cpp
         test_to_digits.cpp
         test_sieve.cpp
         test_pow.cpp
-        test_miller_rabin.cpp
         test_lcm_gcd.cpp
         )
 
