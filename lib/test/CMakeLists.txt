@@ -8,13 +8,15 @@ find_package(CppUnitXLite CONFIG REQUIRED)
 add_executable(test_utility test.cpp
         factor_test.cpp
         test_dynamic_library.cpp
+        test_file.cpp
         test_file_descriptor.cpp
         test_isqrt.cpp
         test_to_digits.cpp
         test_sieve.cpp
         test_pow.cpp
         test_miller_rabin.cpp
-        test_lcm_gcd.cpp)
+        test_lcm_gcd.cpp
+        )
 
 target_link_libraries (test_utility PRIVATE numeric_utility ${Boost_LIBRARIES})
 

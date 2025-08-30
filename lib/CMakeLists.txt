@@ -12,7 +12,7 @@ set(SOURCES factor.cpp sieveprimes.cpp to_digits.cpp factors.cpp
 		circular_buffer.cpp
 		dynamiclibary.cpp
 		factor.cpp
-		file.cpp
+        File.cpp
 		file_descriptor.cpp
 		miller_rabin.cpp
 		numerical_utility.cpp
@@ -30,7 +30,7 @@ set(HEADERS
 		../include/factor.hpp
 		../include/factors.hpp
 		../include/file_descriptor.hpp
-		../include/file.hpp
+        ../include/File.hpp
 		../include/isqrt.hpp
 		../include/lcm_gcd.hpp
 		../include/miller_rabin.hpp

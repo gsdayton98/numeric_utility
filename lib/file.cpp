@@ -3,33 +3,31 @@
 //  @author Glen S.Dayton
 
 #include "file.hpp"
-#include <sys/types.h>
+#include <unistd.h>
 #include <sys/mman.h>
 #include <sys/stat.h>
-#include <unistd.h>
 
 
 std::pair<void*, size_t> oscpp::File::map() {
   struct stat stats;
-
-  File::fstat(stats);
+  fstat(stats);
 
   mappedLen = stats.st_size;
-  void* mappedFile = ::mmap(0, mappedLen, PROT_READ, MAP_FILE | MAP_PRIVATE, fd, 0L);
+  mappedFile = mmap(nullptr, mappedLen, PROT_READ, MAP_FILE | MAP_PRIVATE, fd, 0L);
   if (mappedFile == MAP_FAILED) throw SysException{};
 
   return std::make_pair(mappedFile, mappedLen);
 }
 
 
-struct stat& oscpp::File::fstat(struct stat& statbuf) {
-  if (::fstat(fd, &statbuf) < 0) throw SysException{};
-  return statbuf;
+struct stat& oscpp::File::fstat(struct stat& stats) const {
+  if (::fstat(fd, &stats) < 0) throw SysException{};
+  return stats;
 }
 
 
-int oscpp::File::open(const char* filename, int flags, int mode) {
-  int fildes = ::open(filename, flags, mode);
+int oscpp::File::open(const char* filename, const int flag, const int mode) {
+  const int fildes = ::open(filename, flag, mode);
   if (fildes < 0) throw SysException{};
   return fildes;
 }
@@ -37,7 +35,7 @@ int oscpp::File::open(const char* filename, int flags, int mode) {
 
 void oscpp::File::close() {
   if (mappedFile) {
-    (void) ::munmap( mappedFile,  mappedLen);
+    (void) munmap( mappedFile,  mappedLen);
     mappedFile = nullptr;
     mappedLen = 0;
   }
