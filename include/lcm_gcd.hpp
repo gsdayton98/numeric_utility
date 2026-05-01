@@ -5,11 +5,12 @@
 
 #ifndef LCM_GCD_HPP
 #define LCM_GCD_HPP
+#include <vector>
 
 
 namespace numutil {
     template<typename Number>
-    auto greatestCommonDivisor(Number a, Number b) -> Number {
+    auto __attribute__((visibility("default"))) greatestCommonDivisor(Number a, Number b) -> Number {
         if (b > a) {
             std::swap(a, b);
         }
@@ -23,17 +24,13 @@ namespace numutil {
 
 
     template<typename Number>
-    [[maybe_unused]] auto leastCommonMultiple(Number a, Number b) -> Number {
+    [[maybe_unused]] auto __attribute__((visibility("default"))) leastCommonMultiple(Number a, Number b) -> Number {
         return (a / greatestCommonDivisor(a, b)) * b;
     }
 
 
     template<typename Number>
-    // clang-tide check is in error — numbersIn is used in line 49.
-#pragma clang diagnostic push
-#pragma ide diagnostic ignored "UnusedParameter"
-    auto leastCommonMultiple(const std::vector <Number> &numbersIn) -> Number {
-#pragma clang diagnostic pop
+    auto __attribute__((visibility("default"))) leastCommonMultiple(const std::vector <Number> &numbersIn) -> Number {
         Number lcm = 1UL;
 
         for (auto n: numbersIn) {

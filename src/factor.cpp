@@ -451,16 +451,16 @@ std::ostream &operator<<(std::ostream &output, const Factor &factor)
 }
 
 
-auto Factor::preloadCache(unsigned int upperLimit) -> void
+auto Factor::preloadCache(const unsigned int upperLimit) -> void
 {
-    for (auto prime : Factor::primes) {
+    for (const auto prime : primes) {
         if (prime < upperLimit) break;
 
         auto primePower = prime;
         unsigned int exponent = 1;
         while (primePower < upperLimit) {
-            std::vector<Factor> factors = {Factor {prime, exponent}};
-            Factor::cache[primePower] = factors;
+            const std::vector factors = {Factor {prime, exponent}};
+            cache[primePower] = factors;
             primePower *= prime;
             ++exponent;
         }
@@ -472,18 +472,18 @@ auto Factor::preloadCache(unsigned int upperLimit) -> void
 auto Factor::factor(unsigned int n) -> std::vector<Factor>
 {
     std::vector<Factor> factors{};
-    auto n0 = n;
+    const auto n0 = n;
 
-    if (Factor::cache.empty()) {
-        Factor::preloadCache(0xFFFFu);
+    if (cache.empty()) {
+        preloadCache(0xFFFFu);
     }
 
-    for (auto prime: Factor::primes) {
+    for (const auto prime: primes) {
         if (n <= 1) break;
 
-        if (Factor::cache.contains(n)) {
-            factors.insert(factors.end(), Factor::cache[n].begin(), Factor::cache[n].end());
-            if (n != n0) Factor::cache[n0] = factors;
+        if (cache.contains(n)) {
+            factors.insert(factors.end(), cache[n].begin(), cache[n].end());
+            if (n != n0) cache[n0] = factors;
             break;
         }
 
@@ -491,8 +491,8 @@ auto Factor::factor(unsigned int n) -> std::vector<Factor>
         unsigned int lastPrimePower = 1;
         unsigned int power = 0;
         while (n % primePower == 0) {
-            // We have a candidate
-            // find the highest power that still divides the subject number n
+            // We have a candidate:
+            // find the highest power that still divides the subject number n.
             ++power;
             lastPrimePower = primePower;
             primePower *= prime;
@@ -509,8 +509,8 @@ auto Factor::factor(unsigned int n) -> std::vector<Factor>
 auto Factor::evaluate(const std::vector<Factor> &factors) -> unsigned int
 {
     unsigned int number = 1U;
-    for (const auto factor: factors) {
-        number *= utility::pow(factor.prime, factor.exponent);
+    for (const auto [prime, exponent]: factors) {
+        number *= utility::pow(prime, exponent);
     }
     return number;
 }

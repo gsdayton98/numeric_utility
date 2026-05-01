@@ -2,7 +2,7 @@
 // Created by Glen Dayton, new account on 3/13/24.
 //
 
-#include "to_digits.hpp"
+#include "digits.hpp"
 
 auto toDigits(int n, int base) -> std::vector<int>
 {
