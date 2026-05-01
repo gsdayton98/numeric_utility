@@ -21,7 +21,7 @@ using Number = unsigned int;
 // library.
 
 
-class Factors {
+class __attribute__((visibility("default"))) Factors {
     using map_t = std::map<Number, int>;
     map_t factors;
 

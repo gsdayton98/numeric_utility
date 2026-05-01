@@ -9,14 +9,17 @@
 #include "numerical_utility.hpp"
 #include <algorithm>
 #include <vector>
+#pragma warning(push)
+#pragma warning(disable: deprecated-declarations)
 #include <boost/multiprecision/cpp_int.hpp>
+#pragma warning(pop)
 #include "pow.hpp"
 using namespace utility;
 namespace multi = boost::multiprecision;
 
 
 template<>
-unsigned long utility::sqrt<unsigned long>(const unsigned long c) {
+auto utility::sqrt<unsigned long>(const unsigned long c) -> unsigned long{
   unsigned long x0 = c >> 1;
 
   if (x0 == 0) return c;
@@ -31,15 +34,16 @@ unsigned long utility::sqrt<unsigned long>(const unsigned long c) {
 }
 
 
+
 template<>
-multi::cpp_int  utility::sqrt<multi::cpp_int>(const multi::cpp_int  c) {
+auto utility::sqrt<multi::cpp_int>(const multi::cpp_int  c) -> multi::cpp_int {
   return multi::sqrt(c);
 }
 
 
 // Miller-Rabin primality test
 // https://en.wikipedia.org/wiki/Miller%E2%80%93Rabin_primality_test
-template<> bool utility::millerRabin0<unsigned long>(const unsigned long& number) {
+template<> auto utility::millerRabin0<unsigned long>(const unsigned long& number) -> bool {
   static const std::vector<unsigned int> smallPrimes = { 2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61 };
 
   // bit mask of the with a bit set at each position that happens to be prime

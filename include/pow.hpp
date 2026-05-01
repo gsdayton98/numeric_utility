@@ -18,7 +18,7 @@ namespace utility {
     /// base 32-bit unsigned int is evaluated modulo 2**32.
 
     template<ModuloOverflow BaseType>
-    BaseType pow(BaseType base, BaseType exponent) {
+    BaseType __attribute__((visibility("default"))) pow(BaseType base, BaseType exponent) {
         BaseType result = 1;
 
         if (base != 0) {
@@ -38,7 +38,7 @@ namespace utility {
     /// Evaluate base**exponent modulo modulus.
     /// This version should only be used with unsigned types.
     template<Unsigned BaseType>
-    auto powmod(BaseType base, BaseType exponent, const BaseType& modulus) -> BaseType {
+    auto __attribute__((visibility("default"))) powmod(BaseType base, BaseType exponent, const BaseType& modulus) -> BaseType {
         if (modulus < 2) return 0;
         BaseType result = 1;
         base %= modulus;

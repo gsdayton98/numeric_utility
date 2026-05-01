@@ -8,7 +8,7 @@
 #include <map>
 #include <vector>
 
-struct Factor {
+struct __attribute__((visibility("default")))  Factor {
     static std::vector<unsigned int> primes;
     static std::map<unsigned int, std::vector<Factor> > cache;
 
@@ -23,8 +23,8 @@ struct Factor {
 };
 
 // Help testing and debugging
-[[maybe_unused]] auto operator<(const Factor& left, const Factor& right) -> bool;
-[[maybe_unused]] auto operator==(const Factor& left, const Factor& right) -> bool;
-[[maybe_unused]] auto operator<<(std::ostream&, const Factor&) -> std::ostream&;
+[[maybe_unused]] auto __attribute__((visibility("default"))) operator<(const Factor& left, const Factor& right) -> bool;
+[[maybe_unused]] auto __attribute__((visibility("default"))) operator==(const Factor& left, const Factor& right) -> bool;
+[[maybe_unused]] auto __attribute__((visibility("default"))) operator<<(std::ostream&, const Factor&) -> std::ostream&;
 
 #endif //FACTOR_HPP

@@ -4,6 +4,6 @@
 
 #ifndef MILLER_RABIN_HPP
 #define MILLER_RABIN_HPP
-auto millerRabin(unsigned long n) -> bool;
+auto __attribute__((visibility("default"))) millerRabin(unsigned long n) -> bool;
 
 #endif //MILLER_RABIN_HPP

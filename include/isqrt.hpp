@@ -8,7 +8,7 @@
 namespace numutil {
     template<typename NumberType>
     requires std::is_integral_v<NumberType> && std::is_unsigned_v<NumberType>
-    auto isqrt(const NumberType &c) -> NumberType {
+    auto __attribute__((visibility("default"))) isqrt(const NumberType &c) -> NumberType {
         auto x = c / 2;
 
         while (!(x * x <= c && (x + 1) * (x + 1) > c)) {

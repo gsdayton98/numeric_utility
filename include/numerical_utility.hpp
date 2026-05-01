@@ -5,7 +5,7 @@
 
 namespace utility {
   template<typename Number>
-  Number gcd(Number a, Number b)
+  auto __attribute__((visibility("default"))) gcd(Number a, Number b) -> Number
   {
     if (a > b)
       std::swap(a, b);
@@ -21,7 +21,7 @@ namespace utility {
 
 
   template<typename Number>
-  Number mulmod(Number a, Number b, const Number &modulo)
+  auto __attribute__((visibility("default"))) mulmod(Number a, Number b, const Number &modulo) -> Number
   {
     Number result = 0;
 
@@ -43,18 +43,18 @@ namespace utility {
   }
 
   template<typename Number>
-  Number sqrt(Number c);
+  auto __attribute__((visibility("default"))) sqrt(Number c) -> Number;
 
   template<>
-  unsigned long sqrt<unsigned long>(unsigned long);
+  auto __attribute__((visibility("default"))) sqrt<unsigned long>(unsigned long) -> unsigned long;
 
   template<typename Number>
-  std::vector<unsigned int> toDigits(Number n, const unsigned int base = 10)
+  auto __attribute__((visibility("default"))) toDigits(Number n, const unsigned int base = 10) -> std::vector<unsigned int>
   {
     std::vector<unsigned int> result;
 
     while (n != 0) {
-      int digit = static_cast<int>(n % base);
+      const int digit = static_cast<int>(n % base);
       n /= base;
       result.push_back(digit);
     }
@@ -63,7 +63,7 @@ namespace utility {
 
 
   template<typename Number>
-  Number toNumber(const std::vector<unsigned int> &digits, const unsigned int base = 10U)
+  auto __attribute__((visibility("default"))) toNumber(const std::vector<unsigned int> &digits, const unsigned int base = 10U)-> Number
   {
     Number result = 0;
     Number place = 1;
@@ -75,7 +75,7 @@ namespace utility {
   }
 
   template<typename Number>
-  auto millerRabin0(const Number &number) -> bool
+  auto __attribute__((visibility("default"))) millerRabin0(const Number &number) -> bool
   {
     static const std::vector<unsigned int> smallPrimes = {
       2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61

@@ -1,14 +1,49 @@
-cmake_minimum_required(VERSION 4.0)
+cmake_minimum_required(VERSION 3.25)
+project(numeric_utility LANGUAGES CXX VERSION 1.0.0 DESCRIPTION "Numeric utility functions")
+enable_testing()
 
+find_package(Boost REQUIRED CONFIG)
 
-project(numeric_utility_main LANGUAGES CXX VERSION 0.1)
-
+# BOOST multiprecision supports up to C++20
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_REQUIRED ON)
 
-add_executable(numeric_utility_main main.cpp
-        include/lcm_gcd.hpp)
-target_include_directories(numeric_utility_main PRIVATE . include)
-target_link_libraries(numeric_utility_main PRIVATE numeric_utility)
 
-add_subdirectory(lib)
+set(BINDIR bin)
+set(LIBDIR lib)
+set(INCLUDEDIR include)
+
+set(SOURCES src/digits.cpp
+        src/factor.cpp
+        src/factors.cpp
+        src/miller_rabin.cpp
+        src/numerical_utility.cpp
+        src/pow.cpp
+        src/sieveprimes.cpp)
+
+set(HEADERS include/digits.hpp
+        include/factor.hpp
+        include/factors.hpp
+        include/isqrt.hpp
+        include/lcm_gcd.hpp
+        include/miller_rabin.hpp
+        include/numerical_utility.hpp
+        include/pow.hpp
+        include/sieveprimes.hpp)
+
+add_library(numeric_utility SHARED ${HEADERS} ${SOURCES})
+target_include_directories(numeric_utility PRIVATE ./include)
+target_compile_options(numeric_utility PRIVATE -fvisibility=hidden)
+set_target_properties(numeric_utility PROPERTIES VERSION ${PROJECT_VERSION} SOVERSION 1)
+set_target_properties(numeric_utility PROPERTIES SOVERSION ${PROJECT_VERSION_MAJOR})
+set_target_properties(numeric_utility PROPERTIES PUBLIC_HEADER "${HEADERS}")
+install(TARGETS ${PROJECT_NAME} EXPORT numeric_utility
+        ARCHIVE  DESTINATION "${LIBDIR}"
+        LIBRARY  DESTINATION "${LIBDIR}"
+        RUNTIME  DESTINATION "${BINDIR}"
+        PUBLIC_HEADER DESTINATION "${INCLUDEDIR}")
+install(EXPORT numeric_utility DESTINATION share/oscpp/cmake)
+export(TARGETS ${PROJECT_NAME} FILE numeric_utility.cmake)
+
+
+add_subdirectory(test)
