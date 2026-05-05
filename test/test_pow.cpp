@@ -55,8 +55,6 @@ BOOST_AUTO_TEST_CASE(test_powmod) {
   for (const auto sample : samples)
   {
     auto result = utility::powmod(sample.base, sample.exponent, sample.modulus);
-    std::cout << "powmod(" << sample.base << "," << sample.exponent << "," << sample.modulus << ") "
-    << result << " expecting " << sample.expected << "\n";
     BOOST_CHECK_EQUAL(utility::powmod(sample.base, sample.exponent, sample.modulus), sample.expected);
   }
 }
