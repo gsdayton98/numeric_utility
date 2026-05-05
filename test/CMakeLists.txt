@@ -5,6 +5,7 @@ find_package (Boost REQUIRED COMPONENTS unit_test_framework CONFIG)
 find_package(CppUnitXLite CONFIG REQUIRED)
 
 add_executable(test_utility test.cpp
+        test_amicable_numbers.cpp
         factor_test.cpp
         test_digits.cpp
         test_isqrt.cpp

@@ -13,7 +13,8 @@ set(BINDIR bin)
 set(LIBDIR lib)
 set(INCLUDEDIR include)
 
-set(SOURCES src/digits.cpp
+set(SOURCES src/amicable_numbers.cpp
+        src/digits.cpp
         src/factor.cpp
         src/factors.cpp
         src/miller_rabin.cpp
@@ -21,7 +22,8 @@ set(SOURCES src/digits.cpp
         src/pow.cpp
         src/sieveprimes.cpp)
 
-set(HEADERS include/digits.hpp
+set(HEADERS include/amicable_numbers.hpp
+        include/digits.hpp
         include/factor.hpp
         include/factors.hpp
         include/isqrt.hpp
