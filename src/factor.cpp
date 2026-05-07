@@ -6,7 +6,25 @@
 #include "factor.hpp"
 #include "pow.hpp"
 
-std::vector<unsigned int> Factor::primes {
+auto operator<(const utility::Factor &left, const utility::Factor &right) -> bool
+{
+    return left.prime < right.prime || (left.prime == right.prime && left.exponent < right.exponent);
+}
+
+
+auto operator==(const utility::Factor &left, const utility::Factor &right) -> bool
+{
+    return left.prime == right.prime && left.exponent == right.exponent;
+}
+
+
+auto operator<<(std::ostream &output, const utility::Factor &factor)-> std::ostream &
+{
+    return output << factor.prime << "^" << factor.exponent;
+}
+
+
+std::vector<unsigned int> utility::Factor::primes {
 2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97, 101, 103,
 107, 109, 113, 127, 131, 137, 139, 149, 151, 157, 163, 167, 173, 179, 181, 191, 193, 197, 199, 211, 223,
 227, 229, 233, 239, 241, 251, 257, 263, 269, 271, 277, 281, 283, 293, 307, 311, 313, 317, 331, 337, 347,
@@ -431,27 +449,9 @@ std::vector<unsigned int> Factor::primes {
 };
 
 
-std::map<unsigned int, std::vector<Factor> > Factor::cache {};
+std::map<unsigned int, std::vector<utility::Factor> > utility::Factor::cache {};
 
-bool operator<(const Factor &left, const Factor &right)
-{
-    return left.prime < right.prime || (left.prime == right.prime && left.exponent < right.exponent);
-}
-
-
-bool operator==(const Factor &left, const Factor &right)
-{
-    return left.prime == right.prime && left.exponent == right.exponent;
-}
-
-
-std::ostream &operator<<(std::ostream &output, const Factor &factor)
-{
-    return (output << factor.prime << "^" << factor.exponent);
-}
-
-
-auto Factor::preloadCache(const unsigned int upperLimit) -> void
+auto utility::Factor::preloadCache(const unsigned int upperLimit) -> void
 {
     for (const auto prime : primes) {
         if (prime < upperLimit) break;
@@ -469,7 +469,7 @@ auto Factor::preloadCache(const unsigned int upperLimit) -> void
 
 
 
-auto Factor::factor(unsigned int n) -> std::vector<Factor>
+auto utility::Factor::factor(unsigned int n) -> std::vector<utility::Factor>
 {
     std::vector<Factor> factors{};
     const auto n0 = n;
@@ -506,11 +506,11 @@ auto Factor::factor(unsigned int n) -> std::vector<Factor>
 }
 
 
-auto Factor::evaluate(const std::vector<Factor> &factors) -> unsigned int
+auto utility::Factor::evaluate(const std::vector<utility::Factor> &factors) -> unsigned int
 {
     unsigned int number = 1U;
     for (const auto [prime, exponent]: factors) {
-        number *= utility::pow(prime, exponent);
+        number *= pow(prime, exponent);
     }
     return number;
 }

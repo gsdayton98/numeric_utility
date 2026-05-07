@@ -4,6 +4,7 @@
 #include <boost/test/unit_test.hpp>
 #include "amicable_numbers.hpp"
 #include "factor.hpp"
+using namespace utility;
 
 
 BOOST_AUTO_TEST_CASE(test_amicable_numbers_d) {

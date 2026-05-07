@@ -1,6 +1,5 @@
 #include <boost/test/unit_test.hpp>
 
-#include <iostream>
 #include "pow.hpp"
 
 struct Sample {
@@ -54,7 +53,6 @@ BOOST_AUTO_TEST_CASE(test_powmod) {
   };
   for (const auto sample : samples)
   {
-    auto result = utility::powmod(sample.base, sample.exponent, sample.modulus);
     BOOST_CHECK_EQUAL(utility::powmod(sample.base, sample.exponent, sample.modulus), sample.expected);
   }
 }

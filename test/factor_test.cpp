@@ -3,6 +3,7 @@
 #include <sstream>
 #include <vector>
 #include "factor.hpp"
+using namespace utility;
 
 BOOST_AUTO_TEST_CASE(testFactorEvaluate) {
     const std::vector testCase12 {Factor {2,2}, Factor {3,1}};
@@ -35,12 +36,12 @@ BOOST_AUTO_TEST_CASE(testOperators) {
     constexpr Factor anotherOperand {5, 3};
     constexpr Factor yetAnotherOperand {2, 3};
 
-    BOOST_TEST( (leftOperand == yetAnotherOperand) );
-    BOOST_TEST( (leftOperand != rightOperand) );
-    BOOST_TEST( (rightOperand != anotherOperand) );
+    BOOST_CHECK( (leftOperand == yetAnotherOperand) );
+    BOOST_CHECK( (leftOperand != rightOperand) );
+    BOOST_CHECK( (rightOperand != anotherOperand) );
 
-    BOOST_TEST( leftOperand < rightOperand );
-    BOOST_TEST( (rightOperand < anotherOperand) );
+    BOOST_CHECK( leftOperand < rightOperand );
+    BOOST_CHECK( (rightOperand < anotherOperand) );
 }
 
 

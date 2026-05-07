@@ -4,7 +4,7 @@
 
 #include "digits.hpp"
 
-auto toDigits(int n, int base) -> std::vector<int>
+auto utility::toDigits(int n, int base) -> std::vector<int>
 {
     std::vector<int> result;
     do {
@@ -17,7 +17,7 @@ auto toDigits(int n, int base) -> std::vector<int>
 }
 
 
-[[maybe_unused]] auto toNumber(const std::vector<int>& digits, int base) -> int
+[[maybe_unused]] auto utility::toNumber(const std::vector<int>& digits, int base) -> int
 {
     int number = 0;
     int power = 1;

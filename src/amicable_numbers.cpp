@@ -4,6 +4,7 @@
 #include <numeric>
 #include "factor.hpp"
 
+using namespace utility;
 
 auto AmicableNumbers::d(const Number n) -> Number {
     auto divs = divisors(n, Factor::factor(n));

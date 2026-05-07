@@ -55,6 +55,7 @@ install(EXPORT numeric_utility NAMESPACE utility:: DESTINATION "${LIBDIR}/cmake/
 export(TARGETS ${PROJECT_NAME} NAMESPACE utility:: FILE numeric_utility.cmake)
 
 add_subdirectory(test)
+add_subdirectory(benchmark)
 
 
 #Packaging support

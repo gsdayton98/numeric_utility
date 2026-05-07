@@ -8,7 +8,7 @@
 #include <vector>
 
 
-namespace numutil {
+namespace utility {
     template<typename Number>
     auto __attribute__((visibility("default"))) greatestCommonDivisor(Number a, Number b) -> Number {
         if (b > a) {

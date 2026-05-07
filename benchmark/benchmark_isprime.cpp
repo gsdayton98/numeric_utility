@@ -35,7 +35,7 @@ static void benchMillerRabin() {
     auto count = 0u;
     oscpp::StopWatch stopWatch; // NOLINT
     for (auto n = 2U; n < UPPER_LIMIT; ++n) {
-        const auto primeQ = millerRabin(n);
+        const auto primeQ = utility::millerRabin(n);
         if (primes.isPrime(n) != primeQ)
         {
             std::cout << n << " " << primeQ << " " << primes.isPrime(n) << "\n";
@@ -50,7 +50,7 @@ static void benchMillerRabin() {
     stopWatch.reset();
     for (auto i = 2U; i < UPPER_LIMIT; ++i)
     {
-        const auto primeQ = millerRabin(i);
+        const auto primeQ = utility::millerRabin(i);
         if (primeQ) { ++count; }
         if (primes.isPrime(i) != primeQ)
         {

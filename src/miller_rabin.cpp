@@ -7,7 +7,7 @@
 
 
 // n < 4,759,123,141
-auto millerRabin(const unsigned long n) -> bool {
+auto utility::millerRabin(const unsigned long n) -> bool {
     static unsigned long aBase[] = {2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37};
     if (n == 2) return true;
     if ((n & 1) == 0 || n < 2) return false;
@@ -28,12 +28,12 @@ auto millerRabin(const unsigned long n) -> bool {
     for (const auto a: aBase)
     {
         if (a > baseLimit) break;
-        auto x = utility::powmod(a, d, n);
+        auto x = powmod(a, d, n);
         if (x == 1 || x == n1) continue;
         for (auto trial = 1u; trial <= s; ++trial)
         {
-            y = utility::powmod(x, 2ul, n);
-            if ((y == 1) && (x != 1) && (x != n1)) return false;
+            y = powmod(x, 2ul, n);
+            if (y == 1 && x != 1 && x != n1) return false;
             x = y;
         }
         if (y != 1) return false;

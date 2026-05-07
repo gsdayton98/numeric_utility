@@ -7,10 +7,10 @@
 #ifndef TO_DIGITS_HPP
 #define TO_DIGITS_HPP
 #include <vector>
+namespace utility {
+    auto __attribute__((visibility("default"))) toDigits(int n, int base=10) -> std::vector<int>;
 
-auto __attribute__((visibility("default"))) toDigits(int n, int base=10) -> std::vector<int>;
-
-[[maybe_unused]] auto __attribute__((visibility("default"))) toNumber(const std::vector<int>& digits, int base=10) -> int;
+    [[maybe_unused]] auto __attribute__((visibility("default"))) toNumber(const std::vector<int>& digits, int base=10) -> int;
 #endif //TO_DIGITS_HPP
-
+}
 #pragma clang diagnostic pop

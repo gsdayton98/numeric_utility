@@ -4,6 +4,7 @@
 #include <ostream>
 #include "factors.hpp"
 
+using namespace utility;
 
 auto ipow(Number a, int b) -> Number {
     Number result = 1U;

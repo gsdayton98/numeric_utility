@@ -3,6 +3,9 @@
 //
 #include <boost/test/unit_test.hpp>
 #include "digits.hpp"
+
+using namespace utility;
+
 BOOST_AUTO_TEST_CASE(test_digits)
 {
     int sample = 76543210;

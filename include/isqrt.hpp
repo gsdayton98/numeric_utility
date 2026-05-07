@@ -5,7 +5,7 @@
 
 #ifndef ISQRT_HPP
 #define ISQRT_HPP
-namespace numutil {
+namespace utility {
     template<typename NumberType>
     requires std::is_integral_v<NumberType> && std::is_unsigned_v<NumberType>
     auto __attribute__((visibility("default"))) isqrt(const NumberType &c) -> NumberType {

@@ -13,15 +13,17 @@
 #include <vector>
 #include "factor.hpp"
 
-using Number = unsigned int;
+namespace utility {
+    using Number = unsigned int;
 
-class __attribute__((visibility("default"))) AmicableNumbers {
-public:
-    /// Sum the proper divisors of a number.
-    static auto d(Number n) -> Number;
+    class __attribute__((visibility("default"))) AmicableNumbers {
+        public:
+        /// Sum the proper divisors of a number.
+        static auto d(Number n) -> Number;
 
-    /// Given the prime factors of a number, return all proper divisors of the number.
-    static auto divisors(Number, const std::vector<Factor>& factors) -> std::vector<Number>;
-};
+        /// Given the prime factors of a number, return all proper divisors of the number.
+        static auto divisors(Number, const std::vector<Factor>& factors) -> std::vector<Number>;
+    };
+}
 
 #endif //EULER21_AMICABLE_NUMBERS_AMICABLE_NUMBERS_HPP
