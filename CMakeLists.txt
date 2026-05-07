@@ -22,7 +22,7 @@ set(SOURCES src/amicable_numbers.cpp
         src/factor.cpp
         src/factors.cpp
         src/miller_rabin.cpp
-        src/numerical_utility.cpp
+        src/numeric_utility.cpp
         src/pow.cpp
         src/sieveprimes.cpp)
 
@@ -33,7 +33,7 @@ set(HEADERS include/amicable_numbers.hpp
         include/isqrt.hpp
         include/lcm_gcd.hpp
         include/miller_rabin.hpp
-        include/numerical_utility.hpp
+        include/numeric_utility.hpp
         include/pow.hpp
         include/sieveprimes.hpp)
 

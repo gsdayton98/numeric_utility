@@ -1,7 +1,7 @@
 //
 // Created by Glen Dayton on 3/5/25.
 //
-#include "numerical_utility.hpp"
+#include "numeric_utility.hpp"
 #include "pow.hpp"
 
 namespace {

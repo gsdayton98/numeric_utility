@@ -6,7 +6,7 @@
 // Explicit instantiations of numeric utility templates
 // This file contains implementations of specialized numeric utility functions
 // including square root and primality testing for specific numeric types.
-#include "numerical_utility.hpp"
+#include "numeric_utility.hpp"
 #include <algorithm>
 #include <vector>
 #pragma warning(push)

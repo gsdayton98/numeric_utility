@@ -6,6 +6,7 @@
   <component name="BackendCodeEditorMiscSettings">
     <option name="/Default/Housekeeping/FeatureSuggestion/FeatureSuggestionManager/DisabledSuggesters/=SwitchToGoToActionSuggester/@EntryIndexedValue" value="true" type="bool" />
     <option name="/Default/Housekeeping/GlobalSettingsUpgraded/IsUpgraded/@EntryValue" value="true" type="bool" />
+    <option name="/Default/Housekeeping/RefactoringsMru/RenameRefactoring/DoSearchForTextInStrings/@EntryValue" value="true" type="bool" />
     <option name="/Default/RiderDebugger/RiderRestoreDecompile/RestoreDecompileSetting/@EntryValue" value="false" type="bool" />
   </component>
   <component name="CMakePresetLoader">{
@@ -19,36 +20,64 @@
   </component>
   <component name="CMakeRunConfigurationManager">
     <generated>
+      <config projectName="numeric_utility" targetName="NightlyMemoryCheck" />
       <config projectName="numeric_utility" targetName="ContinuousSubmit" folderName="CTestDashboardTargets" />
+      <config projectName="numeric_utility" targetName="Continuous" />
+      <config projectName="numeric_utility" targetName="ExperimentalMemCheck" />
       <config projectName="numeric_utility" targetName="NightlyTest" folderName="CTestDashboardTargets" />
+      <config projectName="numeric_utility" targetName="ContinuousTest" />
       <config projectName="numeric_utility" targetName="ExperimentalConfigure" folderName="CTestDashboardTargets" />
       <config projectName="numeric_utility" targetName="NightlyCoverage" folderName="CTestDashboardTargets" />
+      <config projectName="numeric_utility" targetName="Nightly" />
       <config projectName="numeric_utility" targetName="NightlyMemCheck" folderName="CTestDashboardTargets" />
       <config projectName="numeric_utility" targetName="numeric_utility" />
       <config projectName="numeric_utility" targetName="ExperimentalBuild" folderName="CTestDashboardTargets" />
       <config projectName="numeric_utility" targetName="ContinuousConfigure" folderName="CTestDashboardTargets" />
       <config projectName="numeric_utility" targetName="ExperimentalCoverage" folderName="CTestDashboardTargets" />
+      <config projectName="numeric_utility" targetName="ExperimentalUpdate" />
       <config projectName="numeric_utility" targetName="NightlyBuild" folderName="CTestDashboardTargets" />
+      <config projectName="numeric_utility" targetName="ContinuousMemCheck" />
+      <config projectName="numeric_utility" targetName="Experimental" />
+      <config projectName="numeric_utility" targetName="ExperimentalCoverage" />
+      <config projectName="numeric_utility" targetName="ExperimentalStart" />
+      <config projectName="numeric_utility" targetName="NightlyConfigure" />
+      <config projectName="numeric_utility" targetName="NightlyMemCheck" />
       <config projectName="numeric_utility" targetName="benchmark_isprime" />
+      <config projectName="numeric_utility" targetName="ContinuousConfigure" />
       <config projectName="numeric_utility" targetName="Continuous" folderName="CTestDashboardTargets" />
       <config projectName="numeric_utility" targetName="ContinuousMemCheck" folderName="CTestDashboardTargets" />
       <config projectName="numeric_utility" targetName="ExperimentalTest" folderName="CTestDashboardTargets" />
+      <config projectName="numeric_utility" targetName="ContinuousSubmit" />
       <config projectName="numeric_utility" targetName="NightlyUpdate" folderName="CTestDashboardTargets" />
       <config projectName="numeric_utility" targetName="test_utility" />
       <config projectName="numeric_utility" targetName="NightlyConfigure" folderName="CTestDashboardTargets" />
       <config projectName="numeric_utility" targetName="Experimental" folderName="CTestDashboardTargets" />
+      <config projectName="numeric_utility" targetName="ContinuousStart" />
+      <config projectName="numeric_utility" targetName="ExperimentalTest" />
+      <config projectName="numeric_utility" targetName="ContinuousCoverage" />
+      <config projectName="numeric_utility" targetName="ExperimentalConfigure" />
+      <config projectName="numeric_utility" targetName="NightlyUpdate" />
+      <config projectName="numeric_utility" targetName="ExperimentalBuild" />
       <config projectName="numeric_utility" targetName="ExperimentalUpdate" folderName="CTestDashboardTargets" />
+      <config projectName="numeric_utility" targetName="NightlyBuild" />
       <config projectName="numeric_utility" targetName="NightlyMemoryCheck" folderName="CTestDashboardTargets" />
+      <config projectName="numeric_utility" targetName="NightlyStart" />
       <config projectName="numeric_utility" targetName="NightlyStart" folderName="CTestDashboardTargets" />
       <config projectName="numeric_utility" targetName="ContinuousTest" folderName="CTestDashboardTargets" />
       <config projectName="numeric_utility" targetName="ExperimentalStart" folderName="CTestDashboardTargets" />
+      <config projectName="numeric_utility" targetName="NightlyCoverage" />
+      <config projectName="numeric_utility" targetName="NightlyTest" />
+      <config projectName="numeric_utility" targetName="ExperimentalSubmit" />
       <config projectName="numeric_utility" targetName="ContinuousUpdate" folderName="CTestDashboardTargets" />
       <config projectName="numeric_utility" targetName="Nightly" folderName="CTestDashboardTargets" />
       <config projectName="numeric_utility" targetName="ExperimentalMemCheck" folderName="CTestDashboardTargets" />
+      <config projectName="numeric_utility" targetName="ContinuousBuild" />
+      <config projectName="numeric_utility" targetName="NightlySubmit" />
       <config projectName="numeric_utility" targetName="ContinuousCoverage" folderName="CTestDashboardTargets" />
       <config projectName="numeric_utility" targetName="ExperimentalSubmit" folderName="CTestDashboardTargets" />
       <config projectName="numeric_utility" targetName="ContinuousBuild" folderName="CTestDashboardTargets" />
       <config projectName="numeric_utility" targetName="ContinuousStart" folderName="CTestDashboardTargets" />
+      <config projectName="numeric_utility" targetName="ContinuousUpdate" />
       <config projectName="numeric_utility" targetName="NightlySubmit" folderName="CTestDashboardTargets" />
     </generated>
   </component>
@@ -59,29 +88,13 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="30ea2154-9972-48d9-b72a-705e762db060" name="Changes" comment="Add package configuration and installation support for numeric_utility&#10;&#10;- Added `numeric_utility-config.cmake` for package configuration.&#10;- Integrated CPack for packaging support.&#10;- Updated `CMakeLists.txt` to define install paths, export targets, and include directories.&#10;- Configured version files using `CMakePackageConfigHelpers`.&#10;- Adjusted IDE settings in `.idea/editor.xml`.">
+    <list default="true" id="30ea2154-9972-48d9-b72a-705e762db060" name="Changes" comment="Refactor and rename namespaces to `utility`&#10;&#10;- Replaced `numutil` with `utility` across all namespaces and files.&#10;- Updated all related headers, source files, and tests to reflect the new namespace.&#10;- Adjusted `CMakeLists.txt` and impacted project files accordingly.">
+      <change beforePath="$PROJECT_DIR$/.idea/ctestState.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeLists.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/benchmark/benchmark_isprime.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/benchmark/benchmark_isprime.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/amicable_numbers.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/include/amicable_numbers.hpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/digits.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/include/digits.hpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/factor.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/include/factor.hpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/factors.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/include/factors.hpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/isqrt.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/include/isqrt.hpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/lcm_gcd.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/include/lcm_gcd.hpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/miller_rabin.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/include/miller_rabin.hpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/amicable_numbers.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/amicable_numbers.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/digits.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/digits.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/factor.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/factor.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/factors.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/factors.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/miller_rabin.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/miller_rabin.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/factor_test.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/test/factor_test.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/test_amicable_numbers.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/test/test_amicable_numbers.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/test_digits.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/test/test_digits.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/test_isqrt.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/test/test_isqrt.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/test_lcm_gcd.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/test/test_lcm_gcd.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/test_miller_rabin.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/test/test_miller_rabin.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/test_pow.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/test/test_pow.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/numerical_utility.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/include/numeric_utility.hpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/numerical_utility.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/numeric_utility.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pow.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/pow.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -92,7 +105,7 @@
     <option name="formatViaClangd" value="false" />
   </component>
   <component name="EmbeddingIndexingInfo">
-    <option name="cachedIndexableFilesCount" value="38" />
+    <option name="cachedIndexableFilesCount" value="42" />
     <option name="fileBasedEmbeddingIndicesEnabled" value="true" />
   </component>
   <component name="ExecutionTargetManager" SELECTED_TARGET="CMakeBuildProfile:Debug" />
@@ -133,191 +146,51 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Boost.Test.test_utility.executor": "Run",
-    "CTest Application.All CTest.executor": "Run",
-    "ModuleVcsDetector.initialDetectionPerformed": "true",
-    "RunOnceActivity.MCP Project settings loaded": "true",
-    "RunOnceActivity.RadMigrateCodeStyle": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.cidr.known.project.marker": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "RunOnceActivity.readMode.enableVisualFormatting": "true",
-    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
-    "RunOnceActivity.west.config.association.type.startup.service": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "cf.first.check.clang-format": "false",
-    "cidr.known.project.marker": "true",
-    "codeWithMe.voiceChat.enabledByDefault": "false",
-    "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
-    "ctest.advertisement.all.test.configuration.is.created": "true",
-    "git-widget-placeholder": "main",
-    "junie.onboarding.icon.badge.shown": "true",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "org.rust.first.attach.projects": "true",
-    "settings.editor.selected.configurable": "CMakeSettings",
-    "to.speed.mode.migration.done": "true",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Boost.Test.test_utility.executor&quot;: &quot;Run&quot;,
+    &quot;CTest Application.All CTest.executor&quot;: &quot;Run&quot;,
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.MCP Project settings loaded&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.RadMigrateCodeStyle&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.cidr.known.project.marker&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.readMode.enableVisualFormatting&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.typescript.service.memoryLimit.init&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.west.config.association.type.startup.service&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;cf.first.check.clang-format&quot;: &quot;false&quot;,
+    &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
+    &quot;codeWithMe.voiceChat.enabledByDefault&quot;: &quot;false&quot;,
+    &quot;com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1&quot;: &quot;true&quot;,
+    &quot;ctest.advertisement.all.test.configuration.is.created&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;junie.onboarding.icon.badge.shown&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;org.rust.first.attach.projects&quot;: &quot;true&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;CMakeSettings&quot;,
+    &quot;to.speed.mode.migration.done&quot;: &quot;true&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/benchmark" />
     </key>
   </component>
   <component name="RunManager" selected="Boost.Test.test_utility">
-    <configuration default="true" type="CLionExternalRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true">
-      <method v="2">
-        <option name="CLION.EXTERNAL.BUILD" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="test_utility" type="CMakeBoostTestRunConfigurationType" factoryName="Boost Test" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="numeric_utility" TARGET_NAME="test_utility" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="numeric_utility" RUN_TARGET_NAME="test_utility" TEST_MODE="SUITE_TEST">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
         <option name="BeforeTestRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Continuous" type="CMakeRunConfiguration" factoryName="Application" folderName="CTestDashboardTargets" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="numeric_utility" TARGET_NAME="Continuous" CONFIG_NAME="Debug">
-      <method v="2">
-        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="ContinuousBuild" type="CMakeRunConfiguration" factoryName="Application" folderName="CTestDashboardTargets" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="numeric_utility" TARGET_NAME="ContinuousBuild" CONFIG_NAME="Debug">
-      <method v="2">
-        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="ContinuousConfigure" type="CMakeRunConfiguration" factoryName="Application" folderName="CTestDashboardTargets" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="numeric_utility" TARGET_NAME="ContinuousConfigure" CONFIG_NAME="Debug">
-      <method v="2">
-        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="ContinuousCoverage" type="CMakeRunConfiguration" factoryName="Application" folderName="CTestDashboardTargets" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="numeric_utility" TARGET_NAME="ContinuousCoverage" CONFIG_NAME="Debug">
-      <method v="2">
-        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="ContinuousMemCheck" type="CMakeRunConfiguration" factoryName="Application" folderName="CTestDashboardTargets" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="numeric_utility" TARGET_NAME="ContinuousMemCheck" CONFIG_NAME="Debug">
-      <method v="2">
-        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="ContinuousStart" type="CMakeRunConfiguration" factoryName="Application" folderName="CTestDashboardTargets" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="numeric_utility" TARGET_NAME="ContinuousStart" CONFIG_NAME="Debug">
-      <method v="2">
-        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="ContinuousSubmit" type="CMakeRunConfiguration" factoryName="Application" folderName="CTestDashboardTargets" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="numeric_utility" TARGET_NAME="ContinuousSubmit" CONFIG_NAME="Debug">
-      <method v="2">
-        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="ContinuousTest" type="CMakeRunConfiguration" factoryName="Application" folderName="CTestDashboardTargets" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="numeric_utility" TARGET_NAME="ContinuousTest" CONFIG_NAME="Debug">
-      <method v="2">
-        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="ContinuousUpdate" type="CMakeRunConfiguration" factoryName="Application" folderName="CTestDashboardTargets" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="numeric_utility" TARGET_NAME="ContinuousUpdate" CONFIG_NAME="Debug">
-      <method v="2">
-        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="Experimental" type="CMakeRunConfiguration" factoryName="Application" folderName="CTestDashboardTargets" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="numeric_utility" TARGET_NAME="Experimental" CONFIG_NAME="Debug">
-      <method v="2">
-        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="ExperimentalBuild" type="CMakeRunConfiguration" factoryName="Application" folderName="CTestDashboardTargets" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="numeric_utility" TARGET_NAME="ExperimentalBuild" CONFIG_NAME="Debug">
-      <method v="2">
-        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="ExperimentalConfigure" type="CMakeRunConfiguration" factoryName="Application" folderName="CTestDashboardTargets" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="numeric_utility" TARGET_NAME="ExperimentalConfigure" CONFIG_NAME="Debug">
-      <method v="2">
-        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="ExperimentalCoverage" type="CMakeRunConfiguration" factoryName="Application" folderName="CTestDashboardTargets" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="numeric_utility" TARGET_NAME="ExperimentalCoverage" CONFIG_NAME="Debug">
-      <method v="2">
-        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="ExperimentalMemCheck" type="CMakeRunConfiguration" factoryName="Application" folderName="CTestDashboardTargets" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="numeric_utility" TARGET_NAME="ExperimentalMemCheck" CONFIG_NAME="Debug">
-      <method v="2">
-        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="ExperimentalStart" type="CMakeRunConfiguration" factoryName="Application" folderName="CTestDashboardTargets" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="numeric_utility" TARGET_NAME="ExperimentalStart" CONFIG_NAME="Debug">
-      <method v="2">
-        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="ExperimentalSubmit" type="CMakeRunConfiguration" factoryName="Application" folderName="CTestDashboardTargets" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="numeric_utility" TARGET_NAME="ExperimentalSubmit" CONFIG_NAME="Debug">
-      <method v="2">
-        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="ExperimentalTest" type="CMakeRunConfiguration" factoryName="Application" folderName="CTestDashboardTargets" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="numeric_utility" TARGET_NAME="ExperimentalTest" CONFIG_NAME="Debug">
-      <method v="2">
-        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="ExperimentalUpdate" type="CMakeRunConfiguration" factoryName="Application" folderName="CTestDashboardTargets" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="numeric_utility" TARGET_NAME="ExperimentalUpdate" CONFIG_NAME="Debug">
-      <method v="2">
-        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="Nightly" type="CMakeRunConfiguration" factoryName="Application" folderName="CTestDashboardTargets" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="numeric_utility" TARGET_NAME="Nightly" CONFIG_NAME="Debug">
-      <method v="2">
-        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="NightlyBuild" type="CMakeRunConfiguration" factoryName="Application" folderName="CTestDashboardTargets" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="numeric_utility" TARGET_NAME="NightlyBuild" CONFIG_NAME="Debug">
-      <method v="2">
-        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="NightlyConfigure" type="CMakeRunConfiguration" factoryName="Application" folderName="CTestDashboardTargets" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="numeric_utility" TARGET_NAME="NightlyConfigure" CONFIG_NAME="Debug">
-      <method v="2">
-        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="NightlyCoverage" type="CMakeRunConfiguration" factoryName="Application" folderName="CTestDashboardTargets" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="numeric_utility" TARGET_NAME="NightlyCoverage" CONFIG_NAME="Debug">
-      <method v="2">
-        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="NightlyMemCheck" type="CMakeRunConfiguration" factoryName="Application" folderName="CTestDashboardTargets" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="numeric_utility" TARGET_NAME="NightlyMemCheck" CONFIG_NAME="Debug">
-      <method v="2">
-        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="NightlyMemoryCheck" type="CMakeRunConfiguration" factoryName="Application" folderName="CTestDashboardTargets" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="numeric_utility" TARGET_NAME="NightlyMemoryCheck" CONFIG_NAME="Debug">
-      <method v="2">
-        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="NightlyStart" type="CMakeRunConfiguration" factoryName="Application" folderName="CTestDashboardTargets" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="numeric_utility" TARGET_NAME="NightlyStart" CONFIG_NAME="Debug">
-      <method v="2">
-        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="NightlySubmit" type="CMakeRunConfiguration" factoryName="Application" folderName="CTestDashboardTargets" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="numeric_utility" TARGET_NAME="NightlySubmit" CONFIG_NAME="Debug">
-      <method v="2">
-        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="NightlyTest" type="CMakeRunConfiguration" factoryName="Application" folderName="CTestDashboardTargets" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="numeric_utility" TARGET_NAME="NightlyTest" CONFIG_NAME="Debug">
-      <method v="2">
-        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="NightlyUpdate" type="CMakeRunConfiguration" factoryName="Application" folderName="CTestDashboardTargets" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="numeric_utility" TARGET_NAME="NightlyUpdate" CONFIG_NAME="Debug">
+    <configuration default="true" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
@@ -340,34 +213,6 @@
     </configuration>
     <list>
       <item itemvalue="Boost.Test.test_utility" />
-      <item itemvalue="CMake Application.Continuous" />
-      <item itemvalue="CMake Application.ContinuousBuild" />
-      <item itemvalue="CMake Application.ContinuousConfigure" />
-      <item itemvalue="CMake Application.ContinuousCoverage" />
-      <item itemvalue="CMake Application.ContinuousMemCheck" />
-      <item itemvalue="CMake Application.ContinuousStart" />
-      <item itemvalue="CMake Application.ContinuousSubmit" />
-      <item itemvalue="CMake Application.ContinuousTest" />
-      <item itemvalue="CMake Application.ContinuousUpdate" />
-      <item itemvalue="CMake Application.Experimental" />
-      <item itemvalue="CMake Application.ExperimentalBuild" />
-      <item itemvalue="CMake Application.ExperimentalConfigure" />
-      <item itemvalue="CMake Application.ExperimentalCoverage" />
-      <item itemvalue="CMake Application.ExperimentalMemCheck" />
-      <item itemvalue="CMake Application.ExperimentalStart" />
-      <item itemvalue="CMake Application.ExperimentalSubmit" />
-      <item itemvalue="CMake Application.ExperimentalTest" />
-      <item itemvalue="CMake Application.ExperimentalUpdate" />
-      <item itemvalue="CMake Application.Nightly" />
-      <item itemvalue="CMake Application.NightlyBuild" />
-      <item itemvalue="CMake Application.NightlyConfigure" />
-      <item itemvalue="CMake Application.NightlyCoverage" />
-      <item itemvalue="CMake Application.NightlyMemCheck" />
-      <item itemvalue="CMake Application.NightlyMemoryCheck" />
-      <item itemvalue="CMake Application.NightlyStart" />
-      <item itemvalue="CMake Application.NightlySubmit" />
-      <item itemvalue="CMake Application.NightlyTest" />
-      <item itemvalue="CMake Application.NightlyUpdate" />
       <item itemvalue="CMake Application.numeric_utility" />
       <item itemvalue="CMake Application.benchmark_isprime" />
       <item itemvalue="CTest Application.All CTest" />
@@ -385,7 +230,8 @@
       <updated>1767302272009</updated>
       <workItem from="1767302276072" duration="38000" />
       <workItem from="1778002450893" duration="402000" />
-      <workItem from="1778032562972" duration="9582000" />
+      <workItem from="1778032562972" duration="9698000" />
+      <workItem from="1778114722465" duration="2350000" />
     </task>
     <task id="LOCAL-00001" summary="Remove IDE-specific files from version control">
       <option name="closed" value="true" />
@@ -411,7 +257,15 @@
       <option name="project" value="LOCAL" />
       <updated>1778099628111</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Refactor and rename namespaces to `utility`&#10;&#10;- Replaced `numutil` with `utility` across all namespaces and files.&#10;- Updated all related headers, source files, and tests to reflect the new namespace.&#10;- Adjusted `CMakeLists.txt` and impacted project files accordingly.">
+      <option name="closed" value="true" />
+      <created>1778114488732</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1778114488732</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -430,6 +284,7 @@
     <MESSAGE value="Remove IDE-specific files from version control" />
     <MESSAGE value="Remove debug output from `test_pow.cpp`" />
     <MESSAGE value="Add package configuration and installation support for numeric_utility&#10;&#10;- Added `numeric_utility-config.cmake` for package configuration.&#10;- Integrated CPack for packaging support.&#10;- Updated `CMakeLists.txt` to define install paths, export targets, and include directories.&#10;- Configured version files using `CMakePackageConfigHelpers`.&#10;- Adjusted IDE settings in `.idea/editor.xml`." />
-    <option name="LAST_COMMIT_MESSAGE" value="Add package configuration and installation support for numeric_utility&#10;&#10;- Added `numeric_utility-config.cmake` for package configuration.&#10;- Integrated CPack for packaging support.&#10;- Updated `CMakeLists.txt` to define install paths, export targets, and include directories.&#10;- Configured version files using `CMakePackageConfigHelpers`.&#10;- Adjusted IDE settings in `.idea/editor.xml`." />
+    <MESSAGE value="Refactor and rename namespaces to `utility`&#10;&#10;- Replaced `numutil` with `utility` across all namespaces and files.&#10;- Updated all related headers, source files, and tests to reflect the new namespace.&#10;- Adjusted `CMakeLists.txt` and impacted project files accordingly." />
+    <option name="LAST_COMMIT_MESSAGE" value="Refactor and rename namespaces to `utility`&#10;&#10;- Replaced `numutil` with `utility` across all namespaces and files.&#10;- Updated all related headers, source files, and tests to reflect the new namespace.&#10;- Adjusted `CMakeLists.txt` and impacted project files accordingly." />
   </component>
 </project>
