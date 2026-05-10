@@ -1,30 +1,40 @@
 //
 // Created by Glen Dayton, new account on 3/13/24.
 //
-
 #include "digits.hpp"
 
-auto utility::toDigits(int n, int base) -> std::vector<int>
-{
-    std::vector<int> result;
-    do {
-        auto qr = std::div(n, base);
-        result.push_back(qr.rem);
-        n = qr.quot;
-    } while (n != 0);
+using utility::DefaultDigitType;
+using utility::DefaultRadixType;
 
-    return result;
-}
+template auto
+__attribute__((visibility("default")))
+utility::toDigits<unsigned int>(unsigned int n, DefaultRadixType base) -> std::vector<DefaultDigitType>;
+
+template auto
+__attribute__((visibility("default")))
+utility::toDigits<unsigned long>(unsigned long n, DefaultRadixType base) -> std::vector<DefaultDigitType>;
+
+template auto
+__attribute__((visibility("default")))
+utility::toDigits<unsigned long long>(unsigned long long n, DefaultRadixType base) -> std::vector<DefaultDigitType>;
 
 
-[[maybe_unused]] auto utility::toNumber(const std::vector<int>& digits, int base) -> int
-{
-    int number = 0;
-    int power = 1;
+template auto
+__attribute__((visibility("default")))
+utility::toNumber<int>(const std::vector<DefaultDigitType>& digits, DefaultRadixType base) -> int;
 
-    for (auto digit: digits) {
-        number += digit*power;
-        power *= base;
-    }
-    return number;
-}
+template auto
+__attribute__((visibility("default")))
+utility::toNumber<unsigned int>(const std::vector<DefaultDigitType>& digits, DefaultRadixType base) -> unsigned int;
+
+template auto
+__attribute__((visibility("default")))
+utility::toNumber<unsigned long>(const std::vector<DefaultDigitType>& digits, DefaultRadixType base) -> unsigned long;
+
+template auto
+__attribute__((visibility("default")))
+utility::toNumber<long long>(const std::vector<DefaultDigitType>& digits, DefaultRadixType base) -> long long;
+
+template auto
+__attribute__((visibility("default")))
+utility::toNumber<unsigned long long>(const std::vector<DefaultDigitType>& digits, DefaultRadixType base) -> unsigned long long;

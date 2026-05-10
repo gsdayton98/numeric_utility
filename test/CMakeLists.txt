@@ -1,8 +1,7 @@
+set(CMAKE_CXX_STANDARD 20)
 
 set (Boost_USE_STATIC_LIBS OFF)
-find_package (Boost REQUIRED COMPONENTS unit_test_framework CONFIG)
-
-find_package(CppUnitXLite CONFIG REQUIRED)
+find_package (Boost REQUIRED CONFIG COMPONENTS unit_test_framework)
 
 add_executable(test_utility test.cpp
         test_amicable_numbers.cpp
