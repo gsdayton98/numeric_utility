@@ -5,6 +5,8 @@
 
 #ifndef ISQRT_HPP
 #define ISQRT_HPP
+#include <type_traits>
+
 namespace utility {
     template<typename NumberType>
     requires std::is_integral_v<NumberType> && std::is_unsigned_v<NumberType>

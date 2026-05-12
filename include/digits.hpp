@@ -13,7 +13,7 @@ namespace utility {
 
     // C++ explicitly prohibits specialization of type traits for user-defined types,
     // so I define my own type traits for my template functions.
-    template<typename T>
+    template<typename>
     struct is_unsigned : std::false_type{};
 
     template<typename T>
@@ -47,14 +47,18 @@ namespace utility {
     /**
      * Convert a vector of digits back to a number in the given base.
      * @tparam ResultType Type of the resulting number
+     * @tparam DigitsType Type of the digits in the input vector
      * @tparam RadixType Type of the base
-     * @tparam DigitType Type of the digits in the input vector
-     * @param digits The vector of digits to convert
+s    * @param digits The vector of digits to convert
      * @param base The base of the digits
      * @return The number represented by the digits
      */
-    template <typename ResultType, typename RadixType=DefaultRadixType, typename DigitType=DefaultDigitType>
-    auto toNumber(const std::vector<DigitType>& digits, RadixType base = 10u) -> ResultType
+    template <
+        typename ResultType,
+        typename DigitsType,
+        typename RadixType=DefaultRadixType>
+    requires std::ranges::forward_range<DigitsType>
+    auto toNumber(const DigitsType& digits, RadixType base = 10u) -> ResultType
     {
         ResultType number = 0;
         unsigned int power = 1;

@@ -60,12 +60,10 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="30ea2154-9972-48d9-b72a-705e762db060" name="Changes" comment="Rename `numerical_utility` to `numeric_utility` across source, headers, and project configuration files.">
+    <list default="true" id="30ea2154-9972-48d9-b72a-705e762db060" name="Changes" comment="Refactor `digits` module&#10;&#10;- Updated `digits` utility to use templates with default types for enhanced flexibility.&#10;- Replaced old implementations of `toDigits` and `toNumber` with templated versions supporting various numeric types.&#10;- Improved test coverage by adding unit tests for different numeric types, including multiprecision and unsigned types.&#10;- Updated `CMakeLists.txt` to enforce C++20 standard and adjust Boost dependency settings.&#10;- Refined `.idea/workspace.xml` to align with refactored test structure.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/include/digits.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/include/digits.hpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/digits.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/digits.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/test/CMakeLists.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/test_digits.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/test/test_digits.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/isqrt.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/include/isqrt.hpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -216,7 +214,9 @@
       <workItem from="1778032562972" duration="9698000" />
       <workItem from="1778114722465" duration="4120000" />
       <workItem from="1778190977368" duration="21888000" />
-      <workItem from="1778366334569" duration="6995000" />
+      <workItem from="1778366334569" duration="7124000" />
+      <workItem from="1778525229235" duration="1963000" />
+      <workItem from="1778549458387" duration="2712000" />
     </task>
     <task id="LOCAL-00001" summary="Remove IDE-specific files from version control">
       <option name="closed" value="true" />
@@ -258,7 +258,15 @@
       <option name="project" value="LOCAL" />
       <updated>1778167553068</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Refactor `digits` module&#10;&#10;- Updated `digits` utility to use templates with default types for enhanced flexibility.&#10;- Replaced old implementations of `toDigits` and `toNumber` with templated versions supporting various numeric types.&#10;- Improved test coverage by adding unit tests for different numeric types, including multiprecision and unsigned types.&#10;- Updated `CMakeLists.txt` to enforce C++20 standard and adjust Boost dependency settings.&#10;- Refined `.idea/workspace.xml` to align with refactored test structure.">
+      <option name="closed" value="true" />
+      <created>1778452806873</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1778452806873</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -279,6 +287,7 @@
     <MESSAGE value="Add package configuration and installation support for numeric_utility&#10;&#10;- Added `numeric_utility-config.cmake` for package configuration.&#10;- Integrated CPack for packaging support.&#10;- Updated `CMakeLists.txt` to define install paths, export targets, and include directories.&#10;- Configured version files using `CMakePackageConfigHelpers`.&#10;- Adjusted IDE settings in `.idea/editor.xml`." />
     <MESSAGE value="Refactor and rename namespaces to `utility`&#10;&#10;- Replaced `numutil` with `utility` across all namespaces and files.&#10;- Updated all related headers, source files, and tests to reflect the new namespace.&#10;- Adjusted `CMakeLists.txt` and impacted project files accordingly." />
     <MESSAGE value="Rename `numerical_utility` to `numeric_utility` across source, headers, and project configuration files." />
-    <option name="LAST_COMMIT_MESSAGE" value="Rename `numerical_utility` to `numeric_utility` across source, headers, and project configuration files." />
+    <MESSAGE value="Refactor `digits` module&#10;&#10;- Updated `digits` utility to use templates with default types for enhanced flexibility.&#10;- Replaced old implementations of `toDigits` and `toNumber` with templated versions supporting various numeric types.&#10;- Improved test coverage by adding unit tests for different numeric types, including multiprecision and unsigned types.&#10;- Updated `CMakeLists.txt` to enforce C++20 standard and adjust Boost dependency settings.&#10;- Refined `.idea/workspace.xml` to align with refactored test structure." />
+    <option name="LAST_COMMIT_MESSAGE" value="Refactor `digits` module&#10;&#10;- Updated `digits` utility to use templates with default types for enhanced flexibility.&#10;- Replaced old implementations of `toDigits` and `toNumber` with templated versions supporting various numeric types.&#10;- Improved test coverage by adding unit tests for different numeric types, including multiprecision and unsigned types.&#10;- Updated `CMakeLists.txt` to enforce C++20 standard and adjust Boost dependency settings.&#10;- Refined `.idea/workspace.xml` to align with refactored test structure." />
   </component>
 </project>
