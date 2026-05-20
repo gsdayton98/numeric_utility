@@ -1,1 +1,4 @@
 cmake-build-*
+.DS_Store
+.idea
+.idea/workspace.xml
