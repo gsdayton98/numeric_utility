@@ -1,5 +1,7 @@
-#ifndef POW_HPP_
-#define POW_HPP_
+// -*- mode:C++; c-basic-offset:2; indent-tabs-mode:nil -*-;
+// Copyright 2025 Glen S. Dayton. Rights reserved according to terms of included license.
+#ifndef POW_HPP
+#define POW_HPP
 #include <numeric>
 
 template <typename T>

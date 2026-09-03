@@ -12,10 +12,7 @@ add_executable(test_utility test.cpp
         test_miller_rabin.cpp
         test_pow.cpp
         test_sieve.cpp)
-
-target_link_libraries (test_utility PRIVATE numeric_utility ${Boost_LIBRARIES})
-target_include_directories(test_utility PRIVATE ../include)
-
+target_link_libraries (test_utility PRIVATE numeric_utility Boost::unit_test_framework)
 add_test(NAME test_utility COMMAND test_utility)
 
 include(CTest)

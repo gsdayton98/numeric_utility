@@ -1,8 +1,11 @@
+// -*- mode:C++; c-basic-offset:2; indent-tabs-mode:nil -*-;
+// Copyright 2025 Glen S. Dayton. Rights reserved according to terms of included license.
 //
 // Created by Glen Dayton, new account on 8/29/25.
 //
 #include <boost/test/unit_test.hpp>
 #include "lcm_gcd.hpp"
+BOOST_AUTO_TEST_SUITE(TestLCM_GCD)
 
 BOOST_AUTO_TEST_CASE(test_gcd)
 {
@@ -29,3 +32,5 @@ BOOST_AUTO_TEST_CASE(test_vector_lcm)
     const std::vector v = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
     BOOST_CHECK_EQUAL(utility::leastCommonMultiple(v), 2520);
 }
+
+BOOST_AUTO_TEST_SUITE_END()

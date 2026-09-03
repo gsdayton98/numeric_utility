@@ -1,8 +1,5 @@
-// -*- mode: c++ ;
-//
-// Created by Glen Dayton, new account on 11/15/22.
-//
-
+// -*- mode:C++; c-basic-offset:2; indent-tabs-mode:nil -*-;
+// Copyright 2022 Glen S. Dayton. Rights reserved according to terms of included license.
 #ifndef LCM_GCD_HPP
 #define LCM_GCD_HPP
 #include <vector>

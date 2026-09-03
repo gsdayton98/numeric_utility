@@ -1,7 +1,5 @@
-//
-// Created by Glen Dayton on 3/5/25.
-//
-#include "numeric_utility.hpp"
+// -*- mode:C++; c-basic-offset:2; indent-tabs-mode:nil -*-
+// Copyright 2025 Glen S. Dayton. Rights reserved according to terms of included license.
 #include "pow.hpp"
 
 namespace {

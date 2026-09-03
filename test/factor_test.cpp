@@ -1,9 +1,12 @@
-
+// -*- mode:C++; c-basic-offset:2; indent-tabs-mode:nil -*-;
+// Copyright 2022 Glen S. Dayton. Rights reserved according to terms of included license.
 #include <boost/test/unit_test.hpp>
 #include <sstream>
 #include <vector>
 #include "factor.hpp"
 using namespace utility;
+
+BOOST_AUTO_TEST_SUITE(TestFactor)
 
 BOOST_AUTO_TEST_CASE(testFactorEvaluate) {
     const std::vector testCase12 {Factor {2,2}, Factor {3,1}};
@@ -18,15 +21,28 @@ BOOST_AUTO_TEST_CASE(testFactorEvaluate) {
 BOOST_AUTO_TEST_CASE(testFactor) {
     const auto factors12 = Factor::factor(12U);
     BOOST_CHECK_EQUAL(factors12.size(), 2U);
-    BOOST_TEST( (factors12[0] == Factor{2, 2}) );
-    BOOST_TEST( (factors12[1] == Factor{3, 1}) );
+    BOOST_CHECK( (factors12[0] == Factor{2, 2}) );
+    BOOST_CHECK( (factors12[1] == Factor{3, 1}) );
 
 
     const auto factors220 = Factor::factor(220U);
     BOOST_CHECK_EQUAL(factors220.size(), 3U);
-    BOOST_TEST( (factors220[0] == Factor{2, 2}) );
-    BOOST_TEST( (factors220[1] == Factor{5, 1}) );
-    BOOST_TEST( (factors220[2] == Factor{11, 1}) );
+    BOOST_CHECK( (factors220[0] == Factor{2, 2}) );
+    BOOST_CHECK( (factors220[1] == Factor{5, 1}) );
+    BOOST_CHECK( (factors220[2] == Factor{11, 1}) );
+}
+
+
+BOOST_AUTO_TEST_CASE(testLargeNumber)
+{
+    unsigned int sample = 2'769'550'542u;
+    const auto factors = Factor::factor(sample);
+    BOOST_CHECK_EQUAL(factors.size(), 5u);
+    BOOST_CHECK( (factors[0] == Factor{2, 1}) );
+    BOOST_CHECK( (factors[1] == Factor{3, 4}) );
+    BOOST_CHECK( (factors[2] == Factor{11, 1}) );
+    BOOST_CHECK( (factors[3] == Factor{19, 1}) );
+    BOOST_CHECK( (factors[4] == Factor{81799, 1}) );
 }
 
 
@@ -62,3 +78,4 @@ BOOST_AUTO_TEST_CASE(testPrimeList)
     }
     BOOST_CHECK(true);
 }
+BOOST_AUTO_TEST_SUITE_END()

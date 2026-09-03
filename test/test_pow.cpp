@@ -1,3 +1,6 @@
+// -*- mode:C++; c-basic-offset:2; indent-tabs-mode:nil -*-;
+// Copyright 2025 Glen S. Dayton. Rights reserved according to terms of included license.
+
 #include <boost/test/unit_test.hpp>
 
 #include "pow.hpp"
@@ -12,6 +15,7 @@ struct Sample {
   {}
 };
 
+BOOST_AUTO_TEST_SUITE(TestPow)
 
 BOOST_AUTO_TEST_CASE(test_pow) {
   Sample samples[] = {
@@ -56,3 +60,4 @@ BOOST_AUTO_TEST_CASE(test_powmod) {
     BOOST_CHECK_EQUAL(utility::powmod(sample.base, sample.exponent, sample.modulus), sample.expected);
   }
 }
+BOOST_AUTO_TEST_SUITE_END()

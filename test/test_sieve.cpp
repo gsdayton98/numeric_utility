@@ -1,6 +1,8 @@
+// -*- mode:C++; c-basic-offset:2; indent-tabs-mode:nil -*-;
+// Copyright 2022 Glen S. Dayton. Rights reserved according to terms of included license.
 #include <boost/test/unit_test.hpp>
 #include "sieveprimes.hpp"
-
+BOOST_AUTO_TEST_SUITE(TestSieve)
 BOOST_AUTO_TEST_CASE(test_sieve) {
     using SieveType = utility::Sieve<unsigned int>;
     SieveType sieve(10);
@@ -40,3 +42,4 @@ BOOST_AUTO_TEST_CASE(test_array_sieve) {
     BOOST_CHECK_EQUAL(sieve.size(), 4);
     BOOST_CHECK_EQUAL(sieve.last(), 7);
 }
+BOOST_AUTO_TEST_SUITE_END()
