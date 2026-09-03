@@ -13,4 +13,7 @@ directory where the library is installed.
 
   * On Linux, the environment variable `LD_LIBRARY_PATH` should be set.
 
-  * On Windows, the environment variable `PATH` should be set.
+The included benchmark application, benchmark_isprime, does require numeric_utility to be installed.
+The benchmark also depends upon the oscpp utility library.
+
+At this time I do not support installation or use on Windows.

@@ -1,10 +1,8 @@
-// -*- mode: c++;
-//
-// Created by Glen Dayton, new account on 11/13/22.
-//
-
+// -*- mode:C++; c-basic-offset:2; indent-tabs-mode:nil -*-;
+// Copyright 2022 Glen S. Dayton. Rights reserved according to terms of included license.
 #ifndef SIEVEPRIMES_HPP
 #define SIEVEPRIMES_HPP
+#include <stdexcept>
 #include <vector>
 
 
@@ -15,11 +13,24 @@ namespace utility {
     class Sieve {
     public:
         using primeIterator = std::vector<Unsigned>::const_iterator;
-
+        /**
+         * Construct an Erothsenes sieve.
+         * @param upperLimit Maximum number to sieve to.
+         * @throws Exceptions from the underlying STL containers.
+         */
         [[maybe_unused]] explicit Sieve(Unsigned upperLimit);
 
+        /**
+         * Returns whether a number is prime, that is, in the sieve.
+         * @param number Number to test
+         * @return True if the number is prime.
+         * @throw May throw a range_error if the number exceeds the capacity of the sieve.
+         */
         [[maybe_unused]] auto isPrime(Unsigned number) const -> bool;
 
+        /**
+         * Iterators into the container of prime numbers.
+         */
         [[maybe_unused]] auto cbegin() const -> primeIterator { return m_primes.cbegin();}
         [[maybe_unused]] auto begin() const -> primeIterator { return m_primes.begin();}
 
@@ -28,10 +39,22 @@ namespace utility {
 
         auto operator[](int n) const -> Unsigned;
 
+        /**
+         * Return the number of primes found.
+         * @return Number of primes.
+         */
         [[maybe_unused]] auto size() const -> Unsigned { return m_primes.size(); }
 
+        /**
+         * Returns the last prime found.
+         * @return Last prime found.
+         */
         [[maybe_unused]] auto last() const -> Unsigned { return m_primes.back(); }
 
+        /**
+         * Returns the vector of primes found.
+         * @return Vector of primes.
+         */
         [[maybe_unused]] auto primes() const -> std::vector<Unsigned>& { return m_primes; }
 
     private:

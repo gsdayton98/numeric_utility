@@ -1,5 +1,5 @@
-// -*- mode: c++ -*- ;
-// ©2022 Glen S. Dayton. Project Euler has confidentiality rules, so do not copy nor publish this code.
+// -*- mode:C++; c-basic-offset:2; indent-tabs-mode:nil -*-;
+// Copyright 2022 Glen S. Dayton. Rights reserved according to terms of included license.
 #include "amicable_numbers.hpp"
 #include <numeric>
 #include "factor.hpp"

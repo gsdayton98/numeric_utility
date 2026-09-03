@@ -1,11 +1,10 @@
-//
-// Created by Glen Dayton, new account on 6/11/24.
-//
-
+// -*- mode:C++; c-basic-offset:2; indent-tabs-mode:nil -*-;
+// Copyright 2024 Glen S. Dayton. Rights reserved according to terms of included license.
 #ifndef FACTORS_HPP
 #define FACTORS_HPP
-
 #include <map>
+#include <ostream>
+
 namespace utility {
     using Number = unsigned int;
 

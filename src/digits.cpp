@@ -1,6 +1,5 @@
-//
-// Created by Glen Dayton, new account on 3/13/24.
-//
+// -*- mode:C++; c-basic-offset:2; indent-tabs-mode:nil -*-;
+// Copyright 2024 Glen S. Dayton. Rights reserved according to terms of included license.
 #include "digits.hpp"
 
 using utility::DefaultDigitType;

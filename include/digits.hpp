@@ -1,8 +1,5 @@
-
-//
-// Created by Glen Dayton, new account on 3/13/24.
-//
-
+// -*- mode:C++; c-basic-offset:2; indent-tabs-mode:nil -*-;
+// Copyright 2024 Glen S. Dayton. Rights reserved according to terms of included license.
 #ifndef TO_DIGITS_HPP
 #define TO_DIGITS_HPP
 #include <vector>
@@ -49,7 +46,7 @@ namespace utility {
      * @tparam ResultType Type of the resulting number
      * @tparam DigitsType Type of the digits in the input vector
      * @tparam RadixType Type of the base
-s    * @param digits The vector of digits to convert
+     * @param digits The vector of digits to convert
      * @param base The base of the digits
      * @return The number represented by the digits
      */
@@ -69,6 +66,6 @@ s    * @param digits The vector of digits to convert
         }
         return number;
     }
+}
 
 #endif //TO_DIGITS_HPP
-}

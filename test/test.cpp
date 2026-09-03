@@ -1,8 +1,5 @@
 // -*- mode:C++; c-basic-offset:2; indent-tabs-mode:nil -*-
-
-/// numeric_utility tests
-/// @copyright 2026. Rights reserved according to terms of the included license.
-/// Glen Dayton, new account
+/// @copyright 2026. Glen Dayton, Rights reserved according to terms of the included license.
 
 #define BOOST_TEST_DYN_LINK
 #define BOOST_TEST_MAIN

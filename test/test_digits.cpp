@@ -1,3 +1,5 @@
+// -*- mode:C++; c-basic-offset:2; indent-tabs-mode:nil -*-;
+// Copyright 2024 Glen S. Dayton. Rights reserved according to terms of included license.
 //
 // Created by Glen Dayton, new account on 3/13/24.
 //
@@ -117,6 +119,4 @@ BOOST_AUTO_TEST_CASE(test_number_multiprecision)
     const auto result = utility::toNumber<BigNumber>(digits);
     BOOST_CHECK_EQUAL(result, expected);
 }
-
-
 BOOST_AUTO_TEST_SUITE_END()

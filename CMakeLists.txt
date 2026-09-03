@@ -22,7 +22,6 @@ set(SOURCES src/amicable_numbers.cpp
         src/factor.cpp
         src/factors.cpp
         src/miller_rabin.cpp
-        src/numeric_utility.cpp
         src/pow.cpp
         src/sieveprimes.cpp)
 
@@ -33,7 +32,6 @@ set(HEADERS include/amicable_numbers.hpp
         include/isqrt.hpp
         include/lcm_gcd.hpp
         include/miller_rabin.hpp
-        include/numeric_utility.hpp
         include/pow.hpp
         include/sieveprimes.hpp)
 
@@ -42,7 +40,7 @@ target_include_directories(numeric_utility PUBLIC
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
         $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>)
 target_compile_options(numeric_utility PRIVATE -fvisibility=hidden)
-set_target_properties(numeric_utility PROPERTIES VERSION ${PROJECT_VERSION} SOVERSION 1)
+set_target_properties(numeric_utility PROPERTIES VERSION ${PROJECT_VERSION})
 set_target_properties(numeric_utility PROPERTIES SOVERSION ${PROJECT_VERSION_MAJOR})
 set_target_properties(numeric_utility PROPERTIES PUBLIC_HEADER "${HEADERS}")
 
