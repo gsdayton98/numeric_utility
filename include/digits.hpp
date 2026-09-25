@@ -2,6 +2,7 @@
 // Copyright 2024 Glen S. Dayton. Rights reserved according to terms of included license.
 #ifndef TO_DIGITS_HPP
 #define TO_DIGITS_HPP
+#include <ranges>
 #include <vector>
 namespace utility {
 
@@ -58,11 +59,9 @@ namespace utility {
     auto toNumber(const DigitsType& digits, RadixType base = 10u) -> ResultType
     {
         ResultType number = 0;
-        unsigned int power = 1;
 
-        for (auto digit: digits) {
-            number += digit*power;
-            power *= base;
+        for (auto digit: digits | std::views::reverse) {
+            number = base*number + digit;
         }
         return number;
     }
