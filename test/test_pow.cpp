@@ -2,16 +2,23 @@
 // Copyright 2025 Glen S. Dayton. Rights reserved according to terms of included license.
 
 #include <boost/test/unit_test.hpp>
+#include <cstdint>
 
 #include "pow.hpp"
 #include "pow_multiprecision.hpp"
 
-struct Sample {
-  unsigned int base;
-  unsigned int exponent;
-  unsigned int expected;
+using U8 = std::uint8_t;
+using U16 = std::uint16_t;
+using U32 = std::uint32_t;
+using U64 = std::uint64_t;
+using U128 = unsigned __int128;
 
-  Sample(const unsigned int a, const unsigned int b, const unsigned int result) :
+struct Sample {
+  U32 base;
+  U32 exponent;
+  U32 expected;
+
+  Sample(const U32 a, const U32 b, const U32 result) :
     base(a), exponent(b), expected(result)
   {}
 };
@@ -34,12 +41,12 @@ BOOST_AUTO_TEST_CASE(test_pow) {
 
 
 struct ModSample {
-  unsigned int base;
-  unsigned int exponent;
-  unsigned int modulus;
-  unsigned int expected;
+  U32 base;
+  U32 exponent;
+  U32 modulus;
+  U32 expected;
 
-  ModSample(const unsigned int a, const unsigned int b, const unsigned int m, const unsigned int result) :
+  ModSample(const U32 a, const U32 b, const U32 m, const U32 result) :
     base{a}, exponent{b}, modulus{m}, expected{result}
   {}
 };
@@ -64,7 +71,6 @@ BOOST_AUTO_TEST_CASE(test_powmod) {
 
 // Moduli whose square does not fit in the type, so base*base must not overflow.
 BOOST_AUTO_TEST_CASE(test_powmod_large_modulus_8) {
-  using U8 = unsigned char;
   constexpr U8 prime = 251u;  // Largest 8-bit prime
   BOOST_CHECK_EQUAL(utility::powmod(U8{2u}, U8{prime - 1u}, prime), U8{1u});                 // Fermat
   BOOST_CHECK_EQUAL(utility::powmod(U8{prime - 1u}, U8{2u}, prime), U8{1u});                 // (-1)^2
@@ -73,7 +79,6 @@ BOOST_AUTO_TEST_CASE(test_powmod_large_modulus_8) {
 }
 
 BOOST_AUTO_TEST_CASE(test_powmod_large_modulus_16) {
-  using U16 = unsigned short;
   constexpr U16 prime = 65521u;  // Largest 16-bit prime
   BOOST_CHECK_EQUAL(utility::powmod(U16{2u}, U16{prime - 1u}, prime), U16{1u});                  // Fermat
   BOOST_CHECK_EQUAL(utility::powmod(U16{65534u}, U16{2u}, prime), U16{169u});                    // 65534 = 13 (mod p)
@@ -81,37 +86,29 @@ BOOST_AUTO_TEST_CASE(test_powmod_large_modulus_16) {
 }
 
 BOOST_AUTO_TEST_CASE(test_powmod_large_modulus_32) {
-  constexpr unsigned int prime = 4'294'967'291u;  // Largest 32-bit prime
-  BOOST_CHECK_EQUAL(utility::powmod(3u, 1'000'000u, prime), 3'445'042'560u);
-  BOOST_CHECK_EQUAL(utility::powmod(65'537u, 2u, prime), 131'078u);        // 65537^2 - p
-  BOOST_CHECK_EQUAL(utility::powmod(2u, prime - 1u, prime), 1u);           // Fermat
-  BOOST_CHECK_EQUAL(utility::powmod(123'456'789u, prime - 1u, prime), 1u); // Fermat
-  BOOST_CHECK_EQUAL(utility::powmod(prime - 1u, 3u, prime), prime - 1u);   // (-1)^3
-  BOOST_CHECK_EQUAL(utility::powmod(prime - 1u, prime - 2u, prime), prime - 1u); // (-1)^odd
+  constexpr U32 prime = 4'294'967'291u;  // Largest 32-bit prime
+  BOOST_CHECK_EQUAL(utility::powmod(U32{3}, U32{1'000'000}, prime), U32{3'445'042'560u});
+  BOOST_CHECK_EQUAL(utility::powmod(U32{65'537}, U32{2}, prime), U32{131'078});        // 65537^2 - p
+  BOOST_CHECK_EQUAL(utility::powmod(U32{2}, U32{prime - 1u}, prime), U32{1});           // Fermat
+  BOOST_CHECK_EQUAL(utility::powmod(U32{123'456'789}, U32{prime - 1u}, prime), U32{1}); // Fermat
+  BOOST_CHECK_EQUAL(utility::powmod(U32{prime - 1u}, U32{3}, prime), U32{prime - 1u});  // (-1)^3
+  BOOST_CHECK_EQUAL(utility::powmod(U32{prime - 1u}, U32{prime - 2u}, prime), U32{prime - 1u}); // (-1)^odd
 }
 
 BOOST_AUTO_TEST_CASE(test_powmod_large_modulus_64) {
-  constexpr unsigned long prime = 18'446'744'073'709'551'557ul;  // Largest 64-bit prime
-  constexpr unsigned long mersenne61 = (1ul << 61) - 1u;
+  constexpr U64 prime = 18'446'744'073'709'551'557u;  // Largest 64-bit prime
+  constexpr U64 mersenne61 = (U64{1} << 61) - 1u;
 
-  BOOST_CHECK_EQUAL(utility::powmod(3ul, 1'000'000ul, prime), 16'059'052'939'423'793'818ul);
-  BOOST_CHECK_EQUAL(utility::powmod(2ul, prime - 1u, prime), 1ul);           // Fermat
-  BOOST_CHECK_EQUAL(utility::powmod(4'294'967'311ul, prime - 1u, prime), 1ul);
-  BOOST_CHECK_EQUAL(utility::powmod(prime - 1u, 2ul, prime), 1ul);           // (-1)^2
-  BOOST_CHECK_EQUAL(utility::powmod(prime - 1u, prime - 2u, prime), prime - 1u); // (-1)^odd
-  BOOST_CHECK_EQUAL(utility::powmod(2ul, 64ul, mersenne61), 8ul);            // 2^61 = 1 (mod 2^61 - 1)
-  BOOST_CHECK_EQUAL(utility::powmod(2ul, mersenne61 - 1u, mersenne61), 1ul); // Fermat
-}
-
-BOOST_AUTO_TEST_CASE(test_powmod_large_modulus_64_long_long) {
-  constexpr unsigned long long prime = 18'446'744'073'709'551'557ull;  // Largest 64-bit prime
-  BOOST_CHECK_EQUAL(utility::powmod(3ull, 1'000'000ull, prime), 16'059'052'939'423'793'818ull);
-  BOOST_CHECK_EQUAL(utility::powmod(2ull, prime - 1u, prime), 1ull);                // Fermat
-  BOOST_CHECK_EQUAL(utility::powmod(prime - 1u, prime - 2u, prime), prime - 1u);    // (-1)^odd
+  BOOST_CHECK_EQUAL(utility::powmod(U64{3}, U64{1'000'000}, prime), U64{16'059'052'939'423'793'818u});
+  BOOST_CHECK_EQUAL(utility::powmod(U64{2}, U64{prime - 1u}, prime), U64{1});             // Fermat
+  BOOST_CHECK_EQUAL(utility::powmod(U64{4'294'967'311u}, U64{prime - 1u}, prime), U64{1});
+  BOOST_CHECK_EQUAL(utility::powmod(U64{prime - 1u}, U64{2}, prime), U64{1});             // (-1)^2
+  BOOST_CHECK_EQUAL(utility::powmod(U64{prime - 1u}, U64{prime - 2u}, prime), U64{prime - 1u}); // (-1)^odd
+  BOOST_CHECK_EQUAL(utility::powmod(U64{2}, U64{64}, mersenne61), U64{8});                // 2^61 = 1 (mod 2^61 - 1)
+  BOOST_CHECK_EQUAL(utility::powmod(U64{2}, U64{mersenne61 - 1u}, mersenne61), U64{1});   // Fermat
 }
 
 BOOST_AUTO_TEST_CASE(test_powmod_large_modulus_128) {
-  using U128 = unsigned __int128;
   const U128 prime = (U128{1} << 127) - 1u;  // Mersenne prime 2^127 - 1
   BOOST_CHECK(utility::powmod(U128{3}, prime - 1u, prime) == U128{1});      // Fermat
   BOOST_CHECK(utility::powmod(U128{2}, U128{128}, prime) == U128{2});       // 2^127 = 1 (mod p)

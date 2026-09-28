@@ -2,6 +2,7 @@
 // Copyright 2025 Glen S. Dayton. Rights reserved according to terms of included license.
 #ifndef POW_HPP
 #define POW_HPP
+#include <cstdint>
 #include <limits>
 
 template <typename T>
@@ -57,20 +58,19 @@ namespace utility {
 
     // Specializations defined in pow.cpp. They must be declared here, before any use,
     // or callers silently instantiate the generic version instead.
+    // Specializations match exact types, not widths: of unsigned long and unsigned long long,
+    // only the one that is uint64_t on the platform is specialized.
     template<>
-    auto __attribute__((visibility("default"))) powmod<unsigned char>(unsigned char base, unsigned char exponent, const unsigned char& modulus) -> unsigned char;
+    auto __attribute__((visibility("default"))) powmod<std::uint8_t>(std::uint8_t base, std::uint8_t exponent, const std::uint8_t& modulus) -> std::uint8_t;
 
     template<>
-    auto __attribute__((visibility("default"))) powmod<unsigned short>(unsigned short base, unsigned short exponent, const unsigned short& modulus) -> unsigned short;
+    auto __attribute__((visibility("default"))) powmod<std::uint16_t>(std::uint16_t base, std::uint16_t exponent, const std::uint16_t& modulus) -> std::uint16_t;
 
     template<>
-    auto __attribute__((visibility("default"))) powmod<unsigned int>(unsigned int base, unsigned int exponent, const unsigned int& modulus) -> unsigned int;
+    auto __attribute__((visibility("default"))) powmod<std::uint32_t>(std::uint32_t base, std::uint32_t exponent, const std::uint32_t& modulus) -> std::uint32_t;
 
     template<>
-    auto __attribute__((visibility("default"))) powmod<unsigned long>(unsigned long base, unsigned long exponent, const unsigned long& modulus) -> unsigned long;
-
-    template<>
-    auto __attribute__((visibility("default"))) powmod<unsigned long long>(unsigned long long base, unsigned long long exponent, const unsigned long long& modulus) -> unsigned long long;
+    auto __attribute__((visibility("default"))) powmod<std::uint64_t>(std::uint64_t base, std::uint64_t exponent, const std::uint64_t& modulus) -> std::uint64_t;
 
     template<>
     auto __attribute__((visibility("default"))) powmod<unsigned __int128>(unsigned __int128 base, unsigned __int128 exponent, const unsigned __int128& modulus) -> unsigned __int128;

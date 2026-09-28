@@ -10,11 +10,14 @@ reproduced against the built library. The others come from reading the code.
   999 999 999 989 and 2⁶⁴−59 as composite. Fixed, with tests of 64-bit primes and
   strong pseudoprimes, and a comparison with the sieve below 10⁶.
 - [x] **`powmod` overflowed when the modulus's square didn't fit in the type.**
-  Fixed with specializations for every standard unsigned type (`unsigned char`,
-  `unsigned short`, `unsigned int`, `unsigned long`, `unsigned long long`) and
+  Fixed with specializations for `uint8_t`, `uint16_t`, `uint32_t`, `uint64_t` and
   `unsigned __int128`, defined in `src/pow.cpp` and declared in `pow.hpp`. `cpp_int`
-  has an overload in `pow_multiprecision.hpp`. Other types, such as Boost's fixed-width
-  `uint128_t`, still get the generic template, which overflows unless modulus² fits.
+  has an overload in `pow_multiprecision.hpp`. `millerRabin` now takes `uint64_t`.
+- [ ] **The generic `powmod` still overflows for 64-bit types that aren't `uint64_t`.**
+  Specializations match exact types, and `uint64_t` is `unsigned long long` on macOS
+  but `unsigned long` on Linux. The other one, including `size_t` on macOS, gets the
+  generic template, as do types such as Boost's fixed-width `uint128_t`. Consider
+  rejecting those at compile time, or making the generic template overflow-safe.
 - [ ] **`isqrt` never returns for large inputs (confirmed).** `isqrt(4294901760u)` hangs.
   `x * x`, `(x + 1) * (x + 1)` and `2 * x` all overflow, starting from `x = c / 2`. Use
   an overflow-safe test (`x <= c / x`) or a bit-by-bit square root. The tests only

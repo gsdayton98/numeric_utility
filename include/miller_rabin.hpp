@@ -2,7 +2,8 @@
 // Copyright 2025 Glen S. Dayton. Rights reserved according to terms of included license.
 #ifndef MILLER_RABIN_HPP
 #define MILLER_RABIN_HPP
+#include <cstdint>
 namespace utility {
-    auto __attribute__((visibility("default"))) millerRabin(unsigned long n) -> bool;
+    auto __attribute__((visibility("default"))) millerRabin(std::uint64_t n) -> bool;
 }
 #endif //MILLER_RABIN_HPP

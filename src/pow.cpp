@@ -49,32 +49,26 @@ namespace {
 
 // Narrow types multiply in uint32_t: promotion to int would make the overflow undefined.
 template <>
-auto utility::powmod<unsigned char>(const unsigned char base, const unsigned char exponent, const unsigned char& modulus) -> unsigned char {
-    return powmodWith(base, exponent, modulus, wideMulmod<unsigned char, std::uint32_t>);
+auto utility::powmod<std::uint8_t>(const std::uint8_t base, const std::uint8_t exponent, const std::uint8_t& modulus) -> std::uint8_t {
+    return powmodWith(base, exponent, modulus, wideMulmod<std::uint8_t, std::uint32_t>);
 }
 
 
 template <>
-auto utility::powmod<unsigned short>(const unsigned short base, const unsigned short exponent, const unsigned short& modulus) -> unsigned short {
-    return powmodWith(base, exponent, modulus, wideMulmod<unsigned short, std::uint32_t>);
+auto utility::powmod<std::uint16_t>(const std::uint16_t base, const std::uint16_t exponent, const std::uint16_t& modulus) -> std::uint16_t {
+    return powmodWith(base, exponent, modulus, wideMulmod<std::uint16_t, std::uint32_t>);
 }
 
 
 template <>
-auto utility::powmod<unsigned int>(const unsigned int base, const unsigned int exponent, const unsigned int& modulus) -> unsigned int {
-    return powmodWith(base, exponent, modulus, wideMulmod<unsigned int, std::uint64_t>);
+auto utility::powmod<std::uint32_t>(const std::uint32_t base, const std::uint32_t exponent, const std::uint32_t& modulus) -> std::uint32_t {
+    return powmodWith(base, exponent, modulus, wideMulmod<std::uint32_t, std::uint64_t>);
 }
 
 
 template <>
-auto utility::powmod<unsigned long>(const unsigned long base, const unsigned long exponent, const unsigned long& modulus) -> unsigned long {
-    return powmodWith(base, exponent, modulus, wideMulmod<unsigned long, uint128>);
-}
-
-
-template <>
-auto utility::powmod<unsigned long long>(const unsigned long long base, const unsigned long long exponent, const unsigned long long& modulus) -> unsigned long long {
-    return powmodWith(base, exponent, modulus, wideMulmod<unsigned long long, uint128>);
+auto utility::powmod<std::uint64_t>(const std::uint64_t base, const std::uint64_t exponent, const std::uint64_t& modulus) -> std::uint64_t {
+    return powmodWith(base, exponent, modulus, wideMulmod<std::uint64_t, uint128>);
 }
 
 

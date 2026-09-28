@@ -2,6 +2,7 @@
 // Copyright 2025 Glen S. Dayton. Rights reserved according to terms of included license.
 
 #include <boost/test/unit_test.hpp>
+#include <cstdint>
 
 #include "miller_rabin.hpp"
 #include "sieveprimes.hpp"
@@ -29,7 +30,7 @@ BOOST_AUTO_TEST_CASE(test_miller_rabin_matches_sieve) {
 
 
 BOOST_AUTO_TEST_CASE(test_miller_rabin_large_primes) {
-    for (const unsigned long prime: {
+    for (const std::uint64_t prime: {
              2'147'483'647ul,                   // 2^31 - 1
              4'294'967'291ul,                   // Largest 32-bit prime
              4'294'967'311ul,                   // Smallest prime above 2^32
@@ -42,7 +43,7 @@ BOOST_AUTO_TEST_CASE(test_miller_rabin_large_primes) {
 
 
 BOOST_AUTO_TEST_CASE(test_miller_rabin_large_composites) {
-    for (const unsigned long composite: {
+    for (const std::uint64_t composite: {
              561ul,                             // Carmichael number
              3'215'031'751ul,                   // Strong pseudoprime to bases 2, 3, 5, 7
              4'294'967'297ul,                   // 2^32 + 1 = 641 * 6700417
