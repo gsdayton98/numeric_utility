@@ -5,18 +5,26 @@
 #include <type_traits>
 
 namespace utility {
+    /**
+     * Integer square root: the largest y with y*y <= c.
+     *
+     * Newton's method from an initial guess at or above the root, so the iterates decrease
+     * monotonically to it. With c < 2^b, the guess is 2^ceil(b/2); every iterate x then satisfies
+     * x + c/x < 2^(ceil(b/2) + 1), so nothing overflows.
+     */
     template<typename NumberType>
     requires std::is_integral_v<NumberType> && std::is_unsigned_v<NumberType>
     auto __attribute__((visibility("default"))) isqrt(const NumberType &c) -> NumberType {
-        auto x = c / 2;
+        if (c < 2) return c;
 
-        while (!(x * x <= c && (x + 1) * (x + 1) > c)) {
-            auto y = x * x - c;
-            if (x != 0) {
-                auto x2 = 2 * x;
-                x = x - (y + x2 - 1) / x2;
-            } else
-                x = 1;
+        unsigned int bits = 0;
+        for (NumberType rest = c; rest != 0; rest >>= 1) ++bits;
+
+        auto x = static_cast<NumberType>(NumberType{1} << ((bits + 1) / 2));
+        auto y = static_cast<NumberType>((x + c / x) / 2);
+        while (y < x) {
+            x = y;
+            y = static_cast<NumberType>((x + c / x) / 2);
         }
         return x;
     }
