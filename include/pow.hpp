@@ -58,10 +58,19 @@ namespace utility {
     // Specializations defined in pow.cpp. They must be declared here, before any use,
     // or callers silently instantiate the generic version instead.
     template<>
+    auto __attribute__((visibility("default"))) powmod<unsigned char>(unsigned char base, unsigned char exponent, const unsigned char& modulus) -> unsigned char;
+
+    template<>
+    auto __attribute__((visibility("default"))) powmod<unsigned short>(unsigned short base, unsigned short exponent, const unsigned short& modulus) -> unsigned short;
+
+    template<>
     auto __attribute__((visibility("default"))) powmod<unsigned int>(unsigned int base, unsigned int exponent, const unsigned int& modulus) -> unsigned int;
 
     template<>
     auto __attribute__((visibility("default"))) powmod<unsigned long>(unsigned long base, unsigned long exponent, const unsigned long& modulus) -> unsigned long;
+
+    template<>
+    auto __attribute__((visibility("default"))) powmod<unsigned long long>(unsigned long long base, unsigned long long exponent, const unsigned long long& modulus) -> unsigned long long;
 
     template<>
     auto __attribute__((visibility("default"))) powmod<unsigned __int128>(unsigned __int128 base, unsigned __int128 exponent, const unsigned __int128& modulus) -> unsigned __int128;

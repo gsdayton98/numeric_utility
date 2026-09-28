@@ -47,6 +47,19 @@ namespace {
 }
 
 
+// Narrow types multiply in uint32_t: promotion to int would make the overflow undefined.
+template <>
+auto utility::powmod<unsigned char>(const unsigned char base, const unsigned char exponent, const unsigned char& modulus) -> unsigned char {
+    return powmodWith(base, exponent, modulus, wideMulmod<unsigned char, std::uint32_t>);
+}
+
+
+template <>
+auto utility::powmod<unsigned short>(const unsigned short base, const unsigned short exponent, const unsigned short& modulus) -> unsigned short {
+    return powmodWith(base, exponent, modulus, wideMulmod<unsigned short, std::uint32_t>);
+}
+
+
 template <>
 auto utility::powmod<unsigned int>(const unsigned int base, const unsigned int exponent, const unsigned int& modulus) -> unsigned int {
     return powmodWith(base, exponent, modulus, wideMulmod<unsigned int, std::uint64_t>);
@@ -56,6 +69,12 @@ auto utility::powmod<unsigned int>(const unsigned int base, const unsigned int e
 template <>
 auto utility::powmod<unsigned long>(const unsigned long base, const unsigned long exponent, const unsigned long& modulus) -> unsigned long {
     return powmodWith(base, exponent, modulus, wideMulmod<unsigned long, uint128>);
+}
+
+
+template <>
+auto utility::powmod<unsigned long long>(const unsigned long long base, const unsigned long long exponent, const unsigned long long& modulus) -> unsigned long long {
+    return powmodWith(base, exponent, modulus, wideMulmod<unsigned long long, uint128>);
 }
 
 

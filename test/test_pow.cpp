@@ -63,6 +63,23 @@ BOOST_AUTO_TEST_CASE(test_powmod) {
 }
 
 // Moduli whose square does not fit in the type, so base*base must not overflow.
+BOOST_AUTO_TEST_CASE(test_powmod_large_modulus_8) {
+  using U8 = unsigned char;
+  constexpr U8 prime = 251u;  // Largest 8-bit prime
+  BOOST_CHECK_EQUAL(utility::powmod(U8{2u}, U8{prime - 1u}, prime), U8{1u});                 // Fermat
+  BOOST_CHECK_EQUAL(utility::powmod(U8{prime - 1u}, U8{2u}, prime), U8{1u});                 // (-1)^2
+  BOOST_CHECK_EQUAL(utility::powmod(U8{prime - 1u}, U8{prime - 2u}, prime), U8{prime - 1u}); // (-1)^odd
+  BOOST_CHECK_EQUAL(utility::powmod(U8{255u}, U8{2u}, prime), U8{16u});                      // 255 = 4 (mod p)
+}
+
+BOOST_AUTO_TEST_CASE(test_powmod_large_modulus_16) {
+  using U16 = unsigned short;
+  constexpr U16 prime = 65521u;  // Largest 16-bit prime
+  BOOST_CHECK_EQUAL(utility::powmod(U16{2u}, U16{prime - 1u}, prime), U16{1u});                  // Fermat
+  BOOST_CHECK_EQUAL(utility::powmod(U16{65534u}, U16{2u}, prime), U16{169u});                    // 65534 = 13 (mod p)
+  BOOST_CHECK_EQUAL(utility::powmod(U16{prime - 1u}, U16{prime - 2u}, prime), U16{prime - 1u});  // (-1)^odd
+}
+
 BOOST_AUTO_TEST_CASE(test_powmod_large_modulus_32) {
   constexpr unsigned int prime = 4'294'967'291u;  // Largest 32-bit prime
   BOOST_CHECK_EQUAL(utility::powmod(3u, 1'000'000u, prime), 3'445'042'560u);
@@ -84,6 +101,13 @@ BOOST_AUTO_TEST_CASE(test_powmod_large_modulus_64) {
   BOOST_CHECK_EQUAL(utility::powmod(prime - 1u, prime - 2u, prime), prime - 1u); // (-1)^odd
   BOOST_CHECK_EQUAL(utility::powmod(2ul, 64ul, mersenne61), 8ul);            // 2^61 = 1 (mod 2^61 - 1)
   BOOST_CHECK_EQUAL(utility::powmod(2ul, mersenne61 - 1u, mersenne61), 1ul); // Fermat
+}
+
+BOOST_AUTO_TEST_CASE(test_powmod_large_modulus_64_long_long) {
+  constexpr unsigned long long prime = 18'446'744'073'709'551'557ull;  // Largest 64-bit prime
+  BOOST_CHECK_EQUAL(utility::powmod(3ull, 1'000'000ull, prime), 16'059'052'939'423'793'818ull);
+  BOOST_CHECK_EQUAL(utility::powmod(2ull, prime - 1u, prime), 1ull);                // Fermat
+  BOOST_CHECK_EQUAL(utility::powmod(prime - 1u, prime - 2u, prime), prime - 1u);    // (-1)^odd
 }
 
 BOOST_AUTO_TEST_CASE(test_powmod_large_modulus_128) {
