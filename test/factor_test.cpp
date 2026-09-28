@@ -46,6 +46,35 @@ BOOST_AUTO_TEST_CASE(testLargeNumber)
 }
 
 
+BOOST_AUTO_TEST_CASE(testPrimePowerOverflow)
+{
+    // The next higher power of the prime does not fit in 32 bits.
+    const auto factors2 = Factor::factor(1u << 31);
+    BOOST_REQUIRE_EQUAL(factors2.size(), 1u);
+    BOOST_CHECK( (factors2[0] == Factor{2, 31}) );
+
+    const auto factors3 = Factor::factor(3'486'784'401u);   // 3^20
+    BOOST_REQUIRE_EQUAL(factors3.size(), 1u);
+    BOOST_CHECK( (factors3[0] == Factor{3, 20}) );
+
+    const auto factors65521 = Factor::factor(65521u * 65521u);
+    BOOST_REQUIRE_EQUAL(factors65521.size(), 1u);
+    BOOST_CHECK( (factors65521[0] == Factor{65521, 2}) );
+}
+
+
+BOOST_AUTO_TEST_CASE(testLimits)
+{
+    const auto factorsMax = Factor::factor(0xFFFF'FFFFu);    // 3 * 5 * 17 * 257 * 65537
+    BOOST_CHECK_EQUAL(Factor::evaluate(factorsMax), 0xFFFF'FFFFu);
+    BOOST_CHECK_EQUAL(factorsMax.size(), 5u);
+
+    const auto factorsPrime = Factor::factor(4'294'967'291u); // Largest 32-bit prime
+    BOOST_REQUIRE_EQUAL(factorsPrime.size(), 1u);
+    BOOST_CHECK( (factorsPrime[0] == Factor{4'294'967'291u, 1}) );
+}
+
+
 BOOST_AUTO_TEST_CASE(testOperators) {
     Factor leftOperand {2, 3};
     Factor rightOperand {5, 2};
