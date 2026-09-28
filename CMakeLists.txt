@@ -22,7 +22,6 @@ set(SOURCES src/amicable_numbers.cpp
         src/factor.cpp
         src/factors.cpp
         src/miller_rabin.cpp
-        src/pow.cpp
         src/sieveprimes.cpp)
 
 set(HEADERS include/amicable_numbers.hpp

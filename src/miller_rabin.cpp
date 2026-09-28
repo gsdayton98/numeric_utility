@@ -1,6 +1,7 @@
 // -*- mode:C++; c-basic-offset:2; indent-tabs-mode:nil -*-;
 // Copyright 2025 Glen S. Dayton. Rights reserved according to terms of included license.
 #include "miller_rabin.hpp"
+#include <algorithm>
 #include <cmath>
 #include "pow.hpp"
 

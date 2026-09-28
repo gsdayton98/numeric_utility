@@ -5,24 +5,18 @@ reproduced against the built library. The others come from reading the code.
 
 ## 1. Correctness bugs
 
-- [ ] **`millerRabin` is wrong for n > 2³² (confirmed).** It reports the primes
-  4 294 967 311 and 2⁶¹−1 as composite. There are several causes:
-  - The `powmod<unsigned long>` specialization in `src/pow.cpp` keeps `result` in an
-    `unsigned int` and calls `mulmod(unsigned int, …)`, which truncates the base and
-    the modulus to 32 bits.
-  - That specialization is not declared in `pow.hpp`, so `miller_rabin.cpp` instantiates
-    the generic template instead. That is ill-formed, no diagnostic required. The generic
-    template's `base * base` overflows once the modulus exceeds 2³².
+- [ ] **`millerRabin` is still wrong for some n > 2³² (confirmed).** It reports the
+  prime 2⁶⁴−59 as composite. The `powmod` overflow is fixed, and 4 294 967 311 and
+  2⁶¹−1 are now reported correctly. What remains:
   - `auto y = 0u` in `millerRabin` truncates each `powmod` result to 32 bits.
+  - `baseLimit` is an `unsigned int`.
   - The comment "n < 4,759,123,141" is the bound for the base set {2, 7, 61}. The base
     set {2 … 37} used here is deterministic for every 64-bit n.
 
-  Fix: implement `mulmod` with `unsigned __int128`, declare any specializations in the
-  header, and test against 64-bit primes and strong pseudoprimes.
-- [ ] **`powmod<unsigned int>` is wrong when the modulus exceeds 2¹⁶ (confirmed).**
-  `powmod(3u, 1000000u, 4294967291u)` returns 3863061761, but the correct value is
-  3445042560. `base * base` overflows. Line 31 of `src/pow.cpp` declares a
-  specialization that is never defined.
+  Fix those, and test against 64-bit primes and strong pseudoprimes.
+- [x] **`powmod` overflowed when the modulus's square didn't fit in the type.**
+  Fixed with an overflow-safe `mulmod` in `pow.hpp`. The broken specializations in
+  `src/pow.cpp` were removed along with the file.
 - [ ] **`isqrt` never returns for large inputs (confirmed).** `isqrt(4294901760u)` hangs.
   `x * x`, `(x + 1) * (x + 1)` and `2 * x` all overflow, starting from `x = c / 2`. Use
   an overflow-safe test (`x <= c / x`) or a bit-by-bit square root. The tests only
@@ -89,7 +83,7 @@ reproduced against the built library. The others come from reading the code.
 - [ ] **`__attribute__((visibility("default")))` does nothing on templates and inline
   functions.** Use a single `NUMERIC_UTILITY_API` macro, e.g. from CMake's
   `GenerateExportHeader`, on the exported non-template symbols.
-- [ ] **Clean up `pow.hpp`.** A comment contains stray text
+- [x] **Clean up `pow.hpp`.** A comment contains stray text
   (`target_link_libraries(test_socket …)`), and the header includes `<numeric>` when
   it needs `<limits>`.
 - [ ] **Headers are installed flat into `include/`** (e.g. `~/include/pow.hpp`), and
