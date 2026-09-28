@@ -22,6 +22,7 @@ set(SOURCES src/amicable_numbers.cpp
         src/factor.cpp
         src/factors.cpp
         src/miller_rabin.cpp
+        src/pow.cpp
         src/sieveprimes.cpp)
 
 set(HEADERS include/amicable_numbers.hpp
@@ -33,6 +34,7 @@ set(HEADERS include/amicable_numbers.hpp
         include/lcm_gcd.hpp
         include/miller_rabin.hpp
         include/pow.hpp
+        include/pow_multiprecision.hpp
         include/sieveprimes.hpp)
 
 # Build the library with the same sanitizers as its consumers, e.g. -DNUMERIC_UTILITY_SANITIZERS="address;undefined".

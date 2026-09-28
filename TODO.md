@@ -15,8 +15,14 @@ reproduced against the built library. The others come from reading the code.
 
   Fix those, and test against 64-bit primes and strong pseudoprimes.
 - [x] **`powmod` overflowed when the modulus's square didn't fit in the type.**
-  Fixed with an overflow-safe `mulmod` in `pow.hpp`. The broken specializations in
-  `src/pow.cpp` were removed along with the file.
+  Fixed for `unsigned int`, `unsigned long` and `unsigned __int128` with
+  specializations in `src/pow.cpp`, declared in `pow.hpp`. `cpp_int` has an overload
+  in `pow_multiprecision.hpp`.
+- [ ] **The generic `powmod` still overflows for other unsigned types.**
+  `unsigned long long` is a distinct type from `unsigned long` on macOS, and
+  `powmod(3ull, 1000000ull, 2⁶⁴−59)` is wrong. For `unsigned short` and `unsigned char`,
+  the operands are promoted to `int`, so `65534 * 65534` is signed overflow, which is
+  undefined behaviour.
 - [ ] **`isqrt` never returns for large inputs (confirmed).** `isqrt(4294901760u)` hangs.
   `x * x`, `(x + 1) * (x + 1)` and `2 * x` all overflow, starting from `x = c / 2`. Use
   an overflow-safe test (`x <= c / x`) or a bit-by-bit square root. The tests only

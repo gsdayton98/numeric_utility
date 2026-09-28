@@ -2,7 +2,6 @@
 // Copyright 2025 Glen S. Dayton. Rights reserved according to terms of included license.
 #ifndef POW_HPP
 #define POW_HPP
-#include <cstdint>
 #include <limits>
 
 template <typename T>
@@ -36,45 +35,12 @@ namespace utility {
     }
 
 
-    namespace detail {
-        /// (left + right) mod modulus without overflow, given left, right < modulus.
-        template<Unsigned T>
-        auto addmod(const T& left, const T& right, const T& modulus) -> T {
-            const T gap = modulus - right;
-            return left >= gap ? left - gap : left + right;
-        }
-
-        /// (left * right) mod modulus without overflow, given left, right < modulus.
-        template<Unsigned T>
-        auto mulmod(const T& left, const T& right, const T& modulus) -> T {
-            if constexpr (std::numeric_limits<T>::is_integer && !std::numeric_limits<T>::is_bounded) {
-                // Arbitrary precision: the product cannot overflow.
-                return left * right % modulus;
-            } else if constexpr (sizeof(T) <= sizeof(std::uint32_t)) {
-                // Also avoids promotion of narrow types to signed int, whose overflow is undefined.
-                return static_cast<T>(static_cast<std::uint64_t>(left) * right % modulus);
-            } else if constexpr (sizeof(T) <= sizeof(std::uint64_t)) {
-                return static_cast<T>(static_cast<unsigned __int128>(left) * right % modulus);
-            } else {
-                // No wider type to multiply in: double and add, staying below the modulus.
-                T result = 0;
-                T addend = left;
-                T multiplier = right;
-                while (multiplier > 0) {
-                    if (multiplier & 1) result = addmod(result, addend, modulus);
-                    addend = addmod(addend, addend, modulus);
-                    multiplier >>= 1;
-                }
-                return result;
-            }
-        }
-    }
-
-
     ////
     /// powmod(base, exponent, modulus)
-    /// Evaluate base**exponent modulo modulus, for any modulus the type can hold.
+    /// Evaluate base**exponent modulo modulus.
     /// This version should only be used with unsigned types.
+    /// Beware, the generic version overflows unless modulus**2 fits in BaseType.
+    /// The specializations below hold for any modulus the type can hold.
     template<Unsigned BaseType>
     auto __attribute__((visibility("default"))) powmod(BaseType base, BaseType exponent, const BaseType& modulus) -> BaseType {
         if (modulus < 2) return 0;
@@ -82,11 +48,22 @@ namespace utility {
         base %= modulus;
         while (exponent > 0)
         {
-            if (exponent & 1) result = detail::mulmod(result, base, modulus);
-            base = detail::mulmod(base, base, modulus);
+            if (exponent & 1) result = (result * base) % modulus;
+            base = (base * base) % modulus;
             exponent >>= 1;
         }
         return result;
     }
+
+    // Specializations defined in pow.cpp. They must be declared here, before any use,
+    // or callers silently instantiate the generic version instead.
+    template<>
+    auto __attribute__((visibility("default"))) powmod<unsigned int>(unsigned int base, unsigned int exponent, const unsigned int& modulus) -> unsigned int;
+
+    template<>
+    auto __attribute__((visibility("default"))) powmod<unsigned long>(unsigned long base, unsigned long exponent, const unsigned long& modulus) -> unsigned long;
+
+    template<>
+    auto __attribute__((visibility("default"))) powmod<unsigned __int128>(unsigned __int128 base, unsigned __int128 exponent, const unsigned __int128& modulus) -> unsigned __int128;
 }
 #endif
