@@ -27,6 +27,7 @@ set(SOURCES src/amicable_numbers.cpp
 
 set(HEADERS include/amicable_numbers.hpp
         include/digits.hpp
+        include/digits_multiprecision.hpp
         include/factor.hpp
         include/factors.hpp
         include/isqrt.hpp
