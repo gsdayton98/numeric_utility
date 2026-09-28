@@ -18,10 +18,10 @@ reproduced against the built library. The others come from reading the code.
   but `unsigned long` on Linux. The other one, including `size_t` on macOS, gets the
   generic template, as do types such as Boost's fixed-width `uint128_t`. Consider
   rejecting those at compile time, or making the generic template overflow-safe.
-- [ ] **`isqrt` never returns for large inputs (confirmed).** `isqrt(4294901760u)` hangs.
-  `x * x`, `(x + 1) * (x + 1)` and `2 * x` all overflow, starting from `x = c / 2`. Use
-  an overflow-safe test (`x <= c / x`) or a bit-by-bit square root. The tests only
-  cover 0–33.
+- [x] **`isqrt` hung or gave wrong answers for large inputs.** `isqrt(4294901760u)` hung,
+  and `isqrt(131768u)` returned 65537 instead of 362. Replaced with Newton's method
+  from an overflow-safe starting guess, tested exhaustively for 8 and 16 bits, at every
+  32-bit perfect square, and at 64-bit squares and type maximums.
 - [ ] **`Factors::asNumber` never returns when an exponent is negative (confirmed).**
   `ipow` compares its `int` exponent with `0U`, so −1 compares as a huge unsigned value,
   and `b >>= 1` leaves it at −1. It also has to decide what a denominator means:
@@ -120,7 +120,7 @@ reproduced against the built library. The others come from reading the code.
   with the sieve stops at 10⁶, below where the bugs start. Add known 64-bit primes and
   strong pseudoprimes (e.g. 3215031751, 3825123056546413051), and a cross-check against
   the sieve.
-- [ ] **Test `isqrt` at every k² − 1 / k² boundary up to the type's maximum,** for each
+- [x] **Test `isqrt` at every k² − 1 / k² boundary up to the type's maximum,** for each
   unsigned width.
 - [ ] **Test `pow` and `powmod` near their limits,** comparing against an
   `unsigned __int128` reference.
