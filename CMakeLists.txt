@@ -35,6 +35,15 @@ set(HEADERS include/amicable_numbers.hpp
         include/pow.hpp
         include/sieveprimes.hpp)
 
+# Build the library with the same sanitizers as its consumers, e.g. -DNUMERIC_UTILITY_SANITIZERS="address;undefined".
+# An uninstrumented library under an instrumented program yields ASan container-overflow false positives.
+set(NUMERIC_UTILITY_SANITIZERS "" CACHE STRING "Sanitizers to build the library, tests, and benchmarks with")
+if(NUMERIC_UTILITY_SANITIZERS)
+    list(JOIN NUMERIC_UTILITY_SANITIZERS "," SANITIZE_LIST)
+    add_compile_options(-fsanitize=${SANITIZE_LIST} -fno-omit-frame-pointer)
+    add_link_options(-fsanitize=${SANITIZE_LIST})
+endif()
+
 add_library(numeric_utility SHARED ${HEADERS} ${SOURCES})
 target_include_directories(numeric_utility PUBLIC
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
