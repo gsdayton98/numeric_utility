@@ -6,7 +6,7 @@
 #include "pow.hpp"
 
 
-// n < 4,759,123,141
+// Deterministic for all 64-bit n: the bases 2 through 37 have no common strong pseudoprime below 3.3e24.
 auto utility::millerRabin(const unsigned long n) -> bool {
     static unsigned long aBase[] = {2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37};
     if (n == 2) return true;
@@ -22,9 +22,9 @@ auto utility::millerRabin(const unsigned long n) -> bool {
     }
 
     // At this point n = pow(2, s)*d + 1
-    auto y = 0u;
+    auto y = 0ul;
     const auto ln_n = std::log(n);
-    const unsigned int baseLimit = std::min(n - 2, static_cast<unsigned long>(std::floor(2.0*ln_n*ln_n)));
+    const auto baseLimit = std::min(n - 2, static_cast<unsigned long>(std::floor(2.0*ln_n*ln_n)));
     for (const auto a: aBase)
     {
         if (a > baseLimit) break;

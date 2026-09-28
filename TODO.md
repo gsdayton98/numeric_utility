@@ -5,15 +5,10 @@ reproduced against the built library. The others come from reading the code.
 
 ## 1. Correctness bugs
 
-- [ ] **`millerRabin` is still wrong for some n > 2³² (confirmed).** It reports the
-  prime 2⁶⁴−59 as composite. The `powmod` overflow is fixed, and 4 294 967 311 and
-  2⁶¹−1 are now reported correctly. What remains:
-  - `auto y = 0u` in `millerRabin` truncates each `powmod` result to 32 bits.
-  - `baseLimit` is an `unsigned int`.
-  - The comment "n < 4,759,123,141" is the bound for the base set {2, 7, 61}. The base
-    set {2 … 37} used here is deterministic for every 64-bit n.
-
-  Fix those, and test against 64-bit primes and strong pseudoprimes.
+- [x] **`millerRabin` was wrong for n > 2³².** It truncated each squaring to 32 bits
+  (`auto y = 0u`), on top of the `powmod` overflow, and reported primes such as
+  999 999 999 989 and 2⁶⁴−59 as composite. Fixed, with tests of 64-bit primes and
+  strong pseudoprimes, and a comparison with the sieve below 10⁶.
 - [x] **`powmod` overflowed when the modulus's square didn't fit in the type.**
   Fixed with specializations for every standard unsigned type (`unsigned char`,
   `unsigned short`, `unsigned int`, `unsigned long`, `unsigned long long`) and
@@ -118,7 +113,7 @@ reproduced against the built library. The others come from reading the code.
 ## 4. Tests
 
 - [ ] **Nothing tests `Factors` or `sievePrimes`.**
-- [ ] **`millerRabin` is tested with one value (65537).** The benchmark's comparison
+- [x] **`millerRabin` is tested with one value (65537).** The benchmark's comparison
   with the sieve stops at 10⁶, below where the bugs start. Add known 64-bit primes and
   strong pseudoprimes (e.g. 3215031751, 3825123056546413051), and a cross-check against
   the sieve.
