@@ -2,6 +2,7 @@
 // Copyright 2022 Glen S. Dayton. Rights reserved according to terms of included license.
 #ifndef SIEVEPRIMES_HPP
 #define SIEVEPRIMES_HPP
+#include <algorithm>
 #include <stdexcept>
 #include <vector>
 #include "isqrt.hpp"
@@ -13,10 +14,15 @@ namespace utility {
     template <typename Unsigned>
     class Sieve {
     public:
+        /**
+         * Minimum practical Sieve upperLimit.
+         */
+        static constexpr Unsigned MINIMUM_SIEVE_SIZE = 16;
+
         using primeIterator = std::vector<Unsigned>::const_iterator;
         /**
          * Construct an Erothsenes sieve.
-         * @param upperLimit Maximum number to sieve to.
+         * @param upperLimit Sieve the numbers below upperLimit. the sieve covers numbers below max(upperLimit, MINIMUM_SIEVE_SIZE)"
          * @throws Exceptions from the underlying STL containers.
          */
         [[maybe_unused]] explicit Sieve(Unsigned upperLimit);
@@ -68,11 +74,13 @@ namespace utility {
 
     template <typename Unsigned>
     Sieve<Unsigned>::Sieve(Unsigned upperLimit)
-        : m_sieve(upperLimit,true),
+        : m_sieve(std::max(upperLimit, Sieve::MINIMUM_SIEVE_SIZE),true),
           m_primes()
     {
+        // 0 and 1 are not primes.
         m_sieve[0] = false;
         m_sieve[1] = false;
+
         for (Unsigned number = 4; number < m_sieve.size(); number += 2) m_sieve[number] = false;
         m_primes.push_back(2);
 

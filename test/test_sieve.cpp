@@ -8,7 +8,7 @@
 BOOST_AUTO_TEST_SUITE(TestSieve)
 BOOST_AUTO_TEST_CASE(test_sieve) {
     using SieveType = utility::Sieve<unsigned int>;
-    SieveType sieve(10);
+    SieveType sieve(20);
 
     BOOST_CHECK(sieve.isPrime(2));
     BOOST_CHECK(sieve.isPrime(3));
@@ -31,33 +31,21 @@ BOOST_AUTO_TEST_CASE(test_sieve) {
     BOOST_CHECK(!sieve.isPrime(20));
     BOOST_CHECK(!sieve.isPrime(36));
     BOOST_CHECK(sieve.isPrime(73));
-    BOOST_CHECK_THROW(sieve.isPrime(101), std::runtime_error);
+    BOOST_CHECK_THROW(sieve.isPrime(1001), std::runtime_error);
 }
 
 
 BOOST_AUTO_TEST_CASE(test_array_sieve) {
     using SieveType = utility::Sieve<unsigned int>;
-    SieveType sieve(10);
+    SieveType sieve(32);
 
     BOOST_CHECK_EQUAL(sieve[0], 2);
     BOOST_CHECK_EQUAL(sieve[1], 3);
     BOOST_CHECK_EQUAL(sieve[2], 5);
-    BOOST_CHECK_EQUAL(sieve.size(), 4);
-    BOOST_CHECK_EQUAL(sieve.last(), 7);
+    BOOST_CHECK_EQUAL(sieve.size(), 11);
+    BOOST_CHECK_EQUAL(sieve.last(), 31);
 }
 
-BOOST_AUTO_TEST_CASE(test_sieve_capacity) {
-    // A sieve of size s knows the primes below s, so it decides n only when n < s^2.
-    const utility::Sieve<unsigned int> sieve11(11);
-    BOOST_CHECK(!sieve11.isPrime(119));                                 // 7 * 17
-    BOOST_CHECK_THROW(sieve11.isPrime(121), std::range_error);          // Needs 11
-
-    const utility::Sieve<unsigned int> sieve12(12);
-    BOOST_CHECK(!sieve12.isPrime(121));                                 // 11^2
-    BOOST_CHECK(sieve12.isPrime(127));
-    BOOST_CHECK(!sieve12.isPrime(143));                                 // 11 * 13
-    BOOST_CHECK_THROW(sieve12.isPrime(144), std::range_error);
-}
 
 BOOST_AUTO_TEST_CASE(test_sieve_beyond_does_not_modify_primes) {
     const utility::Sieve<unsigned int> sieve(100);
@@ -89,5 +77,16 @@ BOOST_AUTO_TEST_CASE(test_sieve_beyond_32_bit) {
     BOOST_CHECK(!sieve.isPrime(4'292'870'399u));                       // 65519 * 65521
     BOOST_CHECK(!sieve.isPrime(4'294'836'225u));                       // 65535^2
     BOOST_CHECK_THROW(sieve.isPrime(4'294'967'296u), std::range_error); // 65536^2
+}
+
+
+BOOST_AUTO_TEST_CASE(test_sieve_minimum_size) {
+    for (const unsigned int limit: {0u, 1u, 2u, 15u, 16u}) {
+        const utility::Sieve<unsigned int> sieve(limit);
+        BOOST_CHECK_EQUAL(sieve.size(), 6u);                      // 2, 3, 5, 7, 11, 13
+        BOOST_CHECK_EQUAL(sieve.last(), 13u);
+        BOOST_CHECK(!sieve.isPrime(255));                         // 3 * 5 * 17
+        BOOST_CHECK_THROW(sieve.isPrime(256), std::range_error);  // 16^2
+    }
 }
 BOOST_AUTO_TEST_SUITE_END()

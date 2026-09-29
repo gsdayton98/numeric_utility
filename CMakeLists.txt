@@ -42,6 +42,9 @@ if(NUMERIC_UTILITY_SANITIZERS)
     list(JOIN NUMERIC_UTILITY_SANITIZERS "," SANITIZE_LIST)
     add_compile_options(-fsanitize=${SANITIZE_LIST} -fno-omit-frame-pointer)
     add_link_options(-fsanitize=${SANITIZE_LIST})
+    # ASan doesn't see out-of-bounds vector<bool> access within an allocated word; the
+    # standard library's own checks do. Each library ignores the other's macro.
+    add_compile_definitions(_LIBCPP_HARDENING_MODE=_LIBCPP_HARDENING_MODE_DEBUG _GLIBCXX_ASSERTIONS)
 endif()
 
 add_library(numeric_utility SHARED ${HEADERS} ${SOURCES})

@@ -31,8 +31,11 @@ reproduced against the built library. The others come from reading the code.
   then divided itself, and pointers into `primes()` (as euler60 keeps) could dangle. It
   now trial divides up to √n without modifying the sieve, throws `range_error` for
   n ≥ size², and `primes()` returns a `const` reference.
-- [ ] **`Sieve(0)` and `Sieve(1)` write out of bounds** (`m_sieve[0]`, `m_sieve[1]`).
-  ASan doesn't catch this because `vector<bool>` isn't instrumented.
+- [x] **`Sieve(0)` and `Sieve(1)` wrote out of bounds** (`m_sieve[0]`, `m_sieve[1]`).
+  `Sieve(0)` crashed through a null pointer; `Sieve(1)`'s write stayed inside the
+  allocated word, where only libc++ hardening catches it. Fixed by raising every limit
+  to at least `MINIMUM_SIEVE_SIZE` (16). The sanitizer build now enables standard
+  library hardening, which catches `vector<bool>` errors that ASan misses.
 - [ ] **`leastCommonMultiple(0, 0)` raises SIGFPE (confirmed).** It divides by
   `gcd(0, 0) == 0`. It also overflows silently. Consider `std::gcd` and `std::lcm`
   instead. `lcm_gcd.hpp` uses `std::swap` without including `<utility>`.
@@ -118,6 +121,5 @@ reproduced against the built library. The others come from reading the code.
   unsigned width.
 - [ ] **Test `pow` and `powmod` near their limits,** comparing against an
   `unsigned __int128` reference.
-- [ ] **Test `Sieve` with large inputs and at its edges:** 0, 1, 2, `size²`, and
-  repeated calls to `isPrime`. Done except sieve sizes 0, 1 and 2, which wait on the
-  out-of-bounds fix.
+- [x] **Test `Sieve` with large inputs and at its edges:** 0, 1, 2, `size²`, and
+  repeated calls to `isPrime`.
