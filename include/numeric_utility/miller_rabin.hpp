@@ -3,7 +3,7 @@
 #ifndef NUMERIC_UTILITY_MILLER_RABIN_HPP
 #define NUMERIC_UTILITY_MILLER_RABIN_HPP
 #include <cstdint>
-#include "numeric_utility_export.h"
+#include <numeric_utility/numeric_utility_export.h>
 namespace utility {
     NUMERIC_UTILITY_API auto millerRabin(std::uint64_t n) -> bool;
 }

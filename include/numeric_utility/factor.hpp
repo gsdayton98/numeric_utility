@@ -5,7 +5,7 @@
 #include <compare>
 #include <iosfwd>
 #include <vector>
-#include "numeric_utility_export.h"
+#include <numeric_utility/numeric_utility_export.h>
 namespace utility {
     /// A prime and the number of times it divides a number.
     ///

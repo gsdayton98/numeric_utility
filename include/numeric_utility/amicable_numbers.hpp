@@ -13,7 +13,7 @@
 #include <cstdint>
 #include <vector>
 #include "factor.hpp"
-#include "numeric_utility_export.h"
+#include <numeric_utility/numeric_utility_export.h>
 
 namespace utility {
     /// 32-bit, because it factors with Factor, which is.
