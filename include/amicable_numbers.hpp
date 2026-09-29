@@ -15,6 +15,7 @@
 #include "factor.hpp"
 
 namespace utility {
+    /// 32-bit, because it factors with Factor, which is.
     class __attribute__((visibility("default"))) AmicableNumbers {
         public:
         /// Sum the proper divisors of a number. The sum can exceed 32 bits, so it is returned in 64.

@@ -6,6 +6,12 @@
 #include <iosfwd>
 #include <vector>
 namespace utility {
+    /// A prime and the number of times it divides a number.
+    ///
+    /// Deliberately 32-bit, unlike the templated rest of the library. factor() trial divides
+    /// by the primes below 2^16, which covers any 32-bit number cheaply. Covering 64 bits
+    /// would take a different algorithm, such as Pollard's rho with millerRabin, rather than
+    /// a template parameter: trial division would need every prime below 2^32.
     struct __attribute__((visibility("default")))  Factor {
         unsigned int prime; /// Prime factor of a number.
         unsigned int exponent;  /// Number of times the prime factor occurs within the number.

@@ -78,8 +78,11 @@ reproduced against the built library. The others come from reading the code.
   Such a generic name clashed in spirit with the template parameters called `Number` in
   `lcm_gcd.hpp` and `digits.hpp`. Removed; `AmicableNumbers` now says `unsigned int`,
   as `Factor` does.
-- [ ] **`Factor` and `AmicableNumbers` only handle 32 bits,** while the rest
-  of the library is templated. Decide whether they should be templated too.
+- [x] **`Factor` and `AmicableNumbers` only handle 32 bits,** while the rest
+  of the library is templated. Decided to keep them 32-bit: every caller stays below
+  150 000, and 64 bits needs a different algorithm (e.g. Pollard's rho), not a template
+  parameter, because trial division would need every prime below 2³². Documented in
+  `factor.hpp` and `amicable_numbers.hpp`.
 - [ ] **`millerRabin` bounds its bases with floating-point `log` and Bach's bound, which
   assumes the Riemann hypothesis.** The fixed base set is already proven for 64 bits.
   Use it directly, or use a smaller proven set (e.g. Sinclair's 7 bases).
