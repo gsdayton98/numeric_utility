@@ -98,6 +98,19 @@ The library is a shared library that installs to your home directory by default;
   * `NUMERIC_UTILITY_WERROR`: treat warnings as errors. Off by default.
   * `NUMERIC_UTILITY_SANITIZERS`: build the library and tests with sanitizers, for example
     `-DNUMERIC_UTILITY_SANITIZERS="address;undefined"`.
+  * `NUMERIC_UTILITY_DOCS`: add a `docs` target that builds the API documentation. Off by default.
+
+## Documentation
+
+The headers' doc comments (Doxygen syntax, with LaTeX math) build into a searchable web site. You need
+[Doxygen](https://www.doxygen.nl/), and optionally Graphviz for include graphs; CMake downloads the
+[doxygen-awesome-css](https://github.com/jothepro/doxygen-awesome-css) theme when you configure.
+
+```bash
+cmake -S . -B build -DBUILD_TESTING=OFF -DNUMERIC_UTILITY_DOCS=ON
+cmake --build build --target docs
+open build/docs/html/index.html
+```
 
 ## Using the library
 

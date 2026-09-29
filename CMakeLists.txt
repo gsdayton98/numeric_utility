@@ -94,6 +94,12 @@ if(BUILD_TESTING)
     add_subdirectory(test)
 endif()
 
+# API documentation: cmake --build <dir> --target docs. Needs Doxygen, and network access to fetch the theme.
+option(NUMERIC_UTILITY_DOCS "Add a 'docs' target that builds the API documentation with Doxygen" OFF)
+if(NUMERIC_UTILITY_DOCS)
+    add_subdirectory(docs)
+endif()
+
 #Packaging support
 set(CPACK_PACKAGE_VENDOR "Glen Dayton")
 set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "Numeric Utilities")

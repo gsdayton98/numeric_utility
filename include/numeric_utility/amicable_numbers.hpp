@@ -2,7 +2,9 @@
 // Copyright 2022 Glen S. Dayton. Rights reserved according to terms of included license.
 #ifndef NUMERIC_UTILITY_AMICABLE_NUMBERS_HPP
 #define NUMERIC_UTILITY_AMICABLE_NUMBERS_HPP
-////
+/// @file
+/// @brief Amicable numbers and the divisor sums behind them.
+///
 /// Let $d(n)$ be defined as the sum of proper divisors of $n$ (numbers less than $n$ which divide evenly into $n$).
 /// If $d(a) = b$ and $d(b) = a$, where $a ≠ b$, then $a$ and $b$ are an amicable pair and $a$ and $b$ are called
 /// *amicable numbers*.
