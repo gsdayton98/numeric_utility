@@ -125,8 +125,10 @@ reproduced against the built library. The others come from reading the code.
 - [x] **Headers included `"numeric_utility_export.h"` without the directory,** which broke
   a fresh configure after the headers moved; only a stale generated copy in old build trees
   hid it. They now include `<numeric_utility/numeric_utility_export.h>`.
-- [ ] **The package config doesn't call `find_dependency(Boost)`,** which
-  `digits_multiprecision.hpp` needs.
+- [x] **The package config didn't call `find_dependency(Boost)`,** which
+  `digits_multiprecision.hpp` and `pow_multiprecision.hpp` need. The config now calls it,
+  and the library links `Boost::headers` publicly so consumers get Boost's include path.
+  Checked with a consumer project built against an installed copy.
 - [ ] **Tests are added even when `BUILD_TESTING` is off,** and `include(CTest)` comes
   after `enable_testing()`. Guard the test directory with `BUILD_TESTING`.
 - [ ] **Installed programs rely on `DYLD_LIBRARY_PATH` / `LD_LIBRARY_PATH`.** Set

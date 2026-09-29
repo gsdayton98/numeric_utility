@@ -65,6 +65,8 @@ target_include_directories(numeric_utility PUBLIC
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
         $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}>
         $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>)
+# The *_multiprecision.hpp headers include Boost, so consumers need its include path.
+target_link_libraries(numeric_utility PUBLIC Boost::headers)
 target_compile_options(numeric_utility PRIVATE -fvisibility=hidden ${NUMERIC_UTILITY_WARNINGS})
 # Generates numeric_utility_export.h, which defines NUMERIC_UTILITY_API for the exported non-template symbols.
 include(GenerateExportHeader)
