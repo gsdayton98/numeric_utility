@@ -20,7 +20,6 @@ set(INCLUDEDIR include)
 set(SOURCES src/amicable_numbers.cpp
         src/digits.cpp
         src/factor.cpp
-        src/factors.cpp
         src/miller_rabin.cpp
         src/pow.cpp
         src/sieveprimes.cpp)
@@ -29,7 +28,6 @@ set(HEADERS include/amicable_numbers.hpp
         include/digits.hpp
         include/digits_multiprecision.hpp
         include/factor.hpp
-        include/factors.hpp
         include/isqrt.hpp
         include/lcm_gcd.hpp
         include/miller_rabin.hpp

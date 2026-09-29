@@ -22,13 +22,9 @@ reproduced against the built library. The others come from reading the code.
   and `isqrt(131768u)` returned 65537 instead of 362. Replaced with Newton's method
   from an overflow-safe starting guess, tested exhaustively for 8 and 16 bits, at every
   32-bit perfect square, and at 64-bit squares and type maximums.
-- [ ] **`Factors::asNumber` never returns when an exponent is negative (confirmed).**
-  `ipow` compares its `int` exponent with `0U`, so −1 compares as a huge unsigned value,
-  and `b >>= 1` leaves it at −1. It also has to decide what a denominator means:
-  divide, or throw when the result is not an integer.
-- [ ] **`operator<<(std::ostream&, const Factors&)` doesn't link (confirmed).** It is
-  declared in `utility` but defined in the global namespace in `src/factors.cpp`, so any
-  use gets "Undefined symbols".
+- [x] **`Factors` was incomplete.** `operator/` implied rational numbers, which it did
+  not implement: `asNumber` never returned for a negative exponent, and `operator<<` did
+  not link. Moved to `project_euler_extras`; no Project Euler solution used it.
 - [ ] **`Sieve::isPrime` gives wrong answers and corrupts the prime list (confirmed).**
   - `Sieve<unsigned>(11).isPrime(121)` returns true. The range check allows
     `number == size²`, but the primes found only go up to `size − 1`.
@@ -71,10 +67,10 @@ reproduced against the built library. The others come from reading the code.
 - [ ] **Names leak into the global namespace:** the `ModuloOverflow` and `Unsigned`
   concepts, and `Factor`'s `operator<`, `operator==` and `operator<<`. Move them into
   `utility`, and replace the hand-written comparisons with a defaulted `operator<=>`.
-- [ ] **`utility::Number` is defined twice,** in `factors.hpp` and in
-  `amicable_numbers.hpp`. The name also clashes in spirit with the template parameters
-  called `Number` in `lcm_gcd.hpp` and `digits.hpp`.
-- [ ] **`Factor`, `Factors` and `AmicableNumbers` only handle 32 bits,** while the rest
+- [ ] **`utility::Number` is a namespace-wide alias** defined in `amicable_numbers.hpp`.
+  Such a generic name clashes in spirit with the template parameters called `Number` in
+  `lcm_gcd.hpp` and `digits.hpp`.
+- [ ] **`Factor` and `AmicableNumbers` only handle 32 bits,** while the rest
   of the library is templated. Decide whether they should be templated too.
 - [ ] **`millerRabin` bounds its bases with floating-point `log` and Bach's bound, which
   assumes the Riemann hypothesis.** The fixed base set is already proven for 64 bits.
@@ -115,7 +111,7 @@ reproduced against the built library. The others come from reading the code.
 
 ## 4. Tests
 
-- [ ] **Nothing tests `Factors` or `sievePrimes`.**
+- [ ] **Nothing tests `sievePrimes`.**
 - [x] **`millerRabin` is tested with one value (65537).** The benchmark's comparison
   with the sieve stops at 10⁶, below where the bugs start. Add known 64-bit primes and
   strong pseudoprimes (e.g. 3215031751, 3825123056546413051), and a cross-check against
