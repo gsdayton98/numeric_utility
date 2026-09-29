@@ -1,0 +1,52 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  build-and-test:
+    name: ${{ matrix.name }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          # Clang on macOS builds warning-free, so warnings are errors there.
+          - name: macOS (Clang)
+            os: macos-latest
+            cmake-args: -DNUMERIC_UTILITY_WERROR=ON
+          # uint64_t is unsigned long on Linux but unsigned long long on macOS, so this also covers
+          # the other powmod specializations.
+          - name: Linux (GCC)
+            os: ubuntu-latest
+            cmake-args: ""
+          # The library must be built with the same sanitizers as the tests.
+          - name: Linux (GCC, ASan + UBSan)
+            os: ubuntu-latest
+            cmake-args: '"-DNUMERIC_UTILITY_SANITIZERS=address;undefined"'
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Boost (Linux)
+        if: runner.os == 'Linux'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libboost-dev libboost-test-dev
+
+      - name: Install Boost (macOS)
+        if: runner.os == 'macOS'
+        run: brew install boost
+
+      - name: Configure
+        run: cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug ${{ matrix.cmake-args }}
+
+      - name: Build
+        run: cmake --build build -j
+
+      - name: Test
+        env:
+          UBSAN_OPTIONS: halt_on_error=1:print_stacktrace=1
+        run: ctest --test-dir build --output-on-failure
