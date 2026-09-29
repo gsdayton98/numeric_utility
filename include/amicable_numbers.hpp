@@ -15,15 +15,13 @@
 #include "factor.hpp"
 
 namespace utility {
-    using Number = unsigned int;
-
     class __attribute__((visibility("default"))) AmicableNumbers {
         public:
         /// Sum the proper divisors of a number. The sum can exceed 32 bits, so it is returned in 64.
-        static auto d(Number n) -> std::uint64_t;
+        static auto d(unsigned int n) -> std::uint64_t;
 
         /// Given the prime factors of a number, return all proper divisors of the number.
-        static auto divisors(Number, const std::vector<Factor>& factors) -> std::vector<Number>;
+        static auto divisors(unsigned int n, const std::vector<Factor>& factors) -> std::vector<unsigned int>;
     };
 }
 

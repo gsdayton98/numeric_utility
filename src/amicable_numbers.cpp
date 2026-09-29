@@ -6,19 +6,19 @@
 
 using namespace utility;
 
-auto AmicableNumbers::d(const Number n) -> std::uint64_t {
+auto AmicableNumbers::d(const unsigned int n) -> std::uint64_t {
     auto divs = divisors(n, Factor::factor(n));
     return std::accumulate(divs.begin(), divs.end(), std::uint64_t{0});
 }
 
 
-auto AmicableNumbers::divisors(const Number n, const std::vector<Factor> &factors) -> std::vector<Number> {
-    std::vector<Number> divisorsResults;
+auto AmicableNumbers::divisors(const unsigned int n, const std::vector<Factor> &factors) -> std::vector<unsigned int> {
+    std::vector<unsigned int> divisorsResults;
 
     std::vector divisorFactors{factors};
     for (auto &[prime, exponent]: divisorFactors) exponent = 0;
 
-    Number divisor = 1U;
+    unsigned int divisor = 1U;
     while (divisor < n) {
         divisor = Factor::evaluate(divisorFactors);
         if (divisor < n) {

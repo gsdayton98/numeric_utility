@@ -74,9 +74,10 @@ reproduced against the built library. The others come from reading the code.
   `Factor`'s `operator<`, `operator==` and `operator<<`. `ModuloOverflow` is now in
   `utility`, in `concepts.hpp`; `Factor` has a defaulted `operator<=>`, which also gives
   `==`; and `operator<<` is in `utility`, found by argument-dependent lookup.
-- [ ] **`utility::Number` is a namespace-wide alias** defined in `amicable_numbers.hpp`.
-  Such a generic name clashes in spirit with the template parameters called `Number` in
-  `lcm_gcd.hpp` and `digits.hpp`.
+- [x] **`utility::Number` was a namespace-wide alias** defined in `amicable_numbers.hpp`.
+  Such a generic name clashed in spirit with the template parameters called `Number` in
+  `lcm_gcd.hpp` and `digits.hpp`. Removed; `AmicableNumbers` now says `unsigned int`,
+  as `Factor` does.
 - [ ] **`Factor` and `AmicableNumbers` only handle 32 bits,** while the rest
   of the library is templated. Decide whether they should be templated too.
 - [ ] **`millerRabin` bounds its bases with floating-point `log` and Bach's bound, which
