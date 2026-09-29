@@ -86,8 +86,10 @@ reproduced against the built library. The others come from reading the code.
 - [x] **`millerRabin` bounded its bases with floating-point `log` and Bach's bound, which
   assumes the Riemann hypothesis.** It now uses Sinclair's 7 bases, proven for all n < 2⁶⁴,
   with no bound: 7 modular exponentiations instead of up to 12.
-- [ ] **`toNumber` doesn't detect overflow** and mixes signed and unsigned arithmetic
-  when `ResultType` is signed.
+- [x] **`toNumber` didn't detect overflow** and mixed signed and unsigned arithmetic
+  when `ResultType` was signed. For built-in integer types it now does all the arithmetic
+  in `ResultType` and throws `std::overflow_error` if the result, the base or a digit
+  doesn't fit. `cpp_int` is unchanged.
 - [ ] **`__attribute__((visibility("default")))` does nothing on templates and inline
   functions.** Use a single `NUMERIC_UTILITY_API` macro, e.g. from CMake's
   `GenerateExportHeader`, on the exported non-template symbols.

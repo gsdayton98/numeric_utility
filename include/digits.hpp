@@ -3,6 +3,9 @@
 #ifndef TO_DIGITS_HPP
 #define TO_DIGITS_HPP
 #include <ranges>
+#include <stdexcept>
+#include <type_traits>
+#include <utility>
 #include <vector>
 #include "concepts.hpp"
 namespace utility {
@@ -38,6 +41,8 @@ namespace utility {
      * @param digits The vector of digits to convert
      * @param base The base of the digits
      * @return The number represented by the digits
+     * @throw std::overflow_error if the result, the base or a digit does not fit in a built-in
+     *        integer ResultType. Arbitrary-precision types cannot overflow.
      */
     template <
         typename ResultType,
@@ -48,8 +53,25 @@ namespace utility {
     {
         ResultType number = 0;
 
-        for (auto digit: digits | std::views::reverse) {
-            number = base*number + digit;
+        if constexpr (std::is_integral_v<ResultType>) {
+            // Do all the arithmetic in ResultType, so signed and unsigned operands never mix.
+            if (!std::in_range<ResultType>(base)) {
+                throw std::overflow_error("toNumber: base does not fit in the type");
+            }
+            const auto radix = static_cast<ResultType>(base);
+            for (auto digit: digits | std::views::reverse) {
+                if (!std::in_range<ResultType>(digit)) {
+                    throw std::overflow_error("toNumber: digit does not fit in the type");
+                }
+                if (__builtin_mul_overflow(number, radix, &number)
+                    || __builtin_add_overflow(number, static_cast<ResultType>(digit), &number)) {
+                    throw std::overflow_error("toNumber: result does not fit in the type");
+                }
+            }
+        } else {
+            for (auto digit: digits | std::views::reverse) {
+                number = base*number + digit;
+            }
         }
         return number;
     }

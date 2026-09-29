@@ -171,6 +171,36 @@ BOOST_AUTO_TEST_CASE(test_number_unsigned_long_long)
     BOOST_CHECK_EQUAL(result, expected);
 }
 
+BOOST_AUTO_TEST_CASE(test_number_at_limits)
+{
+    // 2147483647 and 4294967295, least significant digit first.
+    BOOST_CHECK_EQUAL(utility::toNumber<int>(std::vector<DefaultDigitType>{7, 4, 6, 3, 8, 4, 7, 4, 1, 2}),
+                      std::numeric_limits<int>::max());
+    BOOST_CHECK_EQUAL(utility::toNumber<unsigned int>(std::vector<DefaultDigitType>{5, 9, 2, 7, 6, 9, 4, 9, 2, 4}),
+                      std::numeric_limits<unsigned int>::max());
+}
+
+BOOST_AUTO_TEST_CASE(test_number_overflow)
+{
+    // 2147483648 and 4294967296.
+    BOOST_CHECK_THROW(utility::toNumber<int>(std::vector<DefaultDigitType>{8, 4, 6, 3, 8, 4, 7, 4, 1, 2}),
+                      std::overflow_error);
+    BOOST_CHECK_THROW(utility::toNumber<unsigned int>(std::vector<DefaultDigitType>{6, 9, 2, 7, 6, 9, 4, 9, 2, 4}),
+                      std::overflow_error);
+    // 20 digits overflow even unsigned long long.
+    BOOST_CHECK_THROW(utility::toNumber<unsigned long long>(std::vector<DefaultDigitType>(20, 9)),
+                      std::overflow_error);
+    // Digits and bases that don't fit the result type.
+    BOOST_CHECK_THROW(utility::toNumber<signed char>(std::vector<DefaultDigitType>{200}), std::overflow_error);
+    BOOST_CHECK_THROW(utility::toNumber<signed char>(std::vector<DefaultDigitType>{1}, 200u), std::overflow_error);
+}
+
+BOOST_AUTO_TEST_CASE(test_number_multiprecision_no_overflow)
+{
+    const BigNumber result = utility::toNumber<BigNumber>(std::vector<DefaultDigitType>(30, 9));
+    BOOST_CHECK_EQUAL(result, BigNumber("999999999999999999999999999999"));
+}
+
 BOOST_AUTO_TEST_CASE(test_number_multiprecision)
 {
     const std::vector<DefaultDigitType> digits = {0, 1, 2, 3, 4, 5, 6, 7};
