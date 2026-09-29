@@ -2,6 +2,7 @@
 // Copyright 2022 Glen S. Dayton. Rights reserved according to terms of included license.
 #include <boost/test/unit_test.hpp>
 #include <cstdint>
+#include <optional>
 #include <stdexcept>
 #include <vector>
 #include "sieveprimes.hpp"
@@ -63,11 +64,11 @@ BOOST_AUTO_TEST_CASE(test_sieve_beyond_matches_full_sieve) {
     constexpr std::uint64_t limit = 1'000'000u;
     const utility::Sieve<std::uint64_t> small(1'000u);
     const utility::Sieve<std::uint64_t> full(limit);
-    for (std::uint64_t n = 1'000u; n < limit; ++n) {
-        if (small.isPrime(n) != full.isPrime(n)) {
-            BOOST_REQUIRE_EQUAL(small.isPrime(n), full.isPrime(n));
-        }
+    std::optional<std::uint64_t> mismatch;
+    for (std::uint64_t n = 1'000u; n < limit && !mismatch; ++n) {
+        if (small.isPrime(n) != full.isPrime(n)) mismatch = n;
     }
+    BOOST_TEST(!mismatch.has_value(), "Trial division disagrees with the full sieve at " << mismatch.value_or(0));
 }
 
 BOOST_AUTO_TEST_CASE(test_sieve_beyond_32_bit) {

@@ -3,6 +3,7 @@
 
 #include <boost/test/unit_test.hpp>
 #include <cstdint>
+#include <optional>
 
 #include "miller_rabin.hpp"
 #include "sieveprimes.hpp"
@@ -21,11 +22,11 @@ BOOST_AUTO_TEST_CASE(test_miller_rabin) {
 BOOST_AUTO_TEST_CASE(test_miller_rabin_matches_sieve) {
     constexpr unsigned long limit = 1'000'000ul;
     const utility::Sieve<unsigned long> sieve(limit);
-    for (unsigned long n = 0; n < limit; ++n) {
-        if (utility::millerRabin(n) != sieve.isPrime(n)) {
-            BOOST_REQUIRE_EQUAL(utility::millerRabin(n), sieve.isPrime(n));
-        }
+    std::optional<unsigned long> mismatch;
+    for (unsigned long n = 0; n < limit && !mismatch; ++n) {
+        if (utility::millerRabin(n) != sieve.isPrime(n)) mismatch = n;
     }
+    BOOST_TEST(!mismatch.has_value(), "millerRabin disagrees with the sieve at " << mismatch.value_or(0));
 }
 
 
