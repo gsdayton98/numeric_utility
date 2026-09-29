@@ -1,29 +1,19 @@
 // -*- mode:C++; c-basic-offset:2; indent-tabs-mode:nil -*-;
 // Copyright 2022 Glen S. Dayton. Rights reserved according to terms of included license.
-#include "sieveprimes.hpp"
+#include <algorithm>
+#include <numeric_utility/sieveprimes.hpp>
 
-[[maybe_unused]] auto __attribute__((visibility("default"))) utility::sievePrimes(const unsigned long upperLimit, std::vector<unsigned long>& primes) -> std::vector<unsigned long>& {
-    std::vector sieve(upperLimit, true);
+// These come before sievePrimes, which uses Sieve<unsigned long>. GCC ignores the export attribute on an
+// explicit instantiation that follows an implicit one, leaving the symbols hidden.
+template class NUMERIC_UTILITY_API utility::Sieve<unsigned int>;
+template class NUMERIC_UTILITY_API utility::Sieve<unsigned long>;
+template class NUMERIC_UTILITY_API utility::Sieve<unsigned long long>;
 
-    primes.clear();
-    primes.push_back(2u);
-    for (unsigned int multiple = 2*2; multiple < upperLimit; multiple += 2) {
-        sieve[multiple] = false;
-    }
+[[maybe_unused]] NUMERIC_UTILITY_API auto utility::sievePrimes(const unsigned long upperLimit, std::vector<unsigned long>& primes) -> std::vector<unsigned long>& {
+    const Sieve<unsigned long> sieve(upperLimit);
 
-    for (unsigned int candidate=3u; candidate < upperLimit; candidate += 2u) {
-        if (sieve[candidate] ) {
-            primes.push_back(candidate);
-            for (unsigned int multiple = 2*candidate; multiple < upperLimit; multiple += candidate) {
-                sieve[multiple] = false;
-            }
-        }
-    }
-
+    // Sieve enforces a minimum size, so it may hold primes at or above the limit.
+    const auto end = std::ranges::lower_bound(sieve.primes(), upperLimit);
+    primes.assign(sieve.primes().begin(), end);
     return primes;
 }
-
-
-template class __attribute__((visibility("default"))) utility::Sieve<unsigned int>;
-template class __attribute__((visibility("default"))) utility::Sieve<unsigned long>;
-template class __attribute__((visibility("default"))) utility::Sieve<unsigned long long>;

@@ -1,7 +1,7 @@
 // -*- mode:C++; c-basic-offset:2; indent-tabs-mode:nil -*-;
 // Copyright 2022 Glen S. Dayton. Rights reserved according to terms of included license.
-#ifndef EULER21_AMICABLE_NUMBERS_AMICABLE_NUMBERS_HPP
-#define EULER21_AMICABLE_NUMBERS_AMICABLE_NUMBERS_HPP
+#ifndef NUMERIC_UTILITY_AMICABLE_NUMBERS_HPP
+#define NUMERIC_UTILITY_AMICABLE_NUMBERS_HPP
 ////
 /// Let $d(n)$ be defined as the sum of proper divisors of $n$ (numbers less than $n$ which divide evenly into $n$).
 /// If $d(a) = b$ and $d(b) = a$, where $a ≠ b$, then $a$ and $b$ are an amicable pair and $a$ and $b$ are called
@@ -10,20 +10,21 @@
 /// For example, the proper divisors of $220$ are $1, 2, 4, 5, 10, 11, 20, 22, 44, 55$ and $110$;
 /// therefore $d(220) = 284$. The proper divisors of $284$ are $1, 2, 4, 71$ and $142$; so $d(284) = 220$.
 
+#include <cstdint>
 #include <vector>
 #include "factor.hpp"
+#include <numeric_utility/numeric_utility_export.h>
 
 namespace utility {
-    using Number = unsigned int;
-
-    class __attribute__((visibility("default"))) AmicableNumbers {
+    /// 32-bit, because it factors with Factor, which is.
+    class NUMERIC_UTILITY_API AmicableNumbers {
         public:
-        /// Sum the proper divisors of a number.
-        static auto d(Number n) -> Number;
+        /// Sum the proper divisors of a number. The sum can exceed 32 bits, so it is returned in 64.
+        static auto d(unsigned int n) -> std::uint64_t;
 
         /// Given the prime factors of a number, return all proper divisors of the number.
-        static auto divisors(Number, const std::vector<Factor>& factors) -> std::vector<Number>;
+        static auto divisors(unsigned int n, const std::vector<Factor>& factors) -> std::vector<unsigned int>;
     };
 }
 
-#endif //EULER21_AMICABLE_NUMBERS_AMICABLE_NUMBERS_HPP
+#endif //NUMERIC_UTILITY_AMICABLE_NUMBERS_HPP

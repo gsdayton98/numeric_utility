@@ -6,6 +6,7 @@ find_package (Boost REQUIRED CONFIG COMPONENTS unit_test_framework)
 add_executable(test_utility test.cpp
         test_amicable_numbers.cpp
         factor_test.cpp
+        test_concepts.cpp
         test_digits.cpp
         test_isqrt.cpp
         test_lcm_gcd.cpp
@@ -13,6 +14,5 @@ add_executable(test_utility test.cpp
         test_pow.cpp
         test_sieve.cpp)
 target_link_libraries (test_utility PRIVATE numeric_utility Boost::unit_test_framework)
+target_compile_options(test_utility PRIVATE ${NUMERIC_UTILITY_WARNINGS})
 add_test(NAME test_utility COMMAND test_utility)
-
-include(CTest)
