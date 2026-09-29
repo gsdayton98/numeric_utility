@@ -132,8 +132,12 @@ reproduced against the built library. The others come from reading the code.
 - [x] **Tests were added even when `BUILD_TESTING` was off,** and `include(CTest)` came
   after `enable_testing()`. `include(CTest)` now replaces `enable_testing()` at the top, and
   the test directory, with its Boost.Test dependency, is added only under `BUILD_TESTING`.
-- [ ] **Installed programs rely on `DYLD_LIBRARY_PATH` / `LD_LIBRARY_PATH`.** Set
-  `CMAKE_INSTALL_RPATH` instead.
+- [x] **Installed programs relied on `DYLD_LIBRARY_PATH` / `LD_LIBRARY_PATH`.** Nothing in
+  this project installs a program; the affected ones link the installed library, whose install name
+  was `@rpath/...`. On macOS the installed copy now has an absolute install name (`INSTALL_NAME_DIR`),
+  checked with a consumer built and installed against it. An rpath link option on the exported target
+  was tried and dropped: CMake strips it when the consumer installs, and `ld` warns about the duplicate.
+  Linux has no equivalent, so the README says what a consumer must set. **Not tested on Linux.**
 - [ ] **There is no CI, and `.gitignore` ignores `.github`,** so workflow files can't be
   committed.
 - [ ] **The README is out of date.** It mentions operating-system utilities that aren't

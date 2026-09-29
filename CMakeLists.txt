@@ -76,6 +76,10 @@ generate_export_header(numeric_utility
         EXPORT_FILE_NAME numeric_utility/numeric_utility_export.h)
 set_target_properties(numeric_utility PROPERTIES VERSION ${PROJECT_VERSION})
 set_target_properties(numeric_utility PROPERTIES SOVERSION ${PROJECT_VERSION_MAJOR})
+# The library installs to the user's home directory, which is on no loader path. On macOS an absolute install
+# name in the installed copy lets programs find it without DYLD_LIBRARY_PATH or an rpath of their own. The
+# build tree keeps @rpath. Linux has no equivalent; see the README.
+set_target_properties(numeric_utility PROPERTIES INSTALL_NAME_DIR "${CMAKE_INSTALL_PREFIX}/${LIBDIR}")
 set_target_properties(numeric_utility PROPERTIES PUBLIC_HEADER "${HEADERS};${CMAKE_CURRENT_BINARY_DIR}/numeric_utility/numeric_utility_export.h")
 
 install(TARGETS ${PROJECT_NAME} EXPORT numeric_utility
