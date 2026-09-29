@@ -56,4 +56,30 @@ BOOST_AUTO_TEST_CASE(test_miller_rabin_large_composites) {
         BOOST_TEST(!utility::millerRabin(composite), composite << " is composite");
     }
 }
+
+
+// Every prime factor of a base, where the base reduces to 0 mod n and must be skipped.
+BOOST_AUTO_TEST_CASE(test_miller_rabin_base_factors) {
+    for (const std::uint64_t prime: {3ul, 5ul, 13ul, 19ul, 73ul, 193ul, 407'521ul, 299'210'837ul}) {
+        BOOST_TEST(utility::millerRabin(prime), prime << " is prime");
+    }
+    for (const std::uint64_t composite: {
+             407'521ul * 407'521ul,
+             299'210'837ul * 299'210'837ul,
+             299'210'837ul * 407'521ul}) {
+        BOOST_TEST(!utility::millerRabin(composite), composite << " is composite");
+    }
+}
+
+
+BOOST_AUTO_TEST_CASE(test_miller_rabin_matches_sieve_above_2_32) {
+    constexpr std::uint64_t first = 1ul << 32;
+    constexpr std::uint64_t count = 200'000ul;
+    const utility::Sieve<unsigned long> sieve(1ul << 17);   // isPrime is exact below 2^34
+    std::optional<std::uint64_t> mismatch;
+    for (auto n = first; n < first + count && !mismatch; ++n) {
+        if (utility::millerRabin(n) != sieve.isPrime(n)) mismatch = n;
+    }
+    BOOST_TEST(!mismatch.has_value(), "millerRabin disagrees with the sieve at " << mismatch.value_or(0));
+}
 BOOST_AUTO_TEST_SUITE_END()

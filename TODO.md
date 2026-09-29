@@ -83,9 +83,9 @@ reproduced against the built library. The others come from reading the code.
   150 000, and 64 bits needs a different algorithm (e.g. Pollard's rho), not a template
   parameter, because trial division would need every prime below 2³². Documented in
   `factor.hpp` and `amicable_numbers.hpp`.
-- [ ] **`millerRabin` bounds its bases with floating-point `log` and Bach's bound, which
-  assumes the Riemann hypothesis.** The fixed base set is already proven for 64 bits.
-  Use it directly, or use a smaller proven set (e.g. Sinclair's 7 bases).
+- [x] **`millerRabin` bounded its bases with floating-point `log` and Bach's bound, which
+  assumes the Riemann hypothesis.** It now uses Sinclair's 7 bases, proven for all n < 2⁶⁴,
+  with no bound: 7 modular exponentiations instead of up to 12.
 - [ ] **`toNumber` doesn't detect overflow** and mixes signed and unsigned arithmetic
   when `ResultType` is signed.
 - [ ] **`__attribute__((visibility("default")))` does nothing on templates and inline
