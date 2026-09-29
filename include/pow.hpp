@@ -2,17 +2,20 @@
 // Copyright 2025 Glen S. Dayton. Rights reserved according to terms of included license.
 #ifndef POW_HPP
 #define POW_HPP
+#include <concepts>
 #include <cstdint>
 #include <limits>
 
 template <typename T>
 concept ModuloOverflow = std::numeric_limits<T>::is_modulo;
 
+// unsigned __int128 is named explicitly because powmod is specialized for it; numeric_limits already
+// treats it as unsigned, so this documents intent rather than changing which types qualify.
 template <typename T>
-concept Unsigned = ! std::numeric_limits<T>::is_signed;
-
+concept Unsigned = ! std::numeric_limits<T>::is_signed || std::same_as<T, unsigned __int128>;
 
 namespace utility {
+
     ////
     /// Pow(base, exponent)
 
@@ -21,7 +24,7 @@ namespace utility {
     /// base 32-bit unsigned int is evaluated modulo 2**32.
 
     template<ModuloOverflow BaseType>
-    BaseType __attribute__((visibility("default"))) pow(BaseType base, BaseType exponent) {
+    auto pow(BaseType base, BaseType exponent) -> BaseType {
         BaseType result = 1;
 
         if (base != 0) {
@@ -43,7 +46,7 @@ namespace utility {
     /// Beware, the generic version overflows unless modulus**2 fits in BaseType.
     /// The specializations below hold for any modulus the type can hold.
     template<Unsigned BaseType>
-    auto __attribute__((visibility("default"))) powmod(BaseType base, BaseType exponent, const BaseType& modulus) -> BaseType {
+    auto powmod(BaseType base, BaseType exponent, const BaseType& modulus) -> BaseType {
         if (modulus < 2) return 0;
         BaseType result = 1;
         base %= modulus;
@@ -58,6 +61,8 @@ namespace utility {
 
     // Specializations defined in pow.cpp. They must be declared here, before any use,
     // or callers silently instantiate the generic version instead.
+    // Unlike the templates above, they are compiled into the library, which hides symbols by default,
+    // so they must be exported explicitly.
     // Specializations match exact types, not widths: of unsigned long and unsigned long long,
     // only the one that is uint64_t on the platform is specialized.
     template<>
@@ -73,6 +78,6 @@ namespace utility {
     auto __attribute__((visibility("default"))) powmod<std::uint64_t>(std::uint64_t base, std::uint64_t exponent, const std::uint64_t& modulus) -> std::uint64_t;
 
     template<>
-    auto __attribute__((visibility("default"))) powmod<unsigned __int128>(unsigned __int128 base, unsigned __int128 exponent, const unsigned __int128& modulus) -> unsigned __int128;
+    auto __attribute__((visibility("default"))) powmod<unsigned __int128>(unsigned __int128 base, unsigned __int128 exponent, const unsigned __int128 &modulus) -> unsigned __int128;
 }
 #endif

@@ -6,7 +6,7 @@ find_package(Boost REQUIRED CONFIG)
 
 # BOOST multiprecision supports up to C++20
 set(CMAKE_CXX_STANDARD 20)
-set(CMAKE_CXX_REQUIRED ON)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 include(GNUInstallDirs)
 if(CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
@@ -65,8 +65,6 @@ install(EXPORT numeric_utility NAMESPACE utility:: DESTINATION "${LIBDIR}/cmake/
 export(TARGETS ${PROJECT_NAME} NAMESPACE utility:: FILE numeric_utility.cmake)
 
 add_subdirectory(test)
-add_subdirectory(benchmark)
-
 
 #Packaging support
 set(CPACK_PACKAGE_VENDOR "Glen Dayton")

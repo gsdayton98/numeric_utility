@@ -73,6 +73,6 @@ auto utility::powmod<std::uint64_t>(const std::uint64_t base, const std::uint64_
 
 
 template <>
-auto utility::powmod<unsigned __int128>(const uint128 base, const uint128 exponent, const uint128& modulus) -> uint128 {
+auto utility::powmod<uint128>(const uint128 base, const uint128 exponent, const uint128& modulus) -> uint128 {
     return powmodWith(base, exponent, modulus, mulmod128);
 }

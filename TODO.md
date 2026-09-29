@@ -94,9 +94,9 @@ reproduced against the built library. The others come from reading the code.
 
 ## 3. Build and packaging
 
-- [ ] **`CMAKE_CXX_REQUIRED` is a typo** for `CMAKE_CXX_STANDARD_REQUIRED`, so C++20 is
+- [x] **`CMAKE_CXX_REQUIRED` is a typo** for `CMAKE_CXX_STANDARD_REQUIRED`, so C++20 is
   not actually required.
-- [ ] **The benchmark always builds** and needs `oscpp` at configure time, so the
+- [x] **The benchmark always builds** and needs `oscpp` at configure time, so the
   project won't configure without it. `benchmark/CMakeLists.txt` also passes `CONFIG`
   as a Boost component. Put the benchmark behind an option, or skip it when `oscpp` is
   missing.
