@@ -1,7 +1,7 @@
 // -*- mode:C++; c-basic-offset:2; indent-tabs-mode:nil -*-;
 // Copyright 2025 Glen S. Dayton. Rights reserved according to terms of included license.
-#include "miller_rabin.hpp"
-#include "pow.hpp"
+#include <numeric_utility/miller_rabin.hpp>
+#include <numeric_utility/pow.hpp>
 
 
 // Deterministic for all 64-bit n. Jim Sinclair's seven bases have no common strong pseudoprime below 2^64

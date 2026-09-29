@@ -7,8 +7,8 @@
 #include <random>
 #include <sstream>
 #include <vector>
-#include "factor.hpp"
-#include "miller_rabin.hpp"
+#include <numeric_utility/factor.hpp>
+#include <numeric_utility/miller_rabin.hpp>
 using namespace utility;
 
 namespace {

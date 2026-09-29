@@ -3,7 +3,7 @@
 #include <boost/test/unit_test.hpp>
 #include <cstdint>
 #include <limits>
-#include "isqrt.hpp"
+#include <numeric_utility/isqrt.hpp>
 
 namespace {
     using U128 = unsigned __int128;

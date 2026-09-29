@@ -1,7 +1,7 @@
 // -*- mode:C++; c-basic-offset:2; indent-tabs-mode:nil -*-;
 // Copyright 2026 Glen S. Dayton. Rights reserved according to terms of included license.
-#ifndef CONCEPTS_HPP
-#define CONCEPTS_HPP
+#ifndef NUMERIC_UTILITY_CONCEPTS_HPP
+#define NUMERIC_UTILITY_CONCEPTS_HPP
 #include <concepts>
 #include <limits>
 #include <type_traits>
@@ -24,4 +24,4 @@ namespace utility {
     concept ModuloOverflow = std::numeric_limits<T>::is_modulo;
 }
 
-#endif //CONCEPTS_HPP
+#endif //NUMERIC_UTILITY_CONCEPTS_HPP

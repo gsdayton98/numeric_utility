@@ -5,9 +5,9 @@
 #include <cstdint>
 #include <string>
 #include <vector>
-#include "concepts.hpp"
-#include "digits.hpp"
-#include "isqrt.hpp"
+#include <numeric_utility/concepts.hpp>
+#include <numeric_utility/digits.hpp>
+#include <numeric_utility/isqrt.hpp>
 
 using utility::ModuloOverflow;
 using utility::Unsigned;

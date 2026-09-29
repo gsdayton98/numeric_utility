@@ -1,7 +1,7 @@
 // -*- mode:C++; c-basic-offset:2; indent-tabs-mode:nil -*-;
 // Copyright 2025 Glen S. Dayton. Rights reserved according to terms of included license.
-#ifndef POW_HPP
-#define POW_HPP
+#ifndef NUMERIC_UTILITY_POW_HPP
+#define NUMERIC_UTILITY_POW_HPP
 #include <cstdint>
 #include "concepts.hpp"
 #include "numeric_utility_export.h"

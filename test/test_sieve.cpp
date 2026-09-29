@@ -5,7 +5,7 @@
 #include <optional>
 #include <stdexcept>
 #include <vector>
-#include "sieveprimes.hpp"
+#include <numeric_utility/sieveprimes.hpp>
 BOOST_AUTO_TEST_SUITE(TestSieve)
 BOOST_AUTO_TEST_CASE(test_sieve) {
     using SieveType = utility::Sieve<unsigned int>;

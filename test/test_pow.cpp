@@ -4,8 +4,8 @@
 #include <boost/test/unit_test.hpp>
 #include <cstdint>
 
-#include "pow.hpp"
-#include "pow_multiprecision.hpp"
+#include <numeric_utility/pow.hpp>
+#include <numeric_utility/pow_multiprecision.hpp>
 
 using U8 = std::uint8_t;
 using U16 = std::uint16_t;

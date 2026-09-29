@@ -1,7 +1,7 @@
 // -*- mode:C++; c-basic-offset:2; indent-tabs-mode:nil -*-;
 // Copyright 2022 Glen S. Dayton. Rights reserved according to terms of included license.
-#ifndef EULER21_AMICABLE_NUMBERS_AMICABLE_NUMBERS_HPP
-#define EULER21_AMICABLE_NUMBERS_AMICABLE_NUMBERS_HPP
+#ifndef NUMERIC_UTILITY_AMICABLE_NUMBERS_HPP
+#define NUMERIC_UTILITY_AMICABLE_NUMBERS_HPP
 ////
 /// Let $d(n)$ be defined as the sum of proper divisors of $n$ (numbers less than $n$ which divide evenly into $n$).
 /// If $d(a) = b$ and $d(b) = a$, where $a ≠ b$, then $a$ and $b$ are an amicable pair and $a$ and $b$ are called
@@ -27,4 +27,4 @@ namespace utility {
     };
 }
 
-#endif //EULER21_AMICABLE_NUMBERS_AMICABLE_NUMBERS_HPP
+#endif //NUMERIC_UTILITY_AMICABLE_NUMBERS_HPP

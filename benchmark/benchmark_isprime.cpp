@@ -1,7 +1,7 @@
 // -*- mode:C++; c-basic-offset:2; indent-tabs-mode:nil -*-
 // Copyright 2025 Glen S. Dayton. Rights reserved according to terms of included license.
-#include "miller_rabin.hpp"
-#include "sieveprimes.hpp"
+#include <numeric_utility/miller_rabin.hpp>
+#include <numeric_utility/sieveprimes.hpp>
 #include "stopwatch.hpp"
 #include <cstdlib>
 #include <iostream>

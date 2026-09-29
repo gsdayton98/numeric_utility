@@ -5,8 +5,8 @@
 #include <cstdint>
 #include <optional>
 
-#include "miller_rabin.hpp"
-#include "sieveprimes.hpp"
+#include <numeric_utility/miller_rabin.hpp>
+#include <numeric_utility/sieveprimes.hpp>
 
 BOOST_AUTO_TEST_SUITE(TestMillerRabin)
 

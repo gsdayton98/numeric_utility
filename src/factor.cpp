@@ -1,9 +1,9 @@
 // -*- mode:C++; c-basic-offset:2; indent-tabs-mode:nil -*-;
 // Copyright 2022 Glen S. Dayton. Rights reserved according to terms of included license.
 #include <iostream>
-#include "factor.hpp"
-#include "pow.hpp"
-#include "sieveprimes.hpp"
+#include <numeric_utility/factor.hpp>
+#include <numeric_utility/pow.hpp>
+#include <numeric_utility/sieveprimes.hpp>
 
 auto utility::operator<<(std::ostream &output, const Factor &factor) -> std::ostream &
 {

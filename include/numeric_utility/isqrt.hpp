@@ -1,7 +1,7 @@
 // -*- mode:C++; c-basic-offset:2; indent-tabs-mode:nil -*-;
 // Copyright 2022 Glen S. Dayton. Rights reserved according to terms of included license.
-#ifndef ISQRT_HPP
-#define ISQRT_HPP
+#ifndef NUMERIC_UTILITY_ISQRT_HPP
+#define NUMERIC_UTILITY_ISQRT_HPP
 #include "concepts.hpp"
 
 namespace utility {
@@ -28,4 +28,4 @@ namespace utility {
         return x;
     }
 }
-#endif //ISQRT_HPP
+#endif //NUMERIC_UTILITY_ISQRT_HPP

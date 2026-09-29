@@ -1,7 +1,7 @@
 // -*- mode:C++; c-basic-offset:2; indent-tabs-mode:nil -*-;
 // Copyright 2022 Glen S. Dayton. Rights reserved according to terms of included license.
-#ifndef SIEVEPRIMES_HPP
-#define SIEVEPRIMES_HPP
+#ifndef NUMERIC_UTILITY_SIEVEPRIMES_HPP
+#define NUMERIC_UTILITY_SIEVEPRIMES_HPP
 #include <algorithm>
 #include <stdexcept>
 #include <vector>
@@ -120,4 +120,4 @@ namespace utility {
 
 }
 
-#endif //SIEVEPRIMES_HPP
+#endif //NUMERIC_UTILITY_SIEVEPRIMES_HPP

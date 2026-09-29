@@ -1,7 +1,7 @@
 // -*- mode:C++; c-basic-offset:2; indent-tabs-mode:nil -*-;
 // Copyright 2022 Glen S. Dayton. Rights reserved according to terms of included license.
-#ifndef FACTOR_HPP
-#define FACTOR_HPP
+#ifndef NUMERIC_UTILITY_FACTOR_HPP
+#define NUMERIC_UTILITY_FACTOR_HPP
 #include <compare>
 #include <iosfwd>
 #include <vector>
@@ -39,4 +39,4 @@ namespace utility {
     [[maybe_unused]] NUMERIC_UTILITY_API auto operator<<(std::ostream&, const Factor&) -> std::ostream&;
 }
 
-#endif //FACTOR_HPP
+#endif //NUMERIC_UTILITY_FACTOR_HPP

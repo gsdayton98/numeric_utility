@@ -1,7 +1,7 @@
 // -*- mode:C++; c-basic-offset:2; indent-tabs-mode:nil -*-;
 // Copyright 2024 Glen S. Dayton. Rights reserved according to terms of included license.
-#ifndef TO_DIGITS_HPP
-#define TO_DIGITS_HPP
+#ifndef NUMERIC_UTILITY_DIGITS_HPP
+#define NUMERIC_UTILITY_DIGITS_HPP
 #include <ranges>
 #include <stdexcept>
 #include <type_traits>
@@ -77,4 +77,4 @@ namespace utility {
     }
 }
 
-#endif //TO_DIGITS_HPP
+#endif //NUMERIC_UTILITY_DIGITS_HPP

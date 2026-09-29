@@ -1,7 +1,7 @@
 // -*- mode:C++; c-basic-offset:2; indent-tabs-mode:nil -*-
 // Copyright 2025 Glen S. Dayton. Rights reserved according to terms of included license.
 #include <cstdint>
-#include "pow.hpp"
+#include <numeric_utility/pow.hpp>
 
 namespace {
     using uint128 = unsigned __int128;

@@ -1,8 +1,8 @@
 // -*- mode:C++; c-basic-offset:2; indent-tabs-mode:nil -*-;
 // Copyright 2026 Glen S. Dayton. Rights reserved according to terms of included license.
 #include <boost/test/unit_test.hpp>
-#include "amicable_numbers.hpp"
-#include "factor.hpp"
+#include <numeric_utility/amicable_numbers.hpp>
+#include <numeric_utility/factor.hpp>
 using namespace utility;
 
 BOOST_AUTO_TEST_SUITE(TestAmicableNumbers)

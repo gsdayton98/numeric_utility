@@ -1,7 +1,7 @@
 // -*- mode:C++; c-basic-offset:2; indent-tabs-mode:nil -*-;
 // Copyright 2022 Glen S. Dayton. Rights reserved according to terms of included license.
-#ifndef LCM_GCD_HPP
-#define LCM_GCD_HPP
+#ifndef NUMERIC_UTILITY_LCM_GCD_HPP
+#define NUMERIC_UTILITY_LCM_GCD_HPP
 #include <stdexcept>
 #include <type_traits>
 #include <utility>
@@ -61,4 +61,4 @@ namespace utility {
         return lcm;
     }
 }
-#endif //LCM_GCD_HPP
+#endif //NUMERIC_UTILITY_LCM_GCD_HPP

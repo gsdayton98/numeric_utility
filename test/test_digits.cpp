@@ -6,8 +6,8 @@
 #include <boost/multiprecision/cpp_int.hpp>
 #include <boost/test/unit_test.hpp>
 #include <stdexcept>
-#include "digits.hpp"
-#include "digits_multiprecision.hpp"
+#include <numeric_utility/digits.hpp>
+#include <numeric_utility/digits_multiprecision.hpp>
 
 using namespace utility;
 

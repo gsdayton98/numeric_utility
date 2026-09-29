@@ -99,9 +99,10 @@ reproduced against the built library. The others come from reading the code.
 - [x] **Clean up `pow.hpp`.** A comment contains stray text
   (`target_link_libraries(test_socket …)`), and the header includes `<numeric>` when
   it needs `<limits>`.
-- [ ] **Headers are installed flat into `include/`** (e.g. `~/include/pow.hpp`), and
-  their guards are generic (`POW_HPP`, `ISQRT_HPP`), so they can collide with other
-  libraries. Install them under `include/numeric_utility/` and prefix the guards.
+- [x] **Headers were installed flat into `include/`** (e.g. `~/include/pow.hpp`), and
+  their guards were generic (`POW_HPP`, `ISQRT_HPP`), so they could collide with other
+  libraries. They now live in `include/numeric_utility/`, are installed there, and are
+  included as `<numeric_utility/pow.hpp>`. The guards are `NUMERIC_UTILITY_<NAME>_HPP`.
 
 ## 3. Build and packaging
 

@@ -9,7 +9,7 @@
 #include <numeric>
 #include <stdexcept>
 #include <vector>
-#include "lcm_gcd.hpp"
+#include <numeric_utility/lcm_gcd.hpp>
 BOOST_AUTO_TEST_SUITE(TestLCM_GCD)
 
 BOOST_AUTO_TEST_CASE(test_gcd)

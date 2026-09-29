@@ -15,7 +15,7 @@ endif()
 
 set(BINDIR bin)
 set(LIBDIR lib)
-set(INCLUDEDIR include)
+set(INCLUDEDIR include/numeric_utility)
 
 set(SOURCES src/amicable_numbers.cpp
         src/digits.cpp
@@ -24,17 +24,17 @@ set(SOURCES src/amicable_numbers.cpp
         src/pow.cpp
         src/sieveprimes.cpp)
 
-set(HEADERS include/amicable_numbers.hpp
-        include/concepts.hpp
-        include/digits.hpp
-        include/digits_multiprecision.hpp
-        include/factor.hpp
-        include/isqrt.hpp
-        include/lcm_gcd.hpp
-        include/miller_rabin.hpp
-        include/pow.hpp
-        include/pow_multiprecision.hpp
-        include/sieveprimes.hpp)
+set(HEADERS include/numeric_utility/amicable_numbers.hpp
+        include/numeric_utility/concepts.hpp
+        include/numeric_utility/digits.hpp
+        include/numeric_utility/digits_multiprecision.hpp
+        include/numeric_utility/factor.hpp
+        include/numeric_utility/isqrt.hpp
+        include/numeric_utility/lcm_gcd.hpp
+        include/numeric_utility/miller_rabin.hpp
+        include/numeric_utility/pow.hpp
+        include/numeric_utility/pow_multiprecision.hpp
+        include/numeric_utility/sieveprimes.hpp)
 
 # Build the library with the same sanitizers as its consumers, e.g. -DNUMERIC_UTILITY_SANITIZERS="address;undefined".
 # An uninstrumented library under an instrumented program yields ASan container-overflow false positives.
@@ -58,10 +58,10 @@ target_compile_options(numeric_utility PRIVATE -fvisibility=hidden)
 include(GenerateExportHeader)
 generate_export_header(numeric_utility
         EXPORT_MACRO_NAME NUMERIC_UTILITY_API
-        EXPORT_FILE_NAME numeric_utility_export.h)
+        EXPORT_FILE_NAME numeric_utility/numeric_utility_export.h)
 set_target_properties(numeric_utility PROPERTIES VERSION ${PROJECT_VERSION})
 set_target_properties(numeric_utility PROPERTIES SOVERSION ${PROJECT_VERSION_MAJOR})
-set_target_properties(numeric_utility PROPERTIES PUBLIC_HEADER "${HEADERS};${CMAKE_CURRENT_BINARY_DIR}/numeric_utility_export.h")
+set_target_properties(numeric_utility PROPERTIES PUBLIC_HEADER "${HEADERS};${CMAKE_CURRENT_BINARY_DIR}/numeric_utility/numeric_utility_export.h")
 
 install(TARGETS ${PROJECT_NAME} EXPORT numeric_utility
         ARCHIVE  DESTINATION "${LIBDIR}"

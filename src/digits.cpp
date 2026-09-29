@@ -1,7 +1,7 @@
 // -*- mode:C++; c-basic-offset:2; indent-tabs-mode:nil -*-;
 // Copyright 2024 Glen S. Dayton. Rights reserved according to terms of included license.
-#include "digits.hpp"
-#include "numeric_utility_export.h"
+#include <numeric_utility/digits.hpp>
+#include <numeric_utility/numeric_utility_export.h>
 
 using utility::DefaultDigitType;
 using utility::DefaultRadixType;

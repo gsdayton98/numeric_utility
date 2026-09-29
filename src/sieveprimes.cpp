@@ -1,7 +1,7 @@
 // -*- mode:C++; c-basic-offset:2; indent-tabs-mode:nil -*-;
 // Copyright 2022 Glen S. Dayton. Rights reserved according to terms of included license.
 #include <algorithm>
-#include "sieveprimes.hpp"
+#include <numeric_utility/sieveprimes.hpp>
 
 [[maybe_unused]] NUMERIC_UTILITY_API auto utility::sievePrimes(const unsigned long upperLimit, std::vector<unsigned long>& primes) -> std::vector<unsigned long>& {
     const Sieve<unsigned long> sieve(upperLimit);
