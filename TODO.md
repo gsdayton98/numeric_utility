@@ -138,10 +138,20 @@ reproduced against the built library. The others come from reading the code.
   checked with a consumer built and installed against it. An rpath link option on the exported target
   was tried and dropped: CMake strips it when the consumer installs, and `ld` warns about the duplicate.
   Linux has no equivalent, so the README says what a consumer must set. **Not tested on Linux.**
-- [ ] **There is no CI, and `.gitignore` ignores `.github`,** so workflow files can't be
-  committed.
-- [ ] **The README is out of date.** It mentions operating-system utilities that aren't
-  here, and it has no list of modules or usage examples.
+- [x] **There was no CI.** `.github/workflows/ci.yml` builds and runs the tests on every push to
+  `main` and every pull request: macOS with Clang and warnings as errors, Linux with GCC, and Linux
+  with GCC under ASan and UBSan. The `.gitignore` no longer ignores `.github`. **The workflow has
+  not run yet.** I ran its three configurations locally, with Homebrew GCC 14 in place of the Linux
+  compiler; the GCC test executable doesn't link there, because Homebrew's Boost.Test is built
+  against libc++, so GCC was compiled but not run.
+- [x] **GCC reported two things Clang didn't.** `toDigits` narrowed `n /= base` for 8- and 16-bit
+  types, now an explicit cast. `Sieve<unsigned long>` was left hidden in the library, because
+  `sievePrimes` used it before the explicit instantiations and GCC then ignores the export attribute;
+  the instantiations now come first.
+- [x] **The README was out of date.** It now lists the modules, has two examples, and covers
+  building, the CMake options, installing and linking. Both examples were compiled and run, and the
+  outputs in their comments are the real ones. It no longer mentions operating-system utilities,
+  which had already gone.
 
 ## 4. Tests
 

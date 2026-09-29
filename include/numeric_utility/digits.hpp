@@ -27,7 +27,7 @@ namespace utility {
         std::vector<DigitType> result;
         do {
             result.push_back(static_cast<DigitType>(n % base));
-            n /= base;
+            n = static_cast<Number>(n / base);   // Narrow types promote to int, which -Wconversion flags.
         } while (n != 0);
 
         return result;

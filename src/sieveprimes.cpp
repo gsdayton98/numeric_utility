@@ -3,6 +3,12 @@
 #include <algorithm>
 #include <numeric_utility/sieveprimes.hpp>
 
+// These come before sievePrimes, which uses Sieve<unsigned long>. GCC ignores the export attribute on an
+// explicit instantiation that follows an implicit one, leaving the symbols hidden.
+template class NUMERIC_UTILITY_API utility::Sieve<unsigned int>;
+template class NUMERIC_UTILITY_API utility::Sieve<unsigned long>;
+template class NUMERIC_UTILITY_API utility::Sieve<unsigned long long>;
+
 [[maybe_unused]] NUMERIC_UTILITY_API auto utility::sievePrimes(const unsigned long upperLimit, std::vector<unsigned long>& primes) -> std::vector<unsigned long>& {
     const Sieve<unsigned long> sieve(upperLimit);
 
@@ -11,8 +17,3 @@
     primes.assign(sieve.primes().begin(), end);
     return primes;
 }
-
-
-template class NUMERIC_UTILITY_API utility::Sieve<unsigned int>;
-template class NUMERIC_UTILITY_API utility::Sieve<unsigned long>;
-template class NUMERIC_UTILITY_API utility::Sieve<unsigned long long>;
