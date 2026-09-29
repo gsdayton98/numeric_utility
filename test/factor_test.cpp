@@ -1,6 +1,7 @@
 // -*- mode:C++; c-basic-offset:2; indent-tabs-mode:nil -*-;
 // Copyright 2022 Glen S. Dayton. Rights reserved according to terms of included license.
 #include <boost/test/unit_test.hpp>
+#include <compare>
 #include <cstddef>
 #include <optional>
 #include <random>
@@ -104,6 +105,14 @@ BOOST_AUTO_TEST_CASE(testOperators) {
 
     BOOST_CHECK( leftOperand < rightOperand );
     BOOST_CHECK( (rightOperand < anotherOperand) );
+
+    // The prime decides the order before the exponent does.
+    BOOST_CHECK( (Factor{2, 9} < Factor{3, 1}) );
+    BOOST_CHECK( (anotherOperand > rightOperand) );
+    BOOST_CHECK( (leftOperand <= yetAnotherOperand) );
+    BOOST_CHECK( (leftOperand >= yetAnotherOperand) );
+    BOOST_CHECK( (leftOperand <=> yetAnotherOperand) == std::strong_ordering::equal );
+    BOOST_CHECK( (rightOperand <=> leftOperand) == std::strong_ordering::greater );
 }
 
 

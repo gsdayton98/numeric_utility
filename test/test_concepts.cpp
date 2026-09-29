@@ -9,6 +9,7 @@
 #include "digits.hpp"
 #include "isqrt.hpp"
 
+using utility::ModuloOverflow;
 using utility::Unsigned;
 using boost::multiprecision::cpp_int;
 using boost::multiprecision::uint128_t;
@@ -33,6 +34,10 @@ static_assert(! Unsigned<float> && ! Unsigned<double>);
 static_assert(! Unsigned<bool> && ! Unsigned<const bool>);
 static_assert(! Unsigned<cpp_int>);
 static_assert(! Unsigned<NotANumber> && ! Unsigned<std::string> && ! Unsigned<unsigned int*>);
+
+// Unsigned arithmetic wraps around; signed overflow is undefined, and floating point overflows to infinity.
+static_assert(ModuloOverflow<unsigned char> && ModuloOverflow<std::uint64_t> && ModuloOverflow<unsigned __int128>);
+static_assert(! ModuloOverflow<int> && ! ModuloOverflow<double> && ! ModuloOverflow<cpp_int>);
 
 BOOST_AUTO_TEST_SUITE(TestConcepts)
 

@@ -5,19 +5,7 @@
 #include "pow.hpp"
 #include "sieveprimes.hpp"
 
-auto operator<(const utility::Factor &left, const utility::Factor &right) -> bool
-{
-    return left.prime < right.prime || (left.prime == right.prime && left.exponent < right.exponent);
-}
-
-
-auto operator==(const utility::Factor &left, const utility::Factor &right) -> bool
-{
-    return left.prime == right.prime && left.exponent == right.exponent;
-}
-
-
-auto operator<<(std::ostream &output, const utility::Factor &factor) -> std::ostream &
+auto utility::operator<<(std::ostream &output, const Factor &factor) -> std::ostream &
 {
     return output << factor.prime << "^" << factor.exponent;
 }

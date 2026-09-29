@@ -3,11 +3,7 @@
 #ifndef POW_HPP
 #define POW_HPP
 #include <cstdint>
-#include <limits>
 #include "concepts.hpp"
-
-template <typename T>
-concept ModuloOverflow = std::numeric_limits<T>::is_modulo;
 
 namespace utility {
 

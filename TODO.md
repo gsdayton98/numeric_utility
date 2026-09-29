@@ -70,8 +70,10 @@ reproduced against the built library. The others come from reading the code.
   `numeric_limits` specialization satisfied. All three are now `utility::Unsigned` in
   `concepts.hpp`, which requires a specialized, integer, unsigned `numeric_limits` and
   excludes `bool`. `isqrt` and `toDigits` now also accept Boost's fixed-width unsigned types.
-- [ ] **Names leak into the global namespace:** the `ModuloOverflow` concept, and
-  `Factor`'s `operator<`, `operator==` and `operator<<`. Move them into `utility`, and replace the hand-written comparisons with a defaulted `operator<=>`.
+- [x] **Names leaked into the global namespace:** the `ModuloOverflow` concept, and
+  `Factor`'s `operator<`, `operator==` and `operator<<`. `ModuloOverflow` is now in
+  `utility`, in `concepts.hpp`; `Factor` has a defaulted `operator<=>`, which also gives
+  `==`; and `operator<<` is in `utility`, found by argument-dependent lookup.
 - [ ] **`utility::Number` is a namespace-wide alias** defined in `amicable_numbers.hpp`.
   Such a generic name clashes in spirit with the template parameters called `Number` in
   `lcm_gcd.hpp` and `digits.hpp`.

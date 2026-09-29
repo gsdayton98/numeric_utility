@@ -18,6 +18,10 @@ namespace utility {
                        && std::numeric_limits<T>::is_integer
                        && ! std::numeric_limits<T>::is_signed
                        && ! std::same_as<std::remove_cv_t<T>, bool>;
+
+    /// A type whose arithmetic wraps around rather than overflowing, such as the unsigned integers.
+    template <typename T>
+    concept ModuloOverflow = std::numeric_limits<T>::is_modulo;
 }
 
 #endif //CONCEPTS_HPP
