@@ -4,6 +4,7 @@
 #define SIEVEPRIMES_HPP
 #include <stdexcept>
 #include <vector>
+#include "isqrt.hpp"
 
 
 namespace utility {
@@ -24,7 +25,9 @@ namespace utility {
          * Returns whether a number is prime, that is, in the sieve.
          * @param number Number to test
          * @return True if the number is prime.
-         * @throw May throw a range_error if the number exceeds the capacity of the sieve.
+         * Numbers beyond the sieve are trial divided by its primes. It does not modify the sieve,
+         * so concurrent calls are safe.
+         * @throw range_error if the number is at least upperLimit^2, beyond the capacity of the sieve.
          */
         [[maybe_unused]] auto isPrime(Unsigned number) const -> bool;
 
@@ -55,11 +58,11 @@ namespace utility {
          * Returns the vector of primes found.
          * @return Vector of primes.
          */
-        [[maybe_unused]] auto primes() const -> std::vector<Unsigned>& { return m_primes; }
+        [[maybe_unused]] auto primes() const -> const std::vector<Unsigned>& { return m_primes; }
 
     private:
         std::vector<bool> m_sieve;
-        mutable std::vector<Unsigned> m_primes;
+        std::vector<Unsigned> m_primes;
     };
 
 
@@ -87,13 +90,13 @@ namespace utility {
     template <typename Unsigned>
     auto Sieve<Unsigned>::isPrime(Unsigned number) const -> bool {
         if (number < m_sieve.size()) return m_sieve[number];
-        if (number > m_sieve.size()*m_sieve.size()) throw std::range_error("Sieve isn't big enough");
+        // Deciding the number needs every prime up to its square root, and the sieve only knows those below its size.
+        if (isqrt(number) >= m_sieve.size()) throw std::range_error("Sieve isn't big enough");
 
-        for (auto divisor: m_primes) {
+        for (const auto divisor: m_primes) {
+            if (divisor > number / divisor) break;
             if (number % divisor == 0) return false;
-            if (2*divisor > number) break;
         }
-        m_primes.push_back(number);
         return true;
     }
 

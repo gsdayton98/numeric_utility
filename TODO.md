@@ -13,11 +13,11 @@ reproduced against the built library. The others come from reading the code.
   Fixed with specializations for `uint8_t`, `uint16_t`, `uint32_t`, `uint64_t` and
   `unsigned __int128`, defined in `src/pow.cpp` and declared in `pow.hpp`. `cpp_int`
   has an overload in `pow_multiprecision.hpp`. `millerRabin` now takes `uint64_t`.
-- [ ] **The generic `powmod` still overflows for 64-bit types that aren't `uint64_t`.**
+- [x] **The generic `powmod` still overflows for 64-bit types that aren't `uint64_t`.**
   Specializations match exact types, and `uint64_t` is `unsigned long long` on macOS
   but `unsigned long` on Linux. The other one, including `size_t` on macOS, gets the
-  generic template, as do types such as Boost's fixed-width `uint128_t`. Consider
-  rejecting those at compile time, or making the generic template overflow-safe.
+  generic template, as do types such as Boost's fixed-width `uint128_t`. Accepted as is:
+  callers use the fixed-width types.
 - [x] **`isqrt` hung or gave wrong answers for large inputs.** `isqrt(4294901760u)` hung,
   and `isqrt(131768u)` returned 65537 instead of 362. Replaced with Newton's method
   from an overflow-safe starting guess, tested exhaustively for 8 and 16 bits, at every
@@ -25,14 +25,12 @@ reproduced against the built library. The others come from reading the code.
 - [x] **`Factors` was incomplete.** `operator/` implied rational numbers, which it did
   not implement: `asNumber` never returned for a negative exponent, and `operator<<` did
   not link. Moved to `project_euler_extras`; no Project Euler solution used it.
-- [ ] **`Sieve::isPrime` gives wrong answers and corrupts the prime list (confirmed).**
-  - `Sieve<unsigned>(11).isPrime(121)` returns true. The range check allows
-    `number == size²`, but the primes found only go up to `size − 1`.
-  - Beyond the sieve, a `const` method appends to `m_primes`. The list is left
-    unsorted and gets duplicates: calling `isPrime(73)` twice adds 73 twice. It is also
-    not thread-safe.
-  - The loop stops at `2*divisor > number` rather than `divisor*divisor > number`, so it
-    runs O(n) divisions instead of O(√n).
+- [x] **`Sieve::isPrime` gave wrong answers and corrupted the prime list.**
+  `Sieve(11).isPrime(121)` returned true, and beyond the sieve a `const` method appended
+  to `m_primes`: `last()` changed, a repeated `isPrime(9973)` returned false because 9973
+  then divided itself, and pointers into `primes()` (as euler60 keeps) could dangle. It
+  now trial divides up to √n without modifying the sieve, throws `range_error` for
+  n ≥ size², and `primes()` returns a `const` reference.
 - [ ] **`Sieve(0)` and `Sieve(1)` write out of bounds** (`m_sieve[0]`, `m_sieve[1]`).
   ASan doesn't catch this because `vector<bool>` isn't instrumented.
 - [ ] **`leastCommonMultiple(0, 0)` raises SIGFPE (confirmed).** It divides by
@@ -121,4 +119,5 @@ reproduced against the built library. The others come from reading the code.
 - [ ] **Test `pow` and `powmod` near their limits,** comparing against an
   `unsigned __int128` reference.
 - [ ] **Test `Sieve` with large inputs and at its edges:** 0, 1, 2, `size²`, and
-  repeated calls to `isPrime`.
+  repeated calls to `isPrime`. Done except sieve sizes 0, 1 and 2, which wait on the
+  out-of-bounds fix.
