@@ -43,11 +43,9 @@ reproduced against the built library. The others come from reading the code.
   type. So does `std::lcm`, which makes it undefined behaviour.
 - [ ] **`AmicableNumbers::d` overflows (confirmed).** `d(4294967040)` wraps to
   2265733248, because the sum of proper divisors can exceed 2³². Return a wider type.
-- [ ] **`sievePrimes` misbehaves at its limits.**
-  - It uses `unsigned int` loop counters against an `unsigned long` limit, so limits
-    ≥ 2³² truncate or loop forever.
-  - It returns `{2}` for limits ≤ 2.
-  - It duplicates `Sieve`. Remove it, or implement it with `Sieve`.
+- [x] **`sievePrimes` misbehaved at its limits.** It used `unsigned int` loop counters
+  against an `unsigned long` limit, returned `{2}` for limits ≤ 2, and duplicated `Sieve`.
+  It is now implemented with `Sieve<unsigned long>`, trimmed to the primes below the limit.
 
 ## 2. Design and API
 
@@ -114,7 +112,7 @@ reproduced against the built library. The others come from reading the code.
 
 ## 4. Tests
 
-- [ ] **Nothing tests `sievePrimes`.**
+- [x] **Nothing tests `sievePrimes`.**
 - [x] **`millerRabin` is tested with one value (65537).** The benchmark's comparison
   with the sieve stops at 10⁶, below where the bugs start. Add known 64-bit primes and
   strong pseudoprimes (e.g. 3215031751, 3825123056546413051), and a cross-check against

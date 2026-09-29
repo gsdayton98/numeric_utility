@@ -9,6 +9,10 @@
 
 
 namespace utility {
+    /**
+     * Replace the contents of primes with the primes below upperLimit.
+     * @return primes
+     */
     [[maybe_unused]] auto __attribute__((visibility("default"))) sievePrimes(unsigned long upperLimit, std::vector<unsigned long> &primes) -> std::vector<unsigned long> &;
 
     template <typename Unsigned>
