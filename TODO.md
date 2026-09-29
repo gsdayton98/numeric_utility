@@ -39,8 +39,13 @@ reproduced against the built library. The others come from reading the code.
 - [x] **`leastCommonMultiple(0, 0)` raised SIGFPE.** It divided by `gcd(0, 0) == 0`, as
   did the vector overload for any list with two zeros. It now returns 0, like `std::lcm`.
   `lcm_gcd.hpp` also now includes `<utility>` for `std::swap`.
-- [ ] **`leastCommonMultiple` overflows silently** when the result doesn't fit in the
-  type. So does `std::lcm`, which makes it undefined behaviour.
+- [x] **`leastCommonMultiple` overflowed silently** when the result didn't fit in the type.
+  It now throws `std::overflow_error` for built-in integer types, including
+  `unsigned __int128`.
+- [ ] **`greatestCommonDivisor` is wrong for `cpp_int` (confirmed).** `gcd(12, 18)` returns
+  12, and so `leastCommonMultiple` of 1 through 50 returns 50. `auto r = a % b;` captures
+  a Boost.Multiprecision expression template that still refers to `a` and `b`, so
+  assigning `a = b` changes `r`. Declaring `Number r` fixes it.
 - [x] **`AmicableNumbers::d` overflowed.** `d(4294967040)` wrapped to 2265733248, because
   the sum of proper divisors can exceed 2³². It now returns `std::uint64_t`.
 - [x] **`sievePrimes` misbehaved at its limits.** It used `unsigned int` loop counters
