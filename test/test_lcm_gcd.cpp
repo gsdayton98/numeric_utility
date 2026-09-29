@@ -25,6 +25,15 @@ BOOST_AUTO_TEST_CASE(test_lcm)
     BOOST_CHECK_EQUAL(utility::leastCommonMultiple(0, 18), 0);
     BOOST_CHECK_EQUAL(utility::leastCommonMultiple(1, 18), 18);
     BOOST_CHECK_EQUAL(utility::leastCommonMultiple(18, 1), 18);
+    BOOST_CHECK_EQUAL(utility::leastCommonMultiple(0, 0), 0);        // Divided by gcd(0, 0) == 0
+    BOOST_CHECK_EQUAL(utility::leastCommonMultiple(0u, 0u), 0u);
+}
+
+BOOST_AUTO_TEST_CASE(test_vector_lcm_zeros)
+{
+    BOOST_CHECK_EQUAL(utility::leastCommonMultiple(std::vector{3, 0, 5}), 0);
+    BOOST_CHECK_EQUAL(utility::leastCommonMultiple(std::vector{3, 0, 0}), 0);  // Running lcm 0 meets another 0
+    BOOST_CHECK_EQUAL(utility::leastCommonMultiple(std::vector<int>{}), 1);    // Empty product
 }
 
 BOOST_AUTO_TEST_CASE(test_vector_lcm)

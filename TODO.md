@@ -36,9 +36,11 @@ reproduced against the built library. The others come from reading the code.
   allocated word, where only libc++ hardening catches it. Fixed by raising every limit
   to at least `MINIMUM_SIEVE_SIZE` (16). The sanitizer build now enables standard
   library hardening, which catches `vector<bool>` errors that ASan misses.
-- [ ] **`leastCommonMultiple(0, 0)` raises SIGFPE (confirmed).** It divides by
-  `gcd(0, 0) == 0`. It also overflows silently. Consider `std::gcd` and `std::lcm`
-  instead. `lcm_gcd.hpp` uses `std::swap` without including `<utility>`.
+- [x] **`leastCommonMultiple(0, 0)` raised SIGFPE.** It divided by `gcd(0, 0) == 0`, as
+  did the vector overload for any list with two zeros. It now returns 0, like `std::lcm`.
+  `lcm_gcd.hpp` also now includes `<utility>` for `std::swap`.
+- [ ] **`leastCommonMultiple` overflows silently** when the result doesn't fit in the
+  type. So does `std::lcm`, which makes it undefined behaviour.
 - [ ] **`AmicableNumbers::d` overflows (confirmed).** `d(4294967040)` wraps to
   2265733248, because the sum of proper divisors can exceed 2³². Return a wider type.
 - [ ] **`sievePrimes` misbehaves at its limits.**

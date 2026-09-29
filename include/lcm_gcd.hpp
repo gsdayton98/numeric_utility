@@ -2,6 +2,7 @@
 // Copyright 2022 Glen S. Dayton. Rights reserved according to terms of included license.
 #ifndef LCM_GCD_HPP
 #define LCM_GCD_HPP
+#include <utility>
 #include <vector>
 
 
@@ -22,6 +23,8 @@ namespace utility {
 
     template<typename Number>
     [[maybe_unused]] auto __attribute__((visibility("default"))) leastCommonMultiple(Number a, Number b) -> Number {
+        // 0 is the only common multiple of 0, and gcd(0, 0) == 0 cannot be divided by.
+        if (a == 0 || b == 0) return 0;
         return (a / greatestCommonDivisor(a, b)) * b;
     }
 
