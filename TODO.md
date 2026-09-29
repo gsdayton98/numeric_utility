@@ -41,8 +41,8 @@ reproduced against the built library. The others come from reading the code.
   `lcm_gcd.hpp` also now includes `<utility>` for `std::swap`.
 - [ ] **`leastCommonMultiple` overflows silently** when the result doesn't fit in the
   type. So does `std::lcm`, which makes it undefined behaviour.
-- [ ] **`AmicableNumbers::d` overflows (confirmed).** `d(4294967040)` wraps to
-  2265733248, because the sum of proper divisors can exceed 2³². Return a wider type.
+- [x] **`AmicableNumbers::d` overflowed.** `d(4294967040)` wrapped to 2265733248, because
+  the sum of proper divisors can exceed 2³². It now returns `std::uint64_t`.
 - [x] **`sievePrimes` misbehaved at its limits.** It used `unsigned int` loop counters
   against an `unsigned long` limit, returned `{2}` for limits ≤ 2, and duplicated `Sieve`.
   It is now implemented with `Sieve<unsigned long>`, trimmed to the primes below the limit.

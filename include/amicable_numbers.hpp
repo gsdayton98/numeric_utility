@@ -10,6 +10,7 @@
 /// For example, the proper divisors of $220$ are $1, 2, 4, 5, 10, 11, 20, 22, 44, 55$ and $110$;
 /// therefore $d(220) = 284$. The proper divisors of $284$ are $1, 2, 4, 71$ and $142$; so $d(284) = 220$.
 
+#include <cstdint>
 #include <vector>
 #include "factor.hpp"
 
@@ -18,8 +19,8 @@ namespace utility {
 
     class __attribute__((visibility("default"))) AmicableNumbers {
         public:
-        /// Sum the proper divisors of a number.
-        static auto d(Number n) -> Number;
+        /// Sum the proper divisors of a number. The sum can exceed 32 bits, so it is returned in 64.
+        static auto d(Number n) -> std::uint64_t;
 
         /// Given the prime factors of a number, return all proper divisors of the number.
         static auto divisors(Number, const std::vector<Factor>& factors) -> std::vector<Number>;

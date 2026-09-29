@@ -6,9 +6,9 @@
 
 using namespace utility;
 
-auto AmicableNumbers::d(const Number n) -> Number {
+auto AmicableNumbers::d(const Number n) -> std::uint64_t {
     auto divs = divisors(n, Factor::factor(n));
-    return std::accumulate(divs.begin(), divs.end(), 0U);
+    return std::accumulate(divs.begin(), divs.end(), std::uint64_t{0});
 }
 
 
