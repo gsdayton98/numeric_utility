@@ -1,6 +1,7 @@
 // -*- mode:C++; c-basic-offset:2; indent-tabs-mode:nil -*-;
 // Copyright 2022 Glen S. Dayton. Rights reserved according to terms of included license.
 #include <numeric_utility/amicable_numbers.hpp>
+#include <cstddef>
 #include <numeric>
 #include <numeric_utility/factor.hpp>
 
@@ -25,7 +26,7 @@ auto AmicableNumbers::divisors(const unsigned int n, const std::vector<Factor> &
             divisorsResults.push_back(divisor);
 
             // Step through the factors and divisor factors
-            for (auto f = 0; f < divisorFactors.size(); ++f) {
+            for (std::size_t f = 0; f < divisorFactors.size(); ++f) {
                 divisorFactors[f].exponent += 1;
                 if (divisorFactors[f].exponent <= factors[f].exponent) {
                     break;

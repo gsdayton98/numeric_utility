@@ -3,10 +3,11 @@
 #ifndef NUMERIC_UTILITY_SIEVEPRIMES_HPP
 #define NUMERIC_UTILITY_SIEVEPRIMES_HPP
 #include <algorithm>
+#include <cstddef>
 #include <stdexcept>
 #include <vector>
 #include "isqrt.hpp"
-#include "numeric_utility_export.h"
+#include <numeric_utility/numeric_utility_export.h>
 
 
 namespace utility {
@@ -57,7 +58,7 @@ namespace utility {
          * Return the number of primes found.
          * @return Number of primes.
          */
-        [[maybe_unused]] auto size() const -> Unsigned { return m_primes.size(); }
+        [[maybe_unused]] auto size() const -> Unsigned { return static_cast<Unsigned>(m_primes.size()); }
 
         /**
          * Returns the last prime found.
@@ -115,7 +116,7 @@ namespace utility {
 
     template <typename Unsigned>
     auto Sieve<Unsigned>::operator[](int n) const -> Unsigned {
-        return m_primes[n];
+        return m_primes[static_cast<std::size_t>(n)];
     }
 
 }

@@ -48,12 +48,24 @@ if(NUMERIC_UTILITY_SANITIZERS)
     add_compile_definitions(_LIBCPP_HARDENING_MODE=_LIBCPP_HARDENING_MODE_DEBUG _GLIBCXX_ASSERTIONS)
 endif()
 
+# Warnings for the library and its tests. -Wconversion catches the silent truncations that caused earlier bugs.
+set(NUMERIC_UTILITY_WARNINGS -Wall -Wextra -Wconversion)
+if(CMAKE_CXX_COMPILER_ID MATCHES "Clang")
+    # CMake omits /usr/local/include from -isystem as an implicit directory, which would let Boost's own
+    # warnings through. GCC already treats it as a system directory.
+    list(APPEND NUMERIC_UTILITY_WARNINGS --system-header-prefix=boost/)
+endif()
+option(NUMERIC_UTILITY_WERROR "Treat warnings as errors" OFF)
+if(NUMERIC_UTILITY_WERROR)
+    list(APPEND NUMERIC_UTILITY_WARNINGS -Werror)
+endif()
+
 add_library(numeric_utility SHARED ${HEADERS} ${SOURCES})
 target_include_directories(numeric_utility PUBLIC
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
         $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}>
         $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>)
-target_compile_options(numeric_utility PRIVATE -fvisibility=hidden)
+target_compile_options(numeric_utility PRIVATE -fvisibility=hidden ${NUMERIC_UTILITY_WARNINGS})
 # Generates numeric_utility_export.h, which defines NUMERIC_UTILITY_API for the exported non-template symbols.
 include(GenerateExportHeader)
 generate_export_header(numeric_utility

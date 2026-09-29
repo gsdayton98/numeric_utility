@@ -51,6 +51,11 @@ reproduced against the built library. The others come from reading the code.
 - [x] **`sievePrimes` misbehaved at its limits.** It used `unsigned int` loop counters
   against an `unsigned long` limit, returned `{2}` for limits ≤ 2, and duplicated `Sieve`.
   It is now implemented with `Sieve<unsigned long>`, trimmed to the primes below the limit.
+- [x] **`Factor::factor(2147483648u)` (2³¹) crashed with SIGFPE (confirmed).**
+  `primePower *= prime` in `src/factor.cpp` wrapped to 0, and the next `n % primePower`
+  divided by zero. It now divides `n` by `prime` repeatedly, without building `primePower`.
+  `testPrimePowerOverflow` covers 2³¹, 3²⁰ and 65521², and `testLimits` covers 2³²−1 and
+  the largest 32-bit prime.
 
 ## 2. Design and API
 
@@ -112,9 +117,14 @@ reproduced against the built library. The others come from reading the code.
   project won't configure without it. `benchmark/CMakeLists.txt` also passes `CONFIG`
   as a Boost component. Put the benchmark behind an option, or skip it when `oscpp` is
   missing.
-- [ ] **No warning flags are set.** `-Wall -Wextra -Wconversion` points straight at the
-  Miller-Rabin truncation in `pow.cpp` and `miller_rabin.cpp`. Enable warnings and fix
-  what they report.
+- [x] **No warning flags were set.** The library and the tests now build with
+  `-Wall -Wextra -Wconversion`, and `-DNUMERIC_UTILITY_WERROR=ON` makes them errors. The
+  Miller-Rabin truncation it was meant to catch was already fixed. It reported a signed loop
+  counter in `amicable_numbers.cpp` and two conversions in `sieveprimes.hpp`, all fixed. Clang
+  gets `--system-header-prefix=boost/` to keep Boost's own warnings out of the output.
+- [x] **Headers included `"numeric_utility_export.h"` without the directory,** which broke
+  a fresh configure after the headers moved; only a stale generated copy in old build trees
+  hid it. They now include `<numeric_utility/numeric_utility_export.h>`.
 - [ ] **The package config doesn't call `find_dependency(Boost)`,** which
   `digits_multiprecision.hpp` needs.
 - [ ] **Tests are added even when `BUILD_TESTING` is off,** and `include(CTest)` comes
