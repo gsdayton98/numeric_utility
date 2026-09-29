@@ -34,11 +34,6 @@ namespace {
 }
 
 
-auto utility::Factor::preloadCache(unsigned int) -> void
-{
-}
-
-
 auto utility::Factor::factor(unsigned int n) -> std::vector<utility::Factor>
 {
     std::vector<Factor> factors{};

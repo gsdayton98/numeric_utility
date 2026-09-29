@@ -9,12 +9,6 @@ namespace utility {
         unsigned int exponent;  /// Number of times the prime factor occurs within the number.
 
         /**
-         * Does nothing. factor() no longer caches: trial division is faster than the cache was.
-         */
-        [[deprecated("factor() no longer caches; remove the call")]]
-        static auto preloadCache(unsigned int upperLimit) -> void;
-
-        /**
          * Attempt to factor a number.
          *
          * @param n Number to factor.

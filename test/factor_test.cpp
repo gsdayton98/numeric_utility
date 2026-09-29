@@ -15,10 +15,12 @@ namespace {
     template <typename T> concept ExposesPrimes = requires { T::primes; };
     template <typename T> concept ExposesCache = requires { T::cache; };
     template <typename T> concept ExposesCacheLock = requires { T::cacheLock; };
+    template <typename T> concept ExposesPreloadCache = requires { T::preloadCache(0u); };
 
     static_assert(!ExposesPrimes<Factor>);
     static_assert(!ExposesCache<Factor>);
     static_assert(!ExposesCacheLock<Factor>);
+    static_assert(!ExposesPreloadCache<Factor>);
 }
 
 BOOST_AUTO_TEST_SUITE(TestFactor)
