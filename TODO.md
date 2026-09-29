@@ -64,14 +64,14 @@ reproduced against the built library. The others come from reading the code.
   library paid for it, and any use during static initialization in another translation
   unit hit the static-initialization-order problem. The prime table and cache are now
   function-local statics.
-- [ ] **There are three different "unsigned" checks:** `utility::is_unsigned` in
+- [x] **There were three different "unsigned" checks:** `utility::is_unsigned` in
   `digits.hpp`, the global `Unsigned` concept in `pow.hpp`, and `std::is_unsigned` in
-  `isqrt.hpp`. `Unsigned` is `!numeric_limits<T>::is_signed`, which any type without a
-  `numeric_limits` specialization satisfies. Replace all three with one concept in
-  `utility`.
-- [ ] **Names leak into the global namespace:** the `ModuloOverflow` and `Unsigned`
-  concepts, and `Factor`'s `operator<`, `operator==` and `operator<<`. Move them into
-  `utility`, and replace the hand-written comparisons with a defaulted `operator<=>`.
+  `isqrt.hpp`. `Unsigned` was `!numeric_limits<T>::is_signed`, which any type without a
+  `numeric_limits` specialization satisfied. All three are now `utility::Unsigned` in
+  `concepts.hpp`, which requires a specialized, integer, unsigned `numeric_limits` and
+  excludes `bool`. `isqrt` and `toDigits` now also accept Boost's fixed-width unsigned types.
+- [ ] **Names leak into the global namespace:** the `ModuloOverflow` concept, and
+  `Factor`'s `operator<`, `operator==` and `operator<<`. Move them into `utility`, and replace the hand-written comparisons with a defaulted `operator<=>`.
 - [ ] **`utility::Number` is a namespace-wide alias** defined in `amicable_numbers.hpp`.
   Such a generic name clashes in spirit with the template parameters called `Number` in
   `lcm_gcd.hpp` and `digits.hpp`.

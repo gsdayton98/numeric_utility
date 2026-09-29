@@ -2,17 +2,12 @@
 // Copyright 2025 Glen S. Dayton. Rights reserved according to terms of included license.
 #ifndef POW_HPP
 #define POW_HPP
-#include <concepts>
 #include <cstdint>
 #include <limits>
+#include "concepts.hpp"
 
 template <typename T>
 concept ModuloOverflow = std::numeric_limits<T>::is_modulo;
-
-// unsigned __int128 is named explicitly because powmod is specialized for it; numeric_limits already
-// treats it as unsigned, so this documents intent rather than changing which types qualify.
-template <typename T>
-concept Unsigned = ! std::numeric_limits<T>::is_signed || std::same_as<T, unsigned __int128>;
 
 namespace utility {
 

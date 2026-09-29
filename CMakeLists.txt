@@ -25,6 +25,7 @@ set(SOURCES src/amicable_numbers.cpp
         src/sieveprimes.cpp)
 
 set(HEADERS include/amicable_numbers.hpp
+        include/concepts.hpp
         include/digits.hpp
         include/digits_multiprecision.hpp
         include/factor.hpp

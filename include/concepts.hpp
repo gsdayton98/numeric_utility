@@ -1,0 +1,23 @@
+// -*- mode:C++; c-basic-offset:2; indent-tabs-mode:nil -*-;
+// Copyright 2026 Glen S. Dayton. Rights reserved according to terms of included license.
+#ifndef CONCEPTS_HPP
+#define CONCEPTS_HPP
+#include <concepts>
+#include <limits>
+#include <type_traits>
+
+namespace utility {
+
+    /// An unsigned integer type other than bool.
+    /// Defined by std::numeric_limits rather than std::is_unsigned: the standard forbids
+    /// specializing type traits for other types, but allows specializing numeric_limits, as
+    /// Boost.Multiprecision does for its fixed-width unsigned types. is_specialized excludes
+    /// types numeric_limits knows nothing about.
+    template <typename T>
+    concept Unsigned = std::numeric_limits<T>::is_specialized
+                       && std::numeric_limits<T>::is_integer
+                       && ! std::numeric_limits<T>::is_signed
+                       && ! std::same_as<std::remove_cv_t<T>, bool>;
+}
+
+#endif //CONCEPTS_HPP

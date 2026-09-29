@@ -4,22 +4,11 @@
 #define TO_DIGITS_HPP
 #include <ranges>
 #include <vector>
+#include "concepts.hpp"
 namespace utility {
 
     using DefaultDigitType = unsigned char;
     using DefaultRadixType = unsigned int;
-
-    // C++ explicitly prohibits specialization of type traits for user-defined types,
-    // so I define my own type traits for my template functions.
-    template<typename>
-    struct is_unsigned : std::false_type{};
-
-    template<typename T>
-    requires std::is_arithmetic_v<T>
-    struct is_unsigned<T> : std::is_unsigned<T>{};
-
-    template<typename T>
-        inline constexpr bool is_unsigned_v = is_unsigned<T>::value;
     /**
      * Return a vector of digits representing the number n in the given base.
      * @tparam Number Type of the input number
@@ -29,8 +18,7 @@ namespace utility {
      * @param base The base to convert to
      * @return A vector of digits representing the number in the given base
      */
-    template <typename Number, typename RadixType=DefaultRadixType, typename DigitType = DefaultDigitType>
-    requires is_unsigned_v<Number> && is_unsigned_v<RadixType> && is_unsigned_v<DigitType>
+    template <Unsigned Number, Unsigned RadixType = DefaultRadixType, Unsigned DigitType = DefaultDigitType>
     auto toDigits(Number n, RadixType base = 10u) -> std::vector<DigitType>
     {
         std::vector<DigitType> result;

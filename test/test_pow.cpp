@@ -14,7 +14,8 @@ using U64 = std::uint64_t;
 using U128 = unsigned __int128;
 
 // Every type powmod is specialized for satisfies its Unsigned constraint.
-static_assert(Unsigned<U8> && Unsigned<U16> && Unsigned<U32> && Unsigned<U64> && Unsigned<U128>);
+static_assert(utility::Unsigned<U8> && utility::Unsigned<U16> && utility::Unsigned<U32>
+              && utility::Unsigned<U64> && utility::Unsigned<U128>);
 
 struct Sample {
   U32 base;

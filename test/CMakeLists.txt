@@ -6,6 +6,7 @@ find_package (Boost REQUIRED CONFIG COMPONENTS unit_test_framework)
 add_executable(test_utility test.cpp
         test_amicable_numbers.cpp
         factor_test.cpp
+        test_concepts.cpp
         test_digits.cpp
         test_isqrt.cpp
         test_lcm_gcd.cpp

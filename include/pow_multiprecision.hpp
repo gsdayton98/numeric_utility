@@ -12,7 +12,7 @@ namespace utility {
     /// powmod(base, exponent, modulus)
     /// Evaluate base**exponent modulo modulus.
     /// An overload rather than a specialization: cpp_int is signed, so it does not
-    /// satisfy the Unsigned constraint of the template.
+    /// satisfy the utility::Unsigned constraint of the template.
     /// Arguments must be non-negative.
     inline auto powmod(const boost::multiprecision::cpp_int& base,
                        const boost::multiprecision::cpp_int& exponent,

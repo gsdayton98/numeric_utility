@@ -23,8 +23,8 @@ namespace utility {
      * @return A vector of digits, least significant first, representing the number in the given base
      * @throw std::domain_error if n is negative or base is less than 2.
      */
-    template <typename RadixType = DefaultRadixType, typename DigitType = DefaultDigitType>
-    requires is_unsigned_v<RadixType> && is_unsigned_v<DigitType> && (sizeof(RadixType) <= sizeof(std::uint64_t))
+    template <Unsigned RadixType = DefaultRadixType, Unsigned DigitType = DefaultDigitType>
+    requires (sizeof(RadixType) <= sizeof(std::uint64_t))
     auto toDigits(const boost::multiprecision::cpp_int& n, RadixType base = 10u) -> std::vector<DigitType>
     {
         using Limb = std::uint64_t;

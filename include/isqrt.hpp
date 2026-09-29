@@ -2,7 +2,7 @@
 // Copyright 2022 Glen S. Dayton. Rights reserved according to terms of included license.
 #ifndef ISQRT_HPP
 #define ISQRT_HPP
-#include <type_traits>
+#include "concepts.hpp"
 
 namespace utility {
     /**
@@ -12,8 +12,7 @@ namespace utility {
      * monotonically to it. With c < 2^b, the guess is 2^ceil(b/2); every iterate x then satisfies
      * x + c/x < 2^(ceil(b/2) + 1), so nothing overflows.
      */
-    template<typename NumberType>
-    requires std::is_integral_v<NumberType> && std::is_unsigned_v<NumberType>
+    template<Unsigned NumberType>
     auto __attribute__((visibility("default"))) isqrt(const NumberType &c) -> NumberType {
         if (c < 2) return c;
 
