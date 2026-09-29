@@ -3,6 +3,7 @@
 //
 // Created by Glen Dayton, new account on 8/29/25.
 //
+#include <boost/multiprecision/cpp_int.hpp>
 #include <boost/test/unit_test.hpp>
 #include <cstdint>
 #include <numeric>
@@ -67,6 +68,19 @@ BOOST_AUTO_TEST_CASE(test_vector_lcm_overflow)
 
     numbers.push_back(47);
     BOOST_CHECK_THROW(utility::leastCommonMultiple(numbers), std::overflow_error);        // lcm(1..47) > 2^64
+}
+
+BOOST_AUTO_TEST_CASE(test_gcd_lcm_multiprecision)
+{
+    using boost::multiprecision::cpp_int;
+    BOOST_CHECK_EQUAL(utility::greatestCommonDivisor(cpp_int{12}, cpp_int{18}), cpp_int{6});
+    BOOST_CHECK_EQUAL(utility::greatestCommonDivisor(cpp_int{18}, cpp_int{12}), cpp_int{6});
+    const cpp_int power80 = cpp_int{1} << 80;
+    BOOST_CHECK_EQUAL(utility::greatestCommonDivisor(cpp_int{3 * (power80 << 20)}, cpp_int{5 * power80}), power80);
+
+    std::vector<cpp_int> numbers;
+    for (int n = 1; n <= 50; ++n) numbers.emplace_back(n);
+    BOOST_CHECK_EQUAL(utility::leastCommonMultiple(numbers), cpp_int{"3099044504245996706400"});  // Beyond 64 bits
 }
 
 BOOST_AUTO_TEST_SUITE_END()

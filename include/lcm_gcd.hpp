@@ -15,7 +15,9 @@ namespace utility {
             std::swap(a, b);
         }
         while (b > 0) {
-            auto r = a % b;
+            // Not auto: for Boost.Multiprecision that would hold an unevaluated expression of a and b,
+            // which the assignments below would change.
+            Number r = a % b;
             a = b;
             b = r;
         }

@@ -42,10 +42,10 @@ reproduced against the built library. The others come from reading the code.
 - [x] **`leastCommonMultiple` overflowed silently** when the result didn't fit in the type.
   It now throws `std::overflow_error` for built-in integer types, including
   `unsigned __int128`.
-- [ ] **`greatestCommonDivisor` is wrong for `cpp_int` (confirmed).** `gcd(12, 18)` returns
-  12, and so `leastCommonMultiple` of 1 through 50 returns 50. `auto r = a % b;` captures
-  a Boost.Multiprecision expression template that still refers to `a` and `b`, so
-  assigning `a = b` changes `r`. Declaring `Number r` fixes it.
+- [x] **`greatestCommonDivisor` was wrong for `cpp_int`.** `gcd(12, 18)` returned 12, and so
+  `leastCommonMultiple` of 1 through 50 returned 50. `auto r = a % b;` captured a
+  Boost.Multiprecision expression template that still referred to `a` and `b`, so
+  assigning `a = b` changed `r`. `r` is now declared `Number`.
 - [x] **`AmicableNumbers::d` overflowed.** `d(4294967040)` wrapped to 2265733248, because
   the sum of proper divisors can exceed 2³². It now returns `std::uint64_t`.
 - [x] **`sievePrimes` misbehaved at its limits.** It used `unsigned int` loop counters
