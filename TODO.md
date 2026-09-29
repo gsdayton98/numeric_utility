@@ -51,12 +51,10 @@ reproduced against the built library. The others come from reading the code.
 
 - [x] **`Factor` kept mutable static state public.** Any caller could change `primes`,
   `cache` and `cacheLock`. They now live in an anonymous namespace in `src/factor.cpp`.
-- [ ] **`Factor`'s cache costs more than it saves.**
-  - It grows without bound: every composite that hits the cache stores its own entry.
-  - `factor()` locks the mutex once per trial prime, which can be up to 6 542 times per
-    call.
-  - Measure against plain trial division bounded by √n. It is likely faster to drop
-    the cache.
+- [x] **`Factor`'s cache cost more than it saved.** It grew without bound and took its lock
+  once per trial prime. Measured against plain trial division up to √n: euler47's range
+  took 134 ms against 43 ms, 200 000 random 32-bit numbers took 8.7 s against 0.34 s, and
+  peak memory was 21 MB against 1.5 MB. Removed; `preloadCache` is a deprecated no-op.
 - [x] **`Factor::primes` was built when the library loads.** Every program that loads the
   library paid for it, and any use during static initialization in another translation
   unit hit the static-initialization-order problem. The prime table and cache are now

@@ -1,13 +1,17 @@
 // -*- mode:C++; c-basic-offset:2; indent-tabs-mode:nil -*-;
 // Copyright 2022 Glen S. Dayton. Rights reserved according to terms of included license.
 #include <boost/test/unit_test.hpp>
+#include <cstddef>
+#include <optional>
+#include <random>
 #include <sstream>
 #include <vector>
 #include "factor.hpp"
+#include "miller_rabin.hpp"
 using namespace utility;
 
 namespace {
-    // Factor's prime table and cache are implementation details, not reachable by callers.
+    // Factor's prime table is an implementation detail, and its former cache and lock must not come back.
     template <typename T> concept ExposesPrimes = requires { T::primes; };
     template <typename T> concept ExposesCache = requires { T::cache; };
     template <typename T> concept ExposesCacheLock = requires { T::cacheLock; };
@@ -107,6 +111,25 @@ BOOST_AUTO_TEST_CASE(testInserter) {
     output << example;
     BOOST_CHECK_EQUAL(output.str(), "5^2");
 }
+
+BOOST_AUTO_TEST_CASE(testRandom32Bit)
+{
+    // Each factorization multiplies back to n, with prime factors in strictly increasing order.
+    std::mt19937 rng(12345);
+    std::optional<unsigned int> wrong;
+    for (int i = 0; i < 2'000 && !wrong; ++i) {
+        const unsigned int n = rng();
+        const auto factors = Factor::factor(n);
+        bool ok = Factor::evaluate(factors) == n;
+        for (std::size_t f = 0; ok && f < factors.size(); ++f) {
+            ok = utility::millerRabin(factors[f].prime) && factors[f].exponent > 0
+                 && (f == 0 || factors[f - 1].prime < factors[f].prime);
+        }
+        if (!ok) wrong = n;
+    }
+    BOOST_TEST(!wrong.has_value(), "factor(" << wrong.value_or(0) << ") is wrong");
+}
+
 
 BOOST_AUTO_TEST_CASE(testPrimeList)
 {

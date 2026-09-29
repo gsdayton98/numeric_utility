@@ -9,9 +9,9 @@ namespace utility {
         unsigned int exponent;  /// Number of times the prime factor occurs within the number.
 
         /**
-         * Preload a cache with pre-computed factors of numbers.
-         * @param upperLimit Upper limit of numbers to preload their factors.
+         * Does nothing. factor() no longer caches: trial division is faster than the cache was.
          */
+        [[deprecated("factor() no longer caches; remove the call")]]
         static auto preloadCache(unsigned int upperLimit) -> void;
 
         /**
