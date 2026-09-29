@@ -3,6 +3,7 @@
 #ifndef NUMERIC_UTILITY_POW_HPP
 #define NUMERIC_UTILITY_POW_HPP
 #include <cstdint>
+#include <type_traits>
 #include "concepts.hpp"
 #include <numeric_utility/numeric_utility_export.h>
 
@@ -12,19 +13,20 @@ namespace utility {
     /// Pow(base, exponent)
 
     /// Evaluate base**exponent. base and exponent must be unsigned or at least non-negative.
+    /// pow(0, 0) is 1, as for the empty product, and pow(0, n) is 0 for n > 0.
     /// Beware, that the result is explicitly modulo the size of the unsigned type, for example,
     /// base 32-bit unsigned int is evaluated modulo 2**32.
 
     template<ModuloOverflow BaseType>
     auto pow(BaseType base, BaseType exponent) -> BaseType {
+        // Types narrower than int promote to int, whose overflow is undefined, so multiply in unsigned.
+        using Wide = std::common_type_t<BaseType, unsigned int>;
         BaseType result = 1;
 
-        if (base != 0) {
-            while (exponent > 0) {
-                if (exponent & 1) result *= base;
-                base *= base;
-                exponent >>= 1;
-            }
+        while (exponent > 0) {
+            if (exponent & 1) result = static_cast<BaseType>(static_cast<Wide>(result) * base);
+            base = static_cast<BaseType>(static_cast<Wide>(base) * base);
+            exponent >>= 1;
         }
 
         return result;

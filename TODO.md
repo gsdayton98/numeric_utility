@@ -162,7 +162,13 @@ reproduced against the built library. The others come from reading the code.
   the sieve.
 - [x] **Test `isqrt` at every k² − 1 / k² boundary up to the type's maximum,** for each
   unsigned width.
-- [ ] **Test `pow` and `powmod` near their limits,** comparing against an
-  `unsigned __int128` reference.
+- [x] **Test `pow` and `powmod` near their limits,** comparing against an
+  `unsigned __int128` reference. Each function is checked at the boundary values of every width
+  against a reference: 8-bit moduli and bases exhaustively, the eight largest 16-bit moduli
+  against every base, and 128 bits against `cpp_int`. `powmod` passed everything. The tests found
+  two bugs in `pow`, both fixed:
+  - `pow(0, n)` returned 1 for every `n > 0`, because a `base != 0` guard skipped the loop.
+  - `pow` on `uint16_t` overflowed a signed `int` (55105 × 55105), which is undefined behavior;
+    UBSan reported it. It now multiplies in at least `unsigned int`.
 - [x] **Test `Sieve` with large inputs and at its edges:** 0, 1, 2, `size²`, and
   repeated calls to `isPrime`.
