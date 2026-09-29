@@ -129,8 +129,9 @@ reproduced against the built library. The others come from reading the code.
   `digits_multiprecision.hpp` and `pow_multiprecision.hpp` need. The config now calls it,
   and the library links `Boost::headers` publicly so consumers get Boost's include path.
   Checked with a consumer project built against an installed copy.
-- [ ] **Tests are added even when `BUILD_TESTING` is off,** and `include(CTest)` comes
-  after `enable_testing()`. Guard the test directory with `BUILD_TESTING`.
+- [x] **Tests were added even when `BUILD_TESTING` was off,** and `include(CTest)` came
+  after `enable_testing()`. `include(CTest)` now replaces `enable_testing()` at the top, and
+  the test directory, with its Boost.Test dependency, is added only under `BUILD_TESTING`.
 - [ ] **Installed programs rely on `DYLD_LIBRARY_PATH` / `LD_LIBRARY_PATH`.** Set
   `CMAKE_INSTALL_RPATH` instead.
 - [ ] **There is no CI, and `.gitignore` ignores `.github`,** so workflow files can't be

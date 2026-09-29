@@ -16,5 +16,3 @@ add_executable(test_utility test.cpp
 target_link_libraries (test_utility PRIVATE numeric_utility Boost::unit_test_framework)
 target_compile_options(test_utility PRIVATE ${NUMERIC_UTILITY_WARNINGS})
 add_test(NAME test_utility COMMAND test_utility)
-
-include(CTest)

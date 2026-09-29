@@ -1,6 +1,7 @@
 cmake_minimum_required(VERSION 3.25)
 project(numeric_utility LANGUAGES CXX VERSION 1.0.0 DESCRIPTION "Numeric utility functions")
-enable_testing()
+# Defines the BUILD_TESTING option (default ON) and calls enable_testing().
+include(CTest)
 
 find_package(Boost REQUIRED CONFIG)
 
@@ -85,7 +86,9 @@ install(TARGETS ${PROJECT_NAME} EXPORT numeric_utility
 install(EXPORT numeric_utility NAMESPACE utility:: DESTINATION "${LIBDIR}/cmake/numeric_utility")
 export(TARGETS ${PROJECT_NAME} NAMESPACE utility:: FILE numeric_utility.cmake)
 
-add_subdirectory(test)
+if(BUILD_TESTING)
+    add_subdirectory(test)
+endif()
 
 #Packaging support
 set(CPACK_PACKAGE_VENDOR "Glen Dayton")
