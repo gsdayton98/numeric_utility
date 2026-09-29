@@ -5,6 +5,7 @@
 #include <compare>
 #include <iosfwd>
 #include <vector>
+#include "numeric_utility_export.h"
 namespace utility {
     /// A prime and the number of times it divides a number.
     ///
@@ -12,7 +13,7 @@ namespace utility {
     /// by the primes below 2^16, which covers any 32-bit number cheaply. Covering 64 bits
     /// would take a different algorithm, such as Pollard's rho with millerRabin, rather than
     /// a template parameter: trial division would need every prime below 2^32.
-    struct __attribute__((visibility("default")))  Factor {
+    struct NUMERIC_UTILITY_API Factor {
         unsigned int prime; /// Prime factor of a number.
         unsigned int exponent;  /// Number of times the prime factor occurs within the number.
 
@@ -35,7 +36,7 @@ namespace utility {
     };
 
     /// Write the factor as prime^exponent.
-    [[maybe_unused]] auto __attribute__((visibility("default"))) operator<<(std::ostream&, const Factor&) -> std::ostream&;
+    [[maybe_unused]] NUMERIC_UTILITY_API auto operator<<(std::ostream&, const Factor&) -> std::ostream&;
 }
 
 #endif //FACTOR_HPP

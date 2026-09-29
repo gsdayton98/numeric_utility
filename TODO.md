@@ -90,9 +90,12 @@ reproduced against the built library. The others come from reading the code.
   when `ResultType` was signed. For built-in integer types it now does all the arithmetic
   in `ResultType` and throws `std::overflow_error` if the result, the base or a digit
   doesn't fit. `cpp_int` is unchanged.
-- [ ] **`__attribute__((visibility("default")))` does nothing on templates and inline
-  functions.** Use a single `NUMERIC_UTILITY_API` macro, e.g. from CMake's
-  `GenerateExportHeader`, on the exported non-template symbols.
+- [x] **`__attribute__((visibility("default")))` did nothing on templates and inline
+  functions.** Removed from `isqrt`, `greatestCommonDivisor` and `leastCommonMultiple`,
+  which consumers instantiate themselves. The exported non-template symbols, the
+  explicit instantiations and the `powmod` specializations now use `NUMERIC_UTILITY_API`,
+  from the `numeric_utility_export.h` that CMake's `GenerateExportHeader` writes and
+  installs with the other headers.
 - [x] **Clean up `pow.hpp`.** A comment contains stray text
   (`target_link_libraries(test_socket …)`), and the header includes `<numeric>` when
   it needs `<limits>`.

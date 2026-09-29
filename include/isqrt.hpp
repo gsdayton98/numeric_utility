@@ -13,7 +13,7 @@ namespace utility {
      * x + c/x < 2^(ceil(b/2) + 1), so nothing overflows.
      */
     template<Unsigned NumberType>
-    auto __attribute__((visibility("default"))) isqrt(const NumberType &c) -> NumberType {
+    auto isqrt(const NumberType &c) -> NumberType {
         if (c < 2) return c;
 
         unsigned int bits = 0;

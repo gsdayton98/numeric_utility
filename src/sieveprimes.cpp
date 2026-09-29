@@ -3,7 +3,7 @@
 #include <algorithm>
 #include "sieveprimes.hpp"
 
-[[maybe_unused]] auto __attribute__((visibility("default"))) utility::sievePrimes(const unsigned long upperLimit, std::vector<unsigned long>& primes) -> std::vector<unsigned long>& {
+[[maybe_unused]] NUMERIC_UTILITY_API auto utility::sievePrimes(const unsigned long upperLimit, std::vector<unsigned long>& primes) -> std::vector<unsigned long>& {
     const Sieve<unsigned long> sieve(upperLimit);
 
     // Sieve enforces a minimum size, so it may hold primes at or above the limit.
@@ -13,6 +13,6 @@
 }
 
 
-template class __attribute__((visibility("default"))) utility::Sieve<unsigned int>;
-template class __attribute__((visibility("default"))) utility::Sieve<unsigned long>;
-template class __attribute__((visibility("default"))) utility::Sieve<unsigned long long>;
+template class NUMERIC_UTILITY_API utility::Sieve<unsigned int>;
+template class NUMERIC_UTILITY_API utility::Sieve<unsigned long>;
+template class NUMERIC_UTILITY_API utility::Sieve<unsigned long long>;

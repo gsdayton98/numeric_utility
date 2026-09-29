@@ -10,7 +10,7 @@
 
 namespace utility {
     template<typename Number>
-    auto __attribute__((visibility("default"))) greatestCommonDivisor(Number a, Number b) -> Number {
+    auto greatestCommonDivisor(Number a, Number b) -> Number {
         if (b > a) {
             std::swap(a, b);
         }
@@ -30,7 +30,7 @@ namespace utility {
      * @throw overflow_error if the result does not fit in Number.
      */
     template<typename Number>
-    [[maybe_unused]] auto __attribute__((visibility("default"))) leastCommonMultiple(Number a, Number b) -> Number {
+    [[maybe_unused]] auto leastCommonMultiple(Number a, Number b) -> Number {
         // 0 is the only common multiple of 0, and gcd(0, 0) == 0 cannot be divided by.
         if (a == 0 || b == 0) return 0;
         const Number quotient = a / greatestCommonDivisor(a, b);
@@ -52,7 +52,7 @@ namespace utility {
      * @throw overflow_error if the result does not fit in Number.
      */
     template<typename Number>
-    auto __attribute__((visibility("default"))) leastCommonMultiple(const std::vector <Number> &numbersIn) -> Number {
+    auto leastCommonMultiple(const std::vector <Number> &numbersIn) -> Number {
         Number lcm = 1UL;
 
         for (auto n: numbersIn) {

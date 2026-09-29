@@ -13,10 +13,11 @@
 #include <cstdint>
 #include <vector>
 #include "factor.hpp"
+#include "numeric_utility_export.h"
 
 namespace utility {
     /// 32-bit, because it factors with Factor, which is.
-    class __attribute__((visibility("default"))) AmicableNumbers {
+    class NUMERIC_UTILITY_API AmicableNumbers {
         public:
         /// Sum the proper divisors of a number. The sum can exceed 32 bits, so it is returned in 64.
         static auto d(unsigned int n) -> std::uint64_t;

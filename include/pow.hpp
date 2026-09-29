@@ -4,6 +4,7 @@
 #define POW_HPP
 #include <cstdint>
 #include "concepts.hpp"
+#include "numeric_utility_export.h"
 
 namespace utility {
 
@@ -57,18 +58,18 @@ namespace utility {
     // Specializations match exact types, not widths: of unsigned long and unsigned long long,
     // only the one that is uint64_t on the platform is specialized.
     template<>
-    auto __attribute__((visibility("default"))) powmod<std::uint8_t>(std::uint8_t base, std::uint8_t exponent, const std::uint8_t& modulus) -> std::uint8_t;
+    NUMERIC_UTILITY_API auto powmod<std::uint8_t>(std::uint8_t base, std::uint8_t exponent, const std::uint8_t& modulus) -> std::uint8_t;
 
     template<>
-    auto __attribute__((visibility("default"))) powmod<std::uint16_t>(std::uint16_t base, std::uint16_t exponent, const std::uint16_t& modulus) -> std::uint16_t;
+    NUMERIC_UTILITY_API auto powmod<std::uint16_t>(std::uint16_t base, std::uint16_t exponent, const std::uint16_t& modulus) -> std::uint16_t;
 
     template<>
-    auto __attribute__((visibility("default"))) powmod<std::uint32_t>(std::uint32_t base, std::uint32_t exponent, const std::uint32_t& modulus) -> std::uint32_t;
+    NUMERIC_UTILITY_API auto powmod<std::uint32_t>(std::uint32_t base, std::uint32_t exponent, const std::uint32_t& modulus) -> std::uint32_t;
 
     template<>
-    auto __attribute__((visibility("default"))) powmod<std::uint64_t>(std::uint64_t base, std::uint64_t exponent, const std::uint64_t& modulus) -> std::uint64_t;
+    NUMERIC_UTILITY_API auto powmod<std::uint64_t>(std::uint64_t base, std::uint64_t exponent, const std::uint64_t& modulus) -> std::uint64_t;
 
     template<>
-    auto __attribute__((visibility("default"))) powmod<unsigned __int128>(unsigned __int128 base, unsigned __int128 exponent, const unsigned __int128 &modulus) -> unsigned __int128;
+    NUMERIC_UTILITY_API auto powmod<unsigned __int128>(unsigned __int128 base, unsigned __int128 exponent, const unsigned __int128 &modulus) -> unsigned __int128;
 }
 #endif

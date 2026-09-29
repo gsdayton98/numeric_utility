@@ -51,11 +51,17 @@ endif()
 add_library(numeric_utility SHARED ${HEADERS} ${SOURCES})
 target_include_directories(numeric_utility PUBLIC
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+        $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}>
         $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>)
 target_compile_options(numeric_utility PRIVATE -fvisibility=hidden)
+# Generates numeric_utility_export.h, which defines NUMERIC_UTILITY_API for the exported non-template symbols.
+include(GenerateExportHeader)
+generate_export_header(numeric_utility
+        EXPORT_MACRO_NAME NUMERIC_UTILITY_API
+        EXPORT_FILE_NAME numeric_utility_export.h)
 set_target_properties(numeric_utility PROPERTIES VERSION ${PROJECT_VERSION})
 set_target_properties(numeric_utility PROPERTIES SOVERSION ${PROJECT_VERSION_MAJOR})
-set_target_properties(numeric_utility PROPERTIES PUBLIC_HEADER "${HEADERS}")
+set_target_properties(numeric_utility PROPERTIES PUBLIC_HEADER "${HEADERS};${CMAKE_CURRENT_BINARY_DIR}/numeric_utility_export.h")
 
 install(TARGETS ${PROJECT_NAME} EXPORT numeric_utility
         ARCHIVE  DESTINATION "${LIBDIR}"

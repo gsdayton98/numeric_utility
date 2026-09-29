@@ -6,6 +6,7 @@
 #include <stdexcept>
 #include <vector>
 #include "isqrt.hpp"
+#include "numeric_utility_export.h"
 
 
 namespace utility {
@@ -13,7 +14,7 @@ namespace utility {
      * Replace the contents of primes with the primes below upperLimit.
      * @return primes
      */
-    [[maybe_unused]] auto __attribute__((visibility("default"))) sievePrimes(unsigned long upperLimit, std::vector<unsigned long> &primes) -> std::vector<unsigned long> &;
+    [[maybe_unused]] NUMERIC_UTILITY_API auto sievePrimes(unsigned long upperLimit, std::vector<unsigned long> &primes) -> std::vector<unsigned long> &;
 
     template <typename Unsigned>
     class Sieve {
