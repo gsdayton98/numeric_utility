@@ -2,16 +2,9 @@
 // Copyright 2022 Glen S. Dayton. Rights reserved according to terms of included license.
 #ifndef FACTOR_HPP
 #define FACTOR_HPP
-#include <map>
-#include <mutex>
 #include <vector>
 namespace utility {
     struct __attribute__((visibility("default")))  Factor {
-        static std::vector<unsigned int> primes;
-
-        static std::mutex cacheLock;
-        static std::map<unsigned int, std::vector<Factor> > cache;
-
         unsigned int prime; /// Prime factor of a number.
         unsigned int exponent;  /// Number of times the prime factor occurs within the number.
 

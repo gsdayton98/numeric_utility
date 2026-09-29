@@ -49,17 +49,18 @@ reproduced against the built library. The others come from reading the code.
 
 ## 2. Design and API
 
-- [ ] **`Factor` keeps mutable static state public.** Any caller can change `primes`,
-  `cache` and `cacheLock`. Make them private implementation details.
+- [x] **`Factor` kept mutable static state public.** Any caller could change `primes`,
+  `cache` and `cacheLock`. They now live in an anonymous namespace in `src/factor.cpp`.
 - [ ] **`Factor`'s cache costs more than it saves.**
   - It grows without bound: every composite that hits the cache stores its own entry.
   - `factor()` locks the mutex once per trial prime, which can be up to 6 542 times per
     call.
   - Measure against plain trial division bounded by √n. It is likely faster to drop
     the cache.
-- [ ] **`Factor::primes` is built when the library loads.** Every program that loads the
-  library pays for it, and any use during static initialization in another translation
-  unit hits the static-initialization-order problem. Use a function-local static.
+- [x] **`Factor::primes` was built when the library loads.** Every program that loads the
+  library paid for it, and any use during static initialization in another translation
+  unit hit the static-initialization-order problem. The prime table and cache are now
+  function-local statics.
 - [ ] **There are three different "unsigned" checks:** `utility::is_unsigned` in
   `digits.hpp`, the global `Unsigned` concept in `pow.hpp`, and `std::is_unsigned` in
   `isqrt.hpp`. `Unsigned` is `!numeric_limits<T>::is_signed`, which any type without a

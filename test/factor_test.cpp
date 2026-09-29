@@ -6,6 +6,17 @@
 #include "factor.hpp"
 using namespace utility;
 
+namespace {
+    // Factor's prime table and cache are implementation details, not reachable by callers.
+    template <typename T> concept ExposesPrimes = requires { T::primes; };
+    template <typename T> concept ExposesCache = requires { T::cache; };
+    template <typename T> concept ExposesCacheLock = requires { T::cacheLock; };
+
+    static_assert(!ExposesPrimes<Factor>);
+    static_assert(!ExposesCache<Factor>);
+    static_assert(!ExposesCacheLock<Factor>);
+}
+
 BOOST_AUTO_TEST_SUITE(TestFactor)
 
 BOOST_AUTO_TEST_CASE(testFactorEvaluate) {
