@@ -6,6 +6,8 @@ digit conversion.
 I originally developed these routines for Project Euler solutions, and they proved to be generally useful
 outside of Project Euler, or least usable across many Project Euler problems.
 
+**API documentation: <https://gsdayton98.github.io/numeric_utility/>**
+
 Everything is in namespace `utility`. Include the headers as `<numeric_utility/name.hpp>`.
 
 ## Modules
@@ -102,7 +104,8 @@ The library is a shared library that installs to your home directory by default;
 
 ## Documentation
 
-The headers' doc comments (Doxygen syntax, with LaTeX math) build into a searchable web site. You need
+The [published documentation](https://gsdayton98.github.io/numeric_utility/) is rebuilt from `main` by CI.
+To build it yourself: the headers' doc comments (Doxygen syntax, with LaTeX math) build into a searchable web site. You need
 [Doxygen](https://www.doxygen.nl/), and optionally Graphviz for include graphs; CMake downloads the
 [doxygen-awesome-css](https://github.com/jothepro/doxygen-awesome-css) theme when you configure.
 
