@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.25)
-project(numeric_utility LANGUAGES CXX VERSION 1.0.0 DESCRIPTION "Numeric utility functions")
+project(numeric_utility LANGUAGES CXX VERSION 1.1.0 DESCRIPTION "Numeric utility functions")
 # Defines the BUILD_TESTING option (default ON) and calls enable_testing().
 include(CTest)
 
@@ -92,6 +92,12 @@ export(TARGETS ${PROJECT_NAME} NAMESPACE utility:: FILE numeric_utility.cmake)
 
 if(BUILD_TESTING)
     add_subdirectory(test)
+endif()
+
+# Benchmarks need the oscpp library for its StopWatch.
+option(NUMERIC_UTILITY_BENCHMARKS "Build the benchmarks; needs the oscpp package" OFF)
+if(NUMERIC_UTILITY_BENCHMARKS)
+    add_subdirectory(benchmark)
 endif()
 
 # API documentation: cmake --build <dir> --target docs. Needs Doxygen, and network access to fetch the theme.
