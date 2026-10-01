@@ -2,7 +2,7 @@
 // Copyright 2025 Glen S. Dayton. Rights reserved according to terms of included license.
 #include <numeric_utility/miller_rabin.hpp>
 #include <numeric_utility/sieveprimes.hpp>
-#include "stopwatch.hpp"
+#include <oscpp/stopwatch.hpp>
 #include <cstdlib>
 #include <iostream>
 

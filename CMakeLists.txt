@@ -94,6 +94,12 @@ if(BUILD_TESTING)
     add_subdirectory(test)
 endif()
 
+# Benchmarks need the oscpp library for its StopWatch.
+option(NUMERIC_UTILITY_BENCHMARKS "Build the benchmarks; needs the oscpp package" OFF)
+if(NUMERIC_UTILITY_BENCHMARKS)
+    add_subdirectory(benchmark)
+endif()
+
 # API documentation: cmake --build <dir> --target docs. Needs Doxygen, and network access to fetch the theme.
 option(NUMERIC_UTILITY_DOCS "Add a 'docs' target that builds the API documentation with Doxygen" OFF)
 if(NUMERIC_UTILITY_DOCS)
