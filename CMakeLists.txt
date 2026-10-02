@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.25)
-project(numeric_utility LANGUAGES CXX VERSION 1.1.0 DESCRIPTION "Numeric utility functions")
+project(numeric_utility LANGUAGES CXX VERSION 1.1.1 DESCRIPTION "Numeric utility functions")
 # Defines the BUILD_TESTING option (default ON) and calls enable_testing().
 include(CTest)
 
@@ -27,6 +27,7 @@ set(SOURCES src/amicable_numbers.cpp
 
 set(HEADERS include/numeric_utility/amicable_numbers.hpp
         include/numeric_utility/concepts.hpp
+        include/numeric_utility/continued_fraction.hpp
         include/numeric_utility/digits.hpp
         include/numeric_utility/digits_multiprecision.hpp
         include/numeric_utility/factor.hpp
@@ -35,7 +36,8 @@ set(HEADERS include/numeric_utility/amicable_numbers.hpp
         include/numeric_utility/miller_rabin.hpp
         include/numeric_utility/pow.hpp
         include/numeric_utility/pow_multiprecision.hpp
-        include/numeric_utility/sieveprimes.hpp)
+        include/numeric_utility/sieveprimes.hpp
+        include/numeric_utility/totient.hpp)
 
 # Build the library with the same sanitizers as its consumers, e.g. -DNUMERIC_UTILITY_SANITIZERS="address;undefined".
 # An uninstrumented library under an instrumented program yields ASan container-overflow false positives.
