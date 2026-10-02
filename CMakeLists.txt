@@ -31,6 +31,7 @@ set(HEADERS include/numeric_utility/amicable_numbers.hpp
         include/numeric_utility/digits.hpp
         include/numeric_utility/digits_multiprecision.hpp
         include/numeric_utility/factor.hpp
+        include/numeric_utility/fraction.hpp
         include/numeric_utility/isqrt.hpp
         include/numeric_utility/lcm_gcd.hpp
         include/numeric_utility/miller_rabin.hpp
