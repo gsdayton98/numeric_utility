@@ -27,6 +27,7 @@ set(SOURCES src/amicable_numbers.cpp
 
 set(HEADERS include/numeric_utility/amicable_numbers.hpp
         include/numeric_utility/concepts.hpp
+        include/numeric_utility/continued_fraction.hpp
         include/numeric_utility/digits.hpp
         include/numeric_utility/digits_multiprecision.hpp
         include/numeric_utility/factor.hpp

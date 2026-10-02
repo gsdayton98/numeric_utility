@@ -20,6 +20,7 @@ Everything is in namespace `utility`. Include the headers as `<numeric_utility/n
 | `factor.hpp` | `Factor::factor(n)` returns the prime factorization of a 32-bit `n`; `Factor::evaluate` multiplies it back. |
 | `amicable_numbers.hpp` | `AmicableNumbers::d(n)`, the sum of the proper divisors of a 32-bit `n`, and `divisors`. |
 | `isqrt.hpp` | `isqrt(c)`, the integer square root of any unsigned type, without overflow. |
+| `continued_fraction.hpp` | `sqrtContinuedFraction(n)`, the continued fraction of √n as a0 followed by one period, for any unsigned type. A perfect square gives just a0. |
 | `lcm_gcd.hpp` | `greatestCommonDivisor` and `leastCommonMultiple`, for two numbers or a vector. The LCM throws `std::overflow_error` for built-in types when the result does not fit. |
 | `pow.hpp` | `pow`, wrapping modulo the size of the type, and `powmod`, which is correct for any modulus for `uint8_t` to `uint64_t` and `unsigned __int128`. Other unsigned types get a generic version that overflows unless the modulus squared fits. |
 | `digits.hpp` | `toDigits(n, base)`, least significant digit first, and `toNumber<T>(digits, base)`, which throws `std::overflow_error` if the result does not fit. |
@@ -34,6 +35,7 @@ algorithm, not a wider type.
 ```cpp
 #include <cstdint>
 #include <iostream>
+#include <numeric_utility/continued_fraction.hpp>
 #include <numeric_utility/digits.hpp>
 #include <numeric_utility/factor.hpp>
 #include <numeric_utility/isqrt.hpp>
@@ -51,6 +53,8 @@ int main()
     std::cout << '\n';                                                    // 2^3 3^2 5^1
 
     std::cout << isqrt(1'000'000'007u) << '\n';                           // 31622
+    for (const auto a : sqrtContinuedFraction(23u)) std::cout << a << ' ';
+    std::cout << '\n';                                                    // 4 1 3 1 8
     std::cout << greatestCommonDivisor(12u, 18u) << ' '
               << leastCommonMultiple(4u, 6u) << '\n';                     // 6 12
     std::cout << powmod<std::uint64_t>(2, 100, 1'000'000'007) << '\n';    // 976371285
