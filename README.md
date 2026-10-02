@@ -15,6 +15,7 @@ Everything is in namespace `utility`. Include the headers as `<numeric_utility/n
 | Header | What it provides |
 | --- | --- |
 | `sieveprimes.hpp` | `Sieve<T>`, a sieve of Eratosthenes: the primes below a limit, and `isPrime` for numbers up to the square of the limit. `sievePrimes` fills a vector with the primes below a limit. |
+| `totient.hpp` | `Totient<T>`, a table of Euler's totient φ(n) for every n up to a limit, built with a sieve. `phi(n)` throws `std::range_error` past the table. |
 | `miller_rabin.hpp` | `millerRabin(n)`, a deterministic primality test, exact for every 64-bit `n`. |
 | `factor.hpp` | `Factor::factor(n)` returns the prime factorization of a 32-bit `n`; `Factor::evaluate` multiplies it back. |
 | `amicable_numbers.hpp` | `AmicableNumbers::d(n)`, the sum of the proper divisors of a 32-bit `n`, and `divisors`. |
@@ -40,6 +41,7 @@ algorithm, not a wider type.
 #include <numeric_utility/miller_rabin.hpp>
 #include <numeric_utility/pow.hpp>
 #include <numeric_utility/sieveprimes.hpp>
+#include <numeric_utility/totient.hpp>
 
 int main()
 {
@@ -56,6 +58,9 @@ int main()
 
     const Sieve<unsigned int> sieve(100);
     std::cout << sieve.size() << ' ' << sieve.isPrime(97) << '\n';        // 25 1
+
+    const Totient<unsigned int> totient(36);
+    std::cout << totient.phi(36) << '\n';                                 // 12
 
     const auto digits = toDigits(9075u);                                  // least significant first
     std::cout << static_cast<int>(digits[0]) << ' ' << toNumber<unsigned int>(digits) << '\n';  // 5 9075

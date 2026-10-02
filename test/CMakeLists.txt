@@ -12,7 +12,8 @@ add_executable(test_utility test.cpp
         test_lcm_gcd.cpp
         test_miller_rabin.cpp
         test_pow.cpp
-        test_sieve.cpp)
+        test_sieve.cpp
+        test_totient.cpp)
 target_link_libraries (test_utility PRIVATE numeric_utility Boost::unit_test_framework)
 target_compile_options(test_utility PRIVATE ${NUMERIC_UTILITY_WARNINGS})
 add_test(NAME test_utility COMMAND test_utility)
