@@ -19,6 +19,7 @@ Everything is in namespace `utility`. Include the headers as `<numeric_utility/n
 | `miller_rabin.hpp` | `millerRabin(n)`, a deterministic primality test, exact for every 64-bit `n`. |
 | `factor.hpp` | `Factor::factor(n)` returns the prime factorization of a 32-bit `n`; `Factor::evaluate` multiplies it back. |
 | `amicable_numbers.hpp` | `AmicableNumbers::d(n)`, the sum of the proper divisors of a 32-bit `n`, and `divisors`. |
+| `fraction.hpp` | `Fraction<T>`, a fraction of signed integers kept in lowest terms with a positive denominator. Multiplication cancels first and throws `std::overflow_error` if the result doesn't fit; a zero denominator throws `std::domain_error`. |
 | `isqrt.hpp` | `isqrt(c)`, the integer square root of any unsigned type, without overflow. |
 | `continued_fraction.hpp` | `sqrtContinuedFraction(n)`, the continued fraction of √n as a0 followed by one period, for any unsigned type. A perfect square gives just a0. |
 | `lcm_gcd.hpp` | `greatestCommonDivisor` and `leastCommonMultiple`, for two numbers or a vector. The LCM throws `std::overflow_error` for built-in types when the result does not fit. |
@@ -38,6 +39,7 @@ algorithm, not a wider type.
 #include <numeric_utility/continued_fraction.hpp>
 #include <numeric_utility/digits.hpp>
 #include <numeric_utility/factor.hpp>
+#include <numeric_utility/fraction.hpp>
 #include <numeric_utility/isqrt.hpp>
 #include <numeric_utility/lcm_gcd.hpp>
 #include <numeric_utility/miller_rabin.hpp>
@@ -53,6 +55,7 @@ int main()
     std::cout << '\n';                                                    // 2^3 3^2 5^1
 
     std::cout << isqrt(1'000'000'007u) << '\n';                           // 31622
+    std::cout << Fraction{16, 64} * Fraction{19, 95} << '\n';            // 1/20
     for (const auto a : sqrtContinuedFraction(23u)) std::cout << a << ' ';
     std::cout << '\n';                                                    // 4 1 3 1 8
     std::cout << greatestCommonDivisor(12u, 18u) << ' '
