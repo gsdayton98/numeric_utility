@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.25)
-project(numeric_utility LANGUAGES CXX VERSION 1.1.1 DESCRIPTION "Numeric utility functions")
+project(numeric_utility LANGUAGES CXX VERSION 1.1.2 DESCRIPTION "Numeric utility functions")
 # Defines the BUILD_TESTING option (default ON) and calls enable_testing().
 include(CTest)
 
