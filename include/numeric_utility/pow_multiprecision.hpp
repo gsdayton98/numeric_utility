@@ -4,16 +4,24 @@
 #define NUMERIC_UTILITY_POW_MULTIPRECISION_HPP
 #include <boost/multiprecision/cpp_int.hpp>
 #include "pow.hpp"
+/// @file
+/// @brief powmod for Boost.Multiprecision's cpp_int.
 
 // Kept apart from pow.hpp so only users of Boost.Multiprecision depend on it.
 namespace utility {
 
-    ////
-    /// powmod(base, exponent, modulus)
-    /// Evaluate base**exponent modulo modulus.
-    /// An overload rather than a specialization: cpp_int is signed, so it does not
-    /// satisfy the utility::Unsigned constraint of the template.
-    /// Arguments must be non-negative.
+    /**
+     * @brief Evaluate base**exponent modulo modulus, for arbitrary-precision numbers.
+     *
+     * An overload rather than a specialization: cpp_int is signed, so it does not
+     * satisfy the utility::Unsigned constraint of the template.
+     * Cannot overflow.
+     *
+     * @param base The base, non-negative.
+     * @param exponent The exponent, non-negative.
+     * @param modulus The modulus, non-negative.
+     * @return base**exponent mod modulus, which is 0 if modulus is 0 or 1.
+     */
     inline auto powmod(const boost::multiprecision::cpp_int& base,
                        const boost::multiprecision::cpp_int& exponent,
                        const boost::multiprecision::cpp_int& modulus) -> boost::multiprecision::cpp_int {

@@ -18,13 +18,35 @@
 #include <numeric_utility/numeric_utility_export.h>
 
 namespace utility {
-    /// 32-bit, because it factors with Factor, which is.
+    /**
+     * Divisor sums for finding amicable pairs.
+     *
+     * 32-bit, because it factors with Factor, which is.
+     *
+     * @code
+     * using utility::AmicableNumbers;
+     * AmicableNumbers::d(220);   // 284
+     * AmicableNumbers::d(284);   // 220, so 220 and 284 are an amicable pair
+     * @endcode
+     */
     class NUMERIC_UTILITY_API AmicableNumbers {
         public:
-        /// Sum the proper divisors of a number. The sum can exceed 32 bits, so it is returned in 64.
+        /**
+         * Sum the proper divisors of a number, $d(n)$.
+         *
+         * Factors n with Factor::factor, so the cost is that of factoring plus one step per divisor.
+         * @param n The number whose proper divisors to sum.
+         * @return The sum of the divisors of n that are less than n. The sum can exceed 32 bits, so it is returned
+         *         in 64. It is 0 for n of 0 or 1, which have no proper divisors.
+         */
         static auto d(unsigned int n) -> std::uint64_t;
 
-        /// Given the prime factors of a number, return all proper divisors of the number.
+        /**
+         * Given the prime factors of a number, return all proper divisors of the number.
+         * @param n The number itself.
+         * @param factors The prime factorization of n, as Factor::factor returns it.
+         * @return Every divisor of n less than n, in the order the factors' exponents count up, not sorted.
+         */
         static auto divisors(unsigned int n, const std::vector<Factor>& factors) -> std::vector<unsigned int>;
     };
 }

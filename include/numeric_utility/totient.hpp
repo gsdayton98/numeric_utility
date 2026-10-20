@@ -7,6 +7,8 @@
 #include <stdexcept>
 #include <vector>
 #include "concepts.hpp"
+/// @file
+/// @brief A table of Euler's totient function.
 
 
 namespace utility {
@@ -16,6 +18,13 @@ namespace utility {
      * Built with a sieve: φ(n) = n ∏(1 − 1/p) over the primes p dividing n, applied to every multiple of each
      * prime. That takes O(n log log n) time and one Unsigned per entry.
      * φ(0) is 0, since no k satisfies 1 ≤ k ≤ 0.
+     *
+     * @code
+     * utility::Totient<unsigned int> totient{10};
+     * totient.phi(10);     // 4: 1, 3, 7 and 9 are coprime to 10
+     * totient[9];          // 6
+     * @endcode
+     * @tparam Number An unsigned integer type. It must hold every n up to the limit, and φ(n) ≤ n.
      */
     template <Unsigned Number>
     class Totient {
@@ -29,18 +38,26 @@ namespace utility {
         explicit Totient(Number maxNumber);
 
         /**
-         * Euler's totient of n.
+         * Euler's totient of n, checked.
+         * @param n The number whose totient to look up.
+         * @return φ(n).
          * @throws std::range_error if n is beyond the table.
          */
         [[nodiscard]] auto phi(Number n) const -> Number;
 
-        /// Euler's totient of n, unchecked: n must be at most maxNumber.
+        /**
+         * Euler's totient of n, unchecked: n must be at most maxNumber.
+         * @param n The number whose totient to look up.
+         * @return φ(n).
+         */
         [[nodiscard]] auto operator[](Number n) const -> Number { return m_phi[n]; }
 
         /// The number of entries, maxNumber + 1.
+        /// @return The number of entries.
         [[nodiscard]] auto size() const -> std::size_t { return m_phi.size(); }
 
         /// The whole table, indexed by n.
+        /// @return The table, valid as long as this object.
         [[nodiscard]] auto values() const -> const std::vector<Number>& { return m_phi; }
 
     private:

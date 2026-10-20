@@ -5,21 +5,32 @@
 #include <concepts>
 #include <limits>
 #include <type_traits>
+/// @file
+/// @brief Concepts that constrain the library's numeric templates.
 
 namespace utility {
 
-    /// An unsigned integer type other than bool.
-    /// Defined by std::numeric_limits rather than std::is_unsigned: the standard forbids
-    /// specializing type traits for other types, but allows specializing numeric_limits, as
-    /// Boost.Multiprecision does for its fixed-width unsigned types. is_specialized excludes
-    /// types numeric_limits knows nothing about.
+    /**
+     * @concept Unsigned
+     * An unsigned integer type other than bool.
+     *
+     * Defined by std::numeric_limits rather than std::is_unsigned: the standard forbids
+     * specializing type traits for other types, but allows specializing numeric_limits, as
+     * Boost.Multiprecision does for its fixed-width unsigned types. is_specialized excludes
+     * types numeric_limits knows nothing about.
+     */
     template <typename T>
     concept Unsigned = std::numeric_limits<T>::is_specialized
                        && std::numeric_limits<T>::is_integer
                        && ! std::numeric_limits<T>::is_signed
                        && ! std::same_as<std::remove_cv_t<T>, bool>;
 
-    /// A type whose arithmetic wraps around rather than overflowing, such as the unsigned integers.
+    /**
+     * @concept ModuloOverflow
+     * A type whose arithmetic wraps around rather than overflowing, such as the unsigned integers.
+     *
+     * Signed built-in integers do not qualify, since their overflow is undefined.
+     */
     template <typename T>
     concept ModuloOverflow = std::numeric_limits<T>::is_modulo;
 }

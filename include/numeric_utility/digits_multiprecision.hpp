@@ -8,6 +8,8 @@
 #include <stdexcept>
 #include <vector>
 #include "digits.hpp"
+/// @file
+/// @brief toDigits for Boost.Multiprecision's cpp_int.
 
 // Kept apart from digits.hpp so only users of Boost.Multiprecision depend on it.
 namespace utility {
@@ -16,6 +18,12 @@ namespace utility {
      * Return a vector of digits representing the number n in the given base.
      * Each multiprecision division peels off as many digits as fit in 64 bits,
      * rather than one digit at a time.
+     *
+     * @code
+     * boost::multiprecision::cpp_int big = 1;
+     * big <<= 100;
+     * auto digits = utility::toDigits(big);   // the 31 decimal digits of 2^100, least significant first
+     * @endcode
      * @tparam RadixType Type of the base
      * @tparam DigitType Type of the digits in the result
      * @param n The non-negative number to convert
