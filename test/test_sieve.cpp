@@ -59,6 +59,7 @@ BOOST_AUTO_TEST_CASE(test_sieve_beyond_does_not_modify_primes) {
     BOOST_CHECK_EQUAL(sieve.last(), 97u);
 }
 
+
 BOOST_AUTO_TEST_CASE(test_sieve_beyond_matches_full_sieve) {
     constexpr std::uint64_t limit = 1'000'000u;
     const utility::Sieve<std::uint64_t> small(1'000u);
@@ -70,47 +71,12 @@ BOOST_AUTO_TEST_CASE(test_sieve_beyond_matches_full_sieve) {
     BOOST_TEST(!mismatch.has_value(), "Trial division disagrees with the full sieve at " << mismatch.value_or(0));
 }
 
+
 BOOST_AUTO_TEST_CASE(test_sieve_beyond_32_bit) {
     const utility::Sieve<std::uint64_t> sieve(65'536u);
     BOOST_CHECK(sieve.isPrime(4'294'967'291u));                        // Largest 32-bit prime
     BOOST_CHECK(!sieve.isPrime(4'294'967'295u));                       // 65535 * 65537
     BOOST_CHECK(!sieve.isPrime(4'292'870'399u));                       // 65519 * 65521
     BOOST_CHECK(!sieve.isPrime(4'294'836'225u));                       // 65535^2
-}
-
-
-BOOST_AUTO_TEST_CASE(test_sieve_primes_small_limits) {
-    // The primes strictly below the limit, even though Sieve enforces a minimum size.
-    std::vector<unsigned long> primes;
-    for (const unsigned long limit: {0ul, 1ul, 2ul}) {
-        BOOST_TEST(utility::sievePrimes(limit, primes).empty(), "limit " << limit);
-    }
-
-    const std::vector<unsigned long> below3 {2};
-    utility::sievePrimes(3, primes);
-    BOOST_CHECK_EQUAL_COLLECTIONS(primes.begin(), primes.end(), below3.begin(), below3.end());
-
-    const std::vector<unsigned long> below17 {2, 3, 5, 7, 11, 13};
-    utility::sievePrimes(17, primes);
-    BOOST_CHECK_EQUAL_COLLECTIONS(primes.begin(), primes.end(), below17.begin(), below17.end());
-
-    const std::vector<unsigned long> below18 {2, 3, 5, 7, 11, 13, 17};
-    utility::sievePrimes(18, primes);
-    BOOST_CHECK_EQUAL_COLLECTIONS(primes.begin(), primes.end(), below18.begin(), below18.end());
-}
-
-BOOST_AUTO_TEST_CASE(test_sieve_primes_replaces_contents) {
-    std::vector<unsigned long> primes {4, 6, 8};
-    auto& result = utility::sievePrimes(10, primes);
-    BOOST_CHECK_EQUAL(&result, &primes);
-    const std::vector<unsigned long> below10 {2, 3, 5, 7};
-    BOOST_CHECK_EQUAL_COLLECTIONS(primes.begin(), primes.end(), below10.begin(), below10.end());
-}
-
-BOOST_AUTO_TEST_CASE(test_sieve_primes_million) {
-    std::vector<unsigned long> primes;
-    utility::sievePrimes(1'000'000, primes);
-    BOOST_CHECK_EQUAL(primes.size(), 78'498u);                         // pi(10^6)
-    BOOST_CHECK_EQUAL(primes.back(), 999'983u);                        // Largest prime below 10^6
 }
 BOOST_AUTO_TEST_SUITE_END()

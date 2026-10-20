@@ -17,25 +17,6 @@
 
 namespace utility {
     /**
-     * @brief Perform a Eratosthenes Sieve to fill a vector with primes
-     *
-     * Creates a bit vector up to upperLimit long to sieve for primes. As primes are found pushes the prime to end of
-     * the vector. Takes O(n log log n) time and n bits of working space for n = upperLimit.
-     *
-     * @code
-     * std::vector<unsigned long> primes;
-     * utility::sievePrimes(30, primes);   // 2 3 5 7 11 13 17 19 23 29
-     * @endcode
-     *
-     * @param upperLimit    Create a list of primes below upperLimit. UpperLimits of 0, 1 will yield no primes.
-     * @param primes        A vector which will be cleared and filled with a list of primes below the upperLimit.
-     *
-     * @return primes       The input vector filled with the primes found. Will be empty if upperLimit is 0 or 1.
-     * @throws              Exceptions from the underlying STL containers.
-     */
-    [[maybe_unused]] NUMERIC_UTILITY_API auto sievePrimes(unsigned long upperLimit, std::vector<unsigned long> &primes) -> std::vector<unsigned long> &;
-
-    /**
      * The primes below a limit, found by the sieve of Eratosthenes, which can then test larger numbers.
      *
      * Construction takes O(n log log n) time for n = upperLimit and holds one bit per number plus one
