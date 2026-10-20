@@ -11,6 +11,8 @@
 
 #include "miller_rabin.hpp"
 #include "pow.hpp"
+/// @file
+/// @brief The sieve of Eratosthenes, as a function and as a class that also answers primality queries.
 
 
 namespace utility {
@@ -18,7 +20,12 @@ namespace utility {
      * @brief Perform a Eratosthenes Sieve to fill a vector with primes
      *
      * Creates a bit vector up to upperLimit long to sieve for primes. As primes are found pushes the prime to end of
-     * the vector.
+     * the vector. Takes O(n log log n) time and n bits of working space for n = upperLimit.
+     *
+     * @code
+     * std::vector<unsigned long> primes;
+     * utility::sievePrimes(30, primes);   // 2 3 5 7 11 13 17 19 23 29
+     * @endcode
      *
      * @param upperLimit    Create a list of primes below upperLimit. UpperLimits of 0, 1 will yield no primes.
      * @param primes        A vector which will be cleared and filled with a list of primes below the upperLimit.
@@ -28,9 +35,26 @@ namespace utility {
      */
     [[maybe_unused]] NUMERIC_UTILITY_API auto sievePrimes(unsigned long upperLimit, std::vector<unsigned long> &primes) -> std::vector<unsigned long> &;
 
+    /**
+     * The primes below a limit, found by the sieve of Eratosthenes, which can then test larger numbers.
+     *
+     * Construction takes O(n log log n) time for n = upperLimit and holds one bit per number plus one
+     * Unsigned per prime. Instantiated in the library for unsigned int, unsigned long and unsigned long long.
+     *
+     * @code
+     * utility::Sieve<unsigned int> sieve{100};
+     * sieve.size();          // 25 primes below 100
+     * sieve[3];              // 7, the fourth prime
+     * sieve.isPrime(97);     // true
+     * sieve.isPrime(9'991);  // false: 97 * 103, found by trial division with the sieve's primes
+     * for (const auto p : sieve) std::cout << p << ' ';
+     * @endcode
+     * @tparam Unsigned The unsigned integer type of the primes.
+     */
     template <typename Unsigned>
     class Sieve {
     public:
+        /// The type of the iterators over the primes.
         using primeIterator = std::vector<Unsigned>::const_iterator;
 
         /**
@@ -41,24 +65,35 @@ namespace utility {
         [[maybe_unused]] explicit Sieve(size_t upperLimit);
 
         /**
-         * Returns whether a number is prime, that is, in the sieve.
-         * @param number Number to test
-         * @return True if the number is prime.
-         * Numbers beyond the sieve are trial divided by its primes. It does not modify the sieve,
+         * Returns whether a number is prime.
+         *
+         * Numbers below upperLimit are looked up in the sieve. Larger ones up to upperLimit^2 are trial divided by
+         * the sieve's primes, and larger still go to millerRabin. It does not modify the sieve,
          * so concurrent calls are safe.
-         * @throw range_error if the number is at least upperLimit^2, beyond the capacity of the sieve.
+         * @param number Number to test
+         * @return True if the number is prime; false for 0 and 1.
          */
         [[maybe_unused]] auto isPrime(Unsigned number) const -> bool;
 
-        /**
-         * Iterators into the container of prime numbers.
-         */
+        /// Iterator to the smallest prime.
+        /// @return The iterator.
         [[maybe_unused]] auto cbegin() const -> primeIterator { return m_primes.cbegin();}
+        /// Iterator to the smallest prime, so a Sieve works in a range-for.
+        /// @return The iterator.
         [[maybe_unused]] auto begin() const -> primeIterator { return m_primes.begin();}
 
+        /// Iterator one past the largest prime.
+        /// @return The iterator.
         [[maybe_unused]] auto cend() const -> primeIterator { return m_primes.cend();}
+        /// Iterator one past the largest prime, so a Sieve works in a range-for.
+        /// @return The iterator.
         [[maybe_unused]] auto end() const -> primeIterator { return m_primes.end();}
 
+        /**
+         * The n-th prime, counting from 0, so sieve[0] is 2. Unchecked: n must be less than size().
+         * @param n Index of the prime.
+         * @return The prime.
+         */
         auto operator[](int n) const -> Unsigned;
 
         /**
@@ -68,7 +103,7 @@ namespace utility {
         [[maybe_unused]] auto size() const -> Unsigned { return static_cast<Unsigned>(m_primes.size()); }
 
         /**
-         * Returns the last prime found.
+         * Returns the last prime found. Undefined if there are none, that is, if upperLimit was at most 2.
          * @return Last prime found.
          */
         [[maybe_unused]] auto last() const -> Unsigned { return m_primes.back(); }

@@ -6,9 +6,25 @@
 #include <type_traits>
 #include <utility>
 #include <vector>
+/// @file
+/// @brief Greatest common divisor and least common multiple.
 
 
 namespace utility {
+    /**
+     * Greatest common divisor of a and b, by Euclid's algorithm.
+     *
+     * Works for any type with %, comparison and assignment, including Boost.Multiprecision's integers.
+     * Unlike std::gcd it does not mix or reject types, and it needs non-negative arguments.
+     *
+     * @code
+     * utility::greatestCommonDivisor(12u, 18u);   // 6
+     * @endcode
+     * @tparam Number An integer type.
+     * @param a A non-negative number.
+     * @param b A non-negative number.
+     * @return The largest number dividing both; the other argument if one is 0, and 0 for gcd(0, 0).
+     */
     template<typename Number>
     auto greatestCommonDivisor(Number a, Number b) -> Number {
         if (b > a) {
@@ -27,6 +43,14 @@ namespace utility {
 
     /**
      * Least common multiple of a and b.
+     *
+     * @code
+     * utility::leastCommonMultiple(4u, 6u);   // 12
+     * @endcode
+     * @tparam Number An integer type.
+     * @param a A non-negative number.
+     * @param b A non-negative number.
+     * @return The smallest positive number both divide, or 0 if either argument is 0.
      * @throw overflow_error if the result does not fit in Number.
      */
     template<typename Number>
@@ -48,7 +72,14 @@ namespace utility {
 
 
     /**
-     * Least common multiple of numbersIn; 1 if it is empty.
+     * Least common multiple of a list of numbers.
+     *
+     * @code
+     * utility::leastCommonMultiple(std::vector{2u, 3u, 4u, 5u});   // 60
+     * @endcode
+     * @tparam Number An integer type.
+     * @param numbersIn The numbers, each non-negative.
+     * @return The smallest positive number all of them divide; 1 if the list is empty, and 0 if it holds a 0.
      * @throw overflow_error if the result does not fit in Number.
      */
     template<typename Number>

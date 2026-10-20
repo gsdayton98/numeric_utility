@@ -5,7 +5,8 @@
 #include <vector>
 #include "concepts.hpp"
 #include "isqrt.hpp"
-
+/// @file
+/// @brief The continued fraction expansion of a square root.
 
 namespace utility {
     /**
@@ -16,6 +17,11 @@ namespace utility {
      *
      * Uses the recurrence m' = d·a − m, d' = (n − m'²)/d, a' = (a0 + m')/d', which keeps every term between 0 and
      * 2·a0, so nothing overflows for any n the type can hold.
+     *
+     * @code
+     * auto terms = utility::sqrtContinuedFraction(23u);   // {4, 1, 3, 1, 8}
+     * @endcode
+     * @tparam Number An unsigned integer type.
      * @param n The number whose square root to expand.
      * @return a0 followed by one period of the partial quotients.
      */

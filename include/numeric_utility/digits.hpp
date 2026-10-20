@@ -8,18 +8,33 @@
 #include <utility>
 #include <vector>
 #include "concepts.hpp"
+/// @file
+/// @brief Conversion between unsigned integers and vectors of digits in any base.
+///
+/// For numbers too big for a built-in type, digits_multiprecision.hpp adds a toDigits overload for
+/// Boost.Multiprecision's cpp_int.
 namespace utility {
 
+    /// The default type of a single digit.
     using DefaultDigitType = unsigned char;
+    /// The default type of a base.
     using DefaultRadixType = unsigned int;
     /**
      * Return a vector of digits representing the number n in the given base.
+     *
+     * The least significant digit comes first, and zero is the single digit 0. The base must be at least 2: a
+     * base of 0 divides by zero, and a base of 1 never terminates.
+     *
+     * @code
+     * auto digits = utility::toDigits(1234u);        // {4, 3, 2, 1}
+     * auto bits   = utility::toDigits(10u, 2u);      // {0, 1, 0, 1}
+     * @endcode
      * @tparam Number Type of the input number
      * @tparam RadixType Type of the base
      * @tparam DigitType Type of the digits in the result
      * @param n The number to convert
      * @param base The base to convert to
-     * @return A vector of digits representing the number in the given base
+     * @return A vector of digits, least significant first, representing the number in the given base
      */
     template <Unsigned Number, Unsigned RadixType = DefaultRadixType, Unsigned DigitType = DefaultDigitType>
     auto toDigits(Number n, RadixType base = 10u) -> std::vector<DigitType>
@@ -35,10 +50,16 @@ namespace utility {
 
     /**
      * Convert a vector of digits back to a number in the given base.
+     *
+     * The inverse of toDigits: the first digit is the least significant.
+     *
+     * @code
+     * auto n = utility::toNumber<unsigned>(std::vector<unsigned char>{4, 3, 2, 1});   // 1234
+     * @endcode
      * @tparam ResultType Type of the resulting number
-     * @tparam DigitsType Type of the digits in the input vector
+     * @tparam DigitsType A forward range of digits, such as a std::vector
      * @tparam RadixType Type of the base
-     * @param digits The vector of digits to convert
+     * @param digits The digits to convert, least significant first
      * @param base The base of the digits
      * @return The number represented by the digits
      * @throw std::overflow_error if the result, the base or a digit does not fit in a built-in

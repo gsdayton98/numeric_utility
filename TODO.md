@@ -4,7 +4,7 @@ The items from the 2026-09-28 review are all done; see the git history for what 
 
 ## Documentation
 
-- [ ] **Fill out the API documentation.** The Doxygen site builds (`-DNUMERIC_UTILITY_DOCS=ON`, target
+- [x] **Fill out the API documentation.** The Doxygen site builds (`-DNUMERIC_UTILITY_DOCS=ON`, target
   `docs`), but many classes and functions have partial or no doc comments.
   - Turn on `DOXYGEN_WARN_IF_UNDOCUMENTED` in `docs/CMakeLists.txt` to list what is missing, and work
     through it header by header.

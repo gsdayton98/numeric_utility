@@ -3,6 +3,8 @@
 #ifndef NUMERIC_UTILITY_ISQRT_HPP
 #define NUMERIC_UTILITY_ISQRT_HPP
 #include "concepts.hpp"
+/// @file
+/// @brief Integer square root.
 
 namespace utility {
     /**
@@ -10,7 +12,14 @@ namespace utility {
      *
      * Newton's method from an initial guess at or above the root, so the iterates decrease
      * monotonically to it. With c < 2^b, the guess is 2^ceil(b/2); every iterate x then satisfies
-     * x + c/x < 2^(ceil(b/2) + 1), so nothing overflows.
+     * x + c/x < 2^(ceil(b/2) + 1), so nothing overflows. Converges in O(log b) iterations for a b-bit number.
+     *
+     * @code
+     * utility::isqrt(1'000'000'007u);   // 31622
+     * @endcode
+     * @tparam NumberType An unsigned integer type.
+     * @param c The number whose root to take.
+     * @return floor(√c), exactly.
      */
     template<Unsigned NumberType>
     auto isqrt(const NumberType &c) -> NumberType {
