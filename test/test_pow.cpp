@@ -306,4 +306,66 @@ BOOST_AUTO_TEST_CASE(test_pow_identities) {
   checkPowIdentities<U128>();
 }
 
+// checkedMul returns the product, or an empty optional when it does not fit in the type.
+template <typename T>
+void checkCheckedMulUnsigned() {
+  constexpr T max = std::numeric_limits<T>::max();
+  constexpr T half = static_cast<T>(T{1} << (std::numeric_limits<T>::digits / 2));
+  using Result = std::optional<T>;
+
+  // Zero and one never overflow, even against the largest value.
+  BOOST_CHECK(utility::checkedMul<T>(0, 0) == Result{0});
+  BOOST_CHECK(utility::checkedMul<T>(0, max) == Result{0});
+  BOOST_CHECK(utility::checkedMul<T>(max, 0) == Result{0});
+  BOOST_CHECK(utility::checkedMul<T>(1, max) == Result{max});
+  BOOST_CHECK(utility::checkedMul<T>(max, 1) == Result{max});
+  BOOST_CHECK(utility::checkedMul<T>(3, 5) == Result{15});
+
+  // Just inside and just outside the range: 2 * (max / 2) = max - 1, and 2 * (max / 2 + 1) = max + 1.
+  BOOST_CHECK(utility::checkedMul<T>(2, static_cast<T>(max / 2)) == Result{static_cast<T>(max - 1)});
+  BOOST_CHECK(!utility::checkedMul<T>(2, static_cast<T>(max / 2 + 1)));
+  BOOST_CHECK(!utility::checkedMul<T>(max, 2));
+  BOOST_CHECK(!utility::checkedMul<T>(max, max));
+
+  // half * half = max + 1, but (half - 1) * (half + 1) = half * half - 1 = max.
+  BOOST_CHECK(!utility::checkedMul<T>(half, half));
+  BOOST_CHECK(utility::checkedMul<T>(static_cast<T>(half - 1), static_cast<T>(half + 1)) == Result{max});
+}
+
+// For signed types the range is asymmetric: min * -1 overflows although -max is representable.
+template <typename T>
+void checkCheckedMulSigned() {
+  constexpr T max = std::numeric_limits<T>::max();
+  constexpr T min = std::numeric_limits<T>::min();
+  using Result = std::optional<T>;
+
+  BOOST_CHECK(utility::checkedMul<T>(-3, 5) == Result{-15});
+  BOOST_CHECK(utility::checkedMul<T>(-3, -5) == Result{15});
+  BOOST_CHECK(utility::checkedMul<T>(min, 0) == Result{0});
+  BOOST_CHECK(utility::checkedMul<T>(min, 1) == Result{min});
+  BOOST_CHECK(utility::checkedMul<T>(max, -1) == Result{static_cast<T>(-max)});
+  BOOST_CHECK(!utility::checkedMul<T>(min, -1));
+  BOOST_CHECK(!utility::checkedMul<T>(-1, min));
+  BOOST_CHECK(!utility::checkedMul<T>(max, 2));
+  BOOST_CHECK(!utility::checkedMul<T>(min, 2));
+  BOOST_CHECK(!utility::checkedMul<T>(min, min));
+  BOOST_CHECK(utility::checkedMul<T>(2, static_cast<T>(min / 2)) == Result{min});
+}
+
+BOOST_AUTO_TEST_CASE(test_checked_mul_unsigned) {
+  checkCheckedMulUnsigned<U8>();
+  checkCheckedMulUnsigned<U16>();
+  checkCheckedMulUnsigned<U32>();
+  checkCheckedMulUnsigned<U64>();
+  checkCheckedMulUnsigned<U128>();
+}
+
+BOOST_AUTO_TEST_CASE(test_checked_mul_signed) {
+  checkCheckedMulSigned<std::int8_t>();
+  checkCheckedMulSigned<std::int16_t>();
+  checkCheckedMulSigned<std::int32_t>();
+  checkCheckedMulSigned<std::int64_t>();
+  checkCheckedMulSigned<__int128>();
+}
+
 BOOST_AUTO_TEST_SUITE_END()

@@ -9,29 +9,36 @@
 #include "isqrt.hpp"
 #include <numeric_utility/numeric_utility_export.h>
 
+#include "miller_rabin.hpp"
+#include "pow.hpp"
+
 
 namespace utility {
     /**
-     * Replace the contents of primes with the primes below upperLimit.
-     * @return primes
+     * @brief Perform a Eratosthenes Sieve to fill a vector with primes
+     *
+     * Creates a bit vector up to upperLimit long to sieve for primes. As primes are found pushes the prime to end of
+     * the vector.
+     *
+     * @param upperLimit    Create a list of primes below upperLimit. UpperLimits of 0, 1 will yield no primes.
+     * @param primes        A vector which will be cleared and filled with a list of primes below the upperLimit.
+     *
+     * @return primes       The input vector filled with the primes found. Will be empty if upperLimit is 0 or 1.
+     * @throws              Exceptions from the underlying STL containers.
      */
     [[maybe_unused]] NUMERIC_UTILITY_API auto sievePrimes(unsigned long upperLimit, std::vector<unsigned long> &primes) -> std::vector<unsigned long> &;
 
     template <typename Unsigned>
     class Sieve {
     public:
-        /**
-         * Minimum practical Sieve upperLimit.
-         */
-        static constexpr Unsigned MINIMUM_SIEVE_SIZE = 16;
-
         using primeIterator = std::vector<Unsigned>::const_iterator;
+
         /**
          * Construct an Erothsenes sieve.
-         * @param upperLimit Sieve the numbers below upperLimit. the sieve covers numbers below max(upperLimit, MINIMUM_SIEVE_SIZE)"
+         * @param upperLimit Sieve the numbers below upperLimit.
          * @throws Exceptions from the underlying STL containers.
          */
-        [[maybe_unused]] explicit Sieve(Unsigned upperLimit);
+        [[maybe_unused]] explicit Sieve(size_t upperLimit);
 
         /**
          * Returns whether a number is prime, that is, in the sieve.
@@ -73,28 +80,28 @@ namespace utility {
         [[maybe_unused]] auto primes() const -> const std::vector<Unsigned>& { return m_primes; }
 
     private:
-        std::vector<bool> m_sieve;
-        std::vector<Unsigned> m_primes;
+        std::vector<bool> m_sieve;      // Work area for the sieve
+        std::vector<Unsigned> m_primes; // Primes actually found via the sieve.
     };
 
 
     template <typename Unsigned>
-    Sieve<Unsigned>::Sieve(Unsigned upperLimit)
-        : m_sieve(std::max(upperLimit, Sieve::MINIMUM_SIEVE_SIZE),true),
+    Sieve<Unsigned>::Sieve(size_t upperLimit)
+        : m_sieve(upperLimit,true),
           m_primes()
     {
-        // 0 and 1 are not primes.
-        m_sieve[0] = false;
-        m_sieve[1] = false;
+        for (auto notPrime = 0ul; notPrime < std::min(upperLimit, 2ul); ++notPrime) {
+            m_sieve[notPrime] = false;
+        }
 
-        for (Unsigned number = 4; number < m_sieve.size(); number += 2) m_sieve[number] = false;
-        m_primes.push_back(2);
-
-        for (Unsigned number = 3; number < m_sieve.size(); number += 2) {
-            if (m_sieve[number]) {
-                m_primes.push_back(number);
-                for (auto markOff = 2*number; markOff < m_sieve.size(); markOff += number) {
-                    m_sieve[markOff] = false;
+        for (auto p = 2ul; p < m_sieve.size(); ++p) {
+            if (m_sieve[p]) {
+                m_primes.push_back(static_cast<Unsigned>(p));
+            }
+            // Multiples below p*p have already been parked off.
+            if (auto first = utility::checkedMul(p, p); first) {
+                for (auto multiple= first.value(); multiple < m_sieve.size(); multiple+= p) {
+                    m_sieve[multiple] = false;
                 }
             }
         }
@@ -103,9 +110,16 @@ namespace utility {
 
     template <typename Unsigned>
     auto Sieve<Unsigned>::isPrime(Unsigned number) const -> bool {
+        if (number < 2) {
+            return false;
+        }
+
         if (number < m_sieve.size()) return m_sieve[number];
-        // Deciding the number needs every prime up to its square root, and the sieve only knows those below its size.
-        if (isqrt(number) >= m_sieve.size()) throw std::range_error("Sieve isn't big enough");
+
+        auto limit = utility::checkedMul(m_sieve.size(), m_sieve.size());
+        if (limit && number > limit) {
+            return utility::millerRabin(number);
+        }
 
         for (const auto divisor: m_primes) {
             if (divisor > number / divisor) break;

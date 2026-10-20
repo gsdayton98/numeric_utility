@@ -3,6 +3,7 @@
 #ifndef NUMERIC_UTILITY_POW_HPP
 #define NUMERIC_UTILITY_POW_HPP
 #include <cstdint>
+#include <optional>
 #include <type_traits>
 #include "concepts.hpp"
 #include <numeric_utility/numeric_utility_export.h>
@@ -50,6 +51,13 @@ namespace utility {
             base = (base * base) % modulus;
             exponent >>= 1;
         }
+        return result;
+    }
+
+    template <typename T>
+    std::optional<T> checkedMul(T a, T b) {
+        T result;
+        if (__builtin_mul_overflow(a, b, &result)) return std::nullopt;
         return result;
     }
 
