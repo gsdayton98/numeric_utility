@@ -10,7 +10,7 @@ static constexpr auto UPPER_LIMIT = 1'000'000U;
 
 static void benchSieve() {
     oscpp::StopWatch stopWatch; // NOLINT
-    const utility::Sieve primes(UPPER_LIMIT);
+    const utility::Sieve<unsigned int> primes(UPPER_LIMIT);
     std::cout << "Sieve all primes to " << UPPER_LIMIT  <<  ": " << stopWatch.read() << " s  " << primes.primes().size() << " primes\n";
 
     stopWatch.reset();
@@ -31,7 +31,7 @@ static void benchSieve() {
 
 
 static void benchMillerRabin() {
-    const utility::Sieve primes(UPPER_LIMIT);
+    const utility::Sieve<unsigned int> primes(UPPER_LIMIT);
     auto count = 0u;
     oscpp::StopWatch stopWatch; // NOLINT
     for (auto n = 2U; n < UPPER_LIMIT; ++n) {
