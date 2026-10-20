@@ -1,0 +1,90 @@
+{
+  "version": 6,
+  "cmakeMinimumRequired": { "major": 3, "minor": 25, "patch": 0 },
+  "configurePresets": [
+    {
+      "name": "base",
+      "hidden": true,
+      "binaryDir": "${sourceDir}/../build/numeric_utility/presets/${presetName}"
+    },
+    {
+      "name": "debug",
+      "displayName": "Debug",
+      "inherits": "base",
+      "cacheVariables": { "CMAKE_BUILD_TYPE": "Debug" }
+    },
+    {
+      "name": "release",
+      "displayName": "Release",
+      "inherits": "base",
+      "cacheVariables": { "CMAKE_BUILD_TYPE": "Release" }
+    },
+    {
+      "name": "asan",
+      "displayName": "Debug with AddressSanitizer and UndefinedBehaviorSanitizer",
+      "inherits": "base",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug",
+        "NUMERIC_UTILITY_SANITIZERS": "address;undefined"
+      }
+    },
+    {
+      "name": "werror",
+      "displayName": "Debug, warnings are errors",
+      "inherits": "base",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug",
+        "NUMERIC_UTILITY_WERROR": "ON"
+      }
+    },
+    {
+      "name": "benchmark",
+      "displayName": "Release with the benchmarks (needs the oscpp package)",
+      "inherits": "base",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Release",
+        "NUMERIC_UTILITY_BENCHMARKS": "ON"
+      }
+    },
+    {
+      "name": "docs",
+      "displayName": "API documentation only",
+      "inherits": "base",
+      "cacheVariables": {
+        "BUILD_TESTING": "OFF",
+        "NUMERIC_UTILITY_DOCS": "ON"
+      }
+    }
+  ],
+  "buildPresets": [
+    { "name": "debug", "configurePreset": "debug" },
+    { "name": "release", "configurePreset": "release" },
+    { "name": "asan", "configurePreset": "asan" },
+    { "name": "werror", "configurePreset": "werror" },
+    { "name": "benchmark", "configurePreset": "benchmark" },
+    { "name": "docs", "configurePreset": "docs", "targets": ["docs"] }
+  ],
+  "testPresets": [
+    {
+      "name": "debug",
+      "configurePreset": "debug",
+      "output": { "outputOnFailure": true }
+    },
+    {
+      "name": "release",
+      "configurePreset": "release",
+      "output": { "outputOnFailure": true }
+    },
+    {
+      "name": "asan",
+      "configurePreset": "asan",
+      "output": { "outputOnFailure": true },
+      "environment": { "UBSAN_OPTIONS": "halt_on_error=1:print_stacktrace=1" }
+    },
+    {
+      "name": "werror",
+      "configurePreset": "werror",
+      "output": { "outputOnFailure": true }
+    }
+  ]
+}
