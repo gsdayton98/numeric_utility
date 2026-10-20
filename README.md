@@ -113,6 +113,28 @@ The library is a shared library that installs to your home directory by default;
   * `NUMERIC_UTILITY_SANITIZERS`: build the library and tests with sanitizers, for example
     `-DNUMERIC_UTILITY_SANITIZERS="address;undefined"`.
   * `NUMERIC_UTILITY_DOCS`: add a `docs` target that builds the API documentation. Off by default.
+  * `NUMERIC_UTILITY_BENCHMARKS`: build the benchmarks, which need the `oscpp` package. Off by default.
+
+### CMake presets
+
+`CMakePresets.json` names the common configurations, so you need not remember the options. Each preset puts its
+build tree in `../build/numeric_utility/presets/<name>`, outside the source tree.
+
+| Preset      | Configuration                                              |
+|-------------|------------------------------------------------------------|
+| `debug`     | Debug build.                                               |
+| `release`   | Release build.                                             |
+| `asan`      | Debug with AddressSanitizer and UndefinedBehaviorSanitizer. |
+| `werror`    | Debug with warnings as errors.                             |
+| `benchmark` | Release with the benchmarks; needs `oscpp`.                |
+| `docs`      | The API documentation only, with the tests off.            |
+
+```bash
+cmake --list-presets          # show the configure presets
+cmake --preset asan           # configure
+cmake --build --preset asan -j
+ctest --preset asan           # debug, release, asan and werror have test presets
+```
 
 ## Documentation
 
