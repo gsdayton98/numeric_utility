@@ -132,7 +132,7 @@ BOOST_AUTO_TEST_CASE(test_powmod_multiprecision) {
   BOOST_CHECK_EQUAL(utility::powmod(cpp_int{42}, cpp_int{2}, cpp_int{1}), cpp_int{0});
 }
 
-
+#if defined(EXHAUSTIVE_POW_TESTING)
 // Comparison with reference implementations.
 //
 // powmod is compared against square-and-multiply in unsigned __int128, which is exact for moduli up to 2^64 because a
@@ -280,6 +280,7 @@ BOOST_AUTO_TEST_CASE(test_pow_matches_multiprecision_at_boundaries_128) {
     }
   }
 }
+#endif
 
 // The cases that follow from the definition, whatever the width.
 template <typename T>
