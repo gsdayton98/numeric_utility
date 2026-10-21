@@ -29,7 +29,6 @@ The items from the 2026-09-28 review are all done; see the git history for what 
   `std::optional`, or a list of in-range neighbours, would say it, and `operator()` could return an optional or throw.
 - [ ] **Template the value type** (and maybe the distance type). Everything is `unsigned int`. A path sum that
   overflows is dropped now (the target then reads `Undefined`), so it is safe but limited.
-- [ ] `Node` is public; it can be a private detail of the search.
 
 ## Ideas
 
