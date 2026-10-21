@@ -79,4 +79,14 @@ BOOST_AUTO_TEST_CASE(test_sieve_beyond_32_bit) {
     BOOST_CHECK(!sieve.isPrime(4'292'870'399u));                       // 65519 * 65521
     BOOST_CHECK(!sieve.isPrime(4'294'836'225u));                       // 65535^2
 }
+
+
+BOOST_AUTO_TEST_CASE(test_sieve_upper_limit_squared) {
+    // upperLimit is prime, so no prime below it divides its square; trial division alone would call it prime.
+    for (const std::uint64_t limit: {7u, 11u, 101u, 65'521u}) {
+        const utility::Sieve<std::uint64_t> sieve(limit);
+        BOOST_CHECK_MESSAGE(!sieve.isPrime(limit * limit), "limit " << limit);
+        BOOST_CHECK_MESSAGE(!sieve.isPrime(limit * limit - 1), "limit " << limit);  // (limit - 1) * (limit + 1)
+    }
+}
 BOOST_AUTO_TEST_SUITE_END()
