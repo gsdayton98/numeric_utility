@@ -133,7 +133,7 @@ namespace utility {
         if (number < m_sieve.size()) return m_sieve[number];
 
         auto limit = utility::checkedMul(m_sieve.size(), m_sieve.size());
-        if (limit && number > limit) {
+        if (limit && number >= limit) {
             return utility::millerRabin(number);
         }
 
