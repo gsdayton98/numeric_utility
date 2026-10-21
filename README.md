@@ -115,6 +115,10 @@ The library is a shared library that installs to your home directory by default;
   * `NUMERIC_UTILITY_DOCS`: add a `docs` target that builds the API documentation. Off by default.
   * `NUMERIC_UTILITY_BENCHMARKS`: build the benchmarks, which need the `oscpp` package. Off by default.
 
+The `pow` unit tests include exhaustive cases that are redundant with the others and slow, so they are compiled out.
+Define `EXHAUSTIVE_POW_TESTING` at compile time to enable them, for example
+`-DCMAKE_CXX_FLAGS=-DEXHAUSTIVE_POW_TESTING`.
+
 ### CMake presets
 
 `CMakePresets.json` names the common configurations, so you need not remember the options. Each preset puts its
