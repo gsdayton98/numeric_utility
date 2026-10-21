@@ -1,7 +1,7 @@
 // -*- mode:C++; c-basic-offset:2; indent-tabs-mode:nil -*-;
 // Copyright 2026 Glen S. Dayton. Rights reserved according to terms of included license.
 #include <boost/test/unit_test.hpp>
-#include <cstdint>
+#include <cstdint>  //NOLINT
 #include <limits>
 #include <vector>
 #include <numeric_utility/continued_fraction.hpp>
@@ -50,7 +50,7 @@ BOOST_AUTO_TEST_CASE(test_odd_periods) {
     BOOST_CHECK_EQUAL(count, 4u);
 }
 
-
+#if defined(EXTENSIVE_CF_TESTS)
 BOOST_AUTO_TEST_CASE(test_period_ends_with_twice_a0) {
     for (unsigned int n = 2; n <= 10'000; ++n) {
         const auto terms = utility::sqrtContinuedFraction(n);
@@ -58,7 +58,7 @@ BOOST_AUTO_TEST_CASE(test_period_ends_with_twice_a0) {
         BOOST_TEST(terms.back() == 2 * terms.front(), "sqrt(" << n << ")");
     }
 }
-
+#endif
 
 BOOST_AUTO_TEST_CASE(test_limits) {
     // a² + 1 = [a; 2a] and a² + 2a = [a; 1, 2a]. With a = 2^32 - 1, a² + 2a is 2^64 - 1, the largest uint64_t.

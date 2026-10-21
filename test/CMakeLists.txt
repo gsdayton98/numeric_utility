@@ -10,8 +10,10 @@ add_executable(test_utility test.cpp
         test_concepts.cpp
         test_continued_fraction.cpp
         test_digits.cpp
+        test_dijkstra.cpp
         test_isqrt.cpp
         test_lcm_gcd.cpp
+        test_matrix.cpp
         test_miller_rabin.cpp
         test_pow.cpp
         test_sieve.cpp

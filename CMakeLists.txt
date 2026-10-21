@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.25)
-project(numeric_utility LANGUAGES CXX VERSION 1.1.2 DESCRIPTION "Numeric utility functions")
+project(numeric_utility LANGUAGES CXX VERSION 2.0.0 DESCRIPTION "Numeric utility functions")
 # Defines the BUILD_TESTING option (default ON) and calls enable_testing().
 include(CTest)
 
@@ -20,7 +20,9 @@ set(INCLUDEDIR include/numeric_utility)
 
 set(SOURCES src/amicable_numbers.cpp
         src/digits.cpp
+        src/dijkstra.cpp
         src/factor.cpp
+        src/matrix.cpp
         src/miller_rabin.cpp
         src/pow.cpp
         src/sieveprimes.cpp)
@@ -30,10 +32,12 @@ set(HEADERS include/numeric_utility/amicable_numbers.hpp
         include/numeric_utility/continued_fraction.hpp
         include/numeric_utility/digits.hpp
         include/numeric_utility/digits_multiprecision.hpp
+        include/numeric_utility/dijkstra.hpp
         include/numeric_utility/factor.hpp
         include/numeric_utility/fraction.hpp
         include/numeric_utility/isqrt.hpp
         include/numeric_utility/lcm_gcd.hpp
+        include/numeric_utility/matrix.hpp
         include/numeric_utility/miller_rabin.hpp
         include/numeric_utility/pow.hpp
         include/numeric_utility/pow_multiprecision.hpp
