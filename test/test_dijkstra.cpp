@@ -2,7 +2,6 @@
 // Copyright 2026 Glen S. Dayton. Rights reserved according to terms of included license.
 #include <boost/test/unit_test.hpp>
 #include <algorithm>
-#include <queue>
 #include <random>
 #include <utility>
 #include <vector>
@@ -14,26 +13,6 @@ using namespace utility;
 BOOST_AUTO_TEST_SUITE(TestDijkstra)
 
 using Cell = std::pair<unsigned int, unsigned int>;
-
-
-BOOST_AUTO_TEST_CASE(test_node_getters) {
-  const Node node(3, 42);
-  BOOST_CHECK_EQUAL(node.getId(), 3U);
-  BOOST_CHECK_EQUAL(node.getDistance(), 42U);
-}
-
-
-BOOST_AUTO_TEST_CASE(test_node_orders_the_nearest_first_in_a_priority_queue) {
-  std::priority_queue<Node> queue;
-  queue.emplace(0, 30);
-  queue.emplace(1, 10);
-  queue.emplace(2, 20);
-  BOOST_CHECK_EQUAL(queue.top().getId(), 1U);
-  queue.pop();
-  BOOST_CHECK_EQUAL(queue.top().getId(), 2U);
-  queue.pop();
-  BOOST_CHECK_EQUAL(queue.top().getId(), 0U);
-}
 
 
 BOOST_AUTO_TEST_CASE(test_single_cell) {

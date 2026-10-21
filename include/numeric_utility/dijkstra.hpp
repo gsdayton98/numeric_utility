@@ -11,38 +11,6 @@
 /// @brief Dijkstra's shortest path through a Matrix.
 
 namespace utility {
-  /// A cell and the length of the cheapest path found to it so far, ordered so that a std::priority_queue
-  /// yields the nearest first.
-  class NUMERIC_UTILITY_API Node {
-  public:
-    /**
-     * @param n The cell's name in its Matrix.
-     * @param d The path length to it.
-     */
-    Node(const unsigned int n, const unsigned int d) : m_id(n), m_distance(d) {}
-
-    /**
-     * The cell.
-     * @return The cell's name.
-     */
-    [[nodiscard]] auto getId() const -> unsigned int { return m_id; }
-    /**
-     * The path length.
-     * @return The path length to the cell.
-     */
-    [[nodiscard]] auto getDistance() const -> unsigned int { return m_distance; }
-    /**
-     * Reversed on purpose: a Node with a larger distance is "less", so std::priority_queue's top is the nearest.
-     * @param other The Node to compare with.
-     * @return True if this Node is farther than other.
-     */
-    auto operator<(const Node& other) const -> bool { return m_distance > other.m_distance; }
-
-  private:
-    unsigned int m_id;
-    unsigned int m_distance;
-  };
-
   /**
    * The cheapest path through a Matrix from its first cell to its last, moving up, down, left and right.
    *
@@ -74,6 +42,22 @@ namespace utility {
     auto operator()() -> unsigned int;
 
   private:
+    /// A cell and the length of the cheapest path found to it so far, ordered so that a std::priority_queue
+    /// yields the nearest first.
+    class Node {
+    public:
+      Node(const unsigned int n, const unsigned int d) : m_id(n), m_distance(d) {}
+
+      [[nodiscard]] auto getId() const -> unsigned int { return m_id; }
+      [[nodiscard]] auto getDistance() const -> unsigned int { return m_distance; }
+      /// Reversed on purpose: a Node with a larger distance is "less", so the queue's top is the nearest.
+      auto operator<(const Node& other) const -> bool { return m_distance > other.m_distance; }
+
+    private:
+      unsigned int m_id;
+      unsigned int m_distance;
+    };
+
     auto arc(unsigned int u, unsigned int v, unsigned int d) -> void;
 
     const Matrix& m_matrix;
