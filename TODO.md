@@ -20,16 +20,11 @@ The items from the 2026-09-28 review are all done; see the git history for what 
 
 `Matrix` and `Dijkstra` (`matrix.hpp`, `dijkstra.hpp`) came from projecteuler's euler83 in version 2.0.
 
-- [ ] **Parameterise the search.** `Dijkstra` always starts at cell 0, ends at the last cell, counts the start cell's
-  own value, and moves in all four directions. Take the start (or a set of starts), the target (or a set) and the
-  allowed moves as parameters, so projecteuler's euler81 (right and down; 2427) and euler82 (up, down and right, from
-  any cell in the first column to any in the last; 994) can use it too. Add those two as tests.
 - [ ] **Say "no cell" and "unreached" directly.** `Undefined` and `Infinity` are sentinels: a move off the grid
   returns `{Undefined, Infinity}`, and an unreachable target returns `Undefined` as if it were a distance.
   `std::optional`, or a list of in-range neighbours, would say it, and `operator()` could return an optional or throw.
 - [ ] **Template the value type** (and maybe the distance type). Everything is `unsigned int`. A path sum that
   overflows is dropped now (the target then reads `Undefined`), so it is safe but limited.
-- [ ] `Node` is public; it can be a private detail of the search.
 
 ## Ideas
 
