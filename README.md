@@ -26,7 +26,7 @@ Everything is in namespace `utility`. Include the headers as `<numeric_utility/n
 | `pow.hpp` | `pow`, wrapping modulo the size of the type, and `powmod`, which is correct for any modulus for `uint8_t` to `uint64_t` and `unsigned __int128`. Other unsigned types get a generic version that overflows unless the modulus squared fits. |
 | `digits.hpp` | `toDigits(n, base)`, least significant digit first, and `toNumber<T>(digits, base)`, which throws `std::overflow_error` if the result does not fit. |
 | `matrix.hpp` | `Matrix`, a grid of unsigned values whose cells are named by row-major index, with `up`, `down`, `left` and `right` moves that return `{Undefined, Infinity}` off the edge. The constructor throws `std::invalid_argument` unless the values fill the grid exactly. |
-| `dijkstra.hpp` | `Dijkstra`, the cheapest path through a `Matrix` from the first cell to the last, moving in all four directions and counting both end cells. |
+| `dijkstra.hpp` | `Dijkstra`, the cheapest path through a `Matrix`, counting both end cells. By default it runs from the first cell to the last, moving in all four directions; optional arguments give the start cells, the target cells and the allowed `Direction`s (right and down only for Project Euler 81; first column to last, up, down and right for 82). |
 | `concepts.hpp` | The `Unsigned` and `ModuloOverflow` concepts the other headers use. |
 | `pow_multiprecision.hpp`, `digits_multiprecision.hpp` | `powmod` and `toDigits` for Boost's `cpp_int`. They are separate so only their users depend on Boost.Multiprecision. |
 

@@ -3,6 +3,7 @@
 #include <boost/test/unit_test.hpp>
 #include <algorithm>
 #include <random>
+#include <stdexcept>
 #include <utility>
 #include <vector>
 #include <numeric_utility/dijkstra.hpp>
@@ -171,6 +172,156 @@ BOOST_AUTO_TEST_CASE(test_agrees_with_repeated_relaxation) {
 
     Matrix matrix(rows, cols, values);
     BOOST_CHECK_EQUAL(Dijkstra(matrix)(), best.back());
+  }
+}
+
+
+// The statement's matrix, shared by Project Euler 81, 82 and 83.
+static const std::vector<unsigned int> statement = {
+    131, 673, 234, 103, 18,
+    201, 96, 342, 965, 150,
+    630, 803, 746, 422, 111,
+    537, 699, 497, 121, 956,
+    805, 732, 524, 37, 331
+};
+
+static std::vector<unsigned int> column(const Matrix& matrix, unsigned int rows, unsigned int c) {
+  std::vector<unsigned int> names;
+  for (unsigned int r = 0; r < rows; ++r) names.push_back(matrix.name(r, c));
+  return names;
+}
+
+
+BOOST_AUTO_TEST_CASE(test_right_and_down_only_is_project_euler_81) {
+  Matrix matrix(5, 5, statement);
+  Dijkstra dijkstra(matrix, {}, {}, {Direction::Right, Direction::Down});
+  BOOST_CHECK_EQUAL(dijkstra(), 2427U);
+}
+
+
+BOOST_AUTO_TEST_CASE(test_first_column_to_last_with_up_down_right_is_project_euler_82) {
+  Matrix matrix(5, 5, statement);
+  Dijkstra dijkstra(matrix, column(matrix, 5, 0), column(matrix, 5, 4),
+                    {Direction::Up, Direction::Down, Direction::Right});
+  BOOST_CHECK_EQUAL(dijkstra(), 994U);
+}
+
+
+BOOST_AUTO_TEST_CASE(test_the_defaults_are_the_explicit_values) {
+  Matrix matrix(5, 5, statement);
+  Dijkstra byDefault(matrix);
+  Dijkstra explicitly(matrix, {0}, {24}, {Direction::Left, Direction::Right, Direction::Up, Direction::Down});
+  BOOST_CHECK_EQUAL(byDefault(), 2297U);
+  BOOST_CHECK_EQUAL(explicitly(), 2297U);
+}
+
+
+BOOST_AUTO_TEST_CASE(test_a_start_in_the_middle_and_a_target_elsewhere) {
+  Matrix matrix(1, 5, {5, 1, 2, 3, 9});
+  BOOST_CHECK_EQUAL(Dijkstra(matrix, {1}, {3})(), 6U);    // 1 + 2 + 3
+  BOOST_CHECK_EQUAL(Dijkstra(matrix, {3}, {1})(), 6U);    // the same path, the other way
+  BOOST_CHECK_EQUAL(Dijkstra(matrix, {2}, {2})(), 2U);    // a start that is a target costs its own value
+}
+
+
+BOOST_AUTO_TEST_CASE(test_the_cheapest_of_several_starts_and_targets) {
+  Matrix matrix(1, 5, {5, 1, 2, 3, 9});
+  BOOST_CHECK_EQUAL(Dijkstra(matrix, {0, 4}, {2})(), 8U);        // from 0: 5 + 1 + 2; from 4: 9 + 3 + 2 = 14
+  BOOST_CHECK_EQUAL(Dijkstra(matrix, {0}, {1, 4})(), 6U);        // to 1: 5 + 1
+  BOOST_CHECK_EQUAL(Dijkstra(matrix, {0, 1, 2}, {2, 3})(), 2U);  // start 2 is itself a target
+}
+
+
+BOOST_AUTO_TEST_CASE(test_moves_that_cannot_reach_the_target) {
+  Matrix matrix(2, 2, {1, 1, 1, 1});
+  BOOST_CHECK_EQUAL(Dijkstra(matrix, {}, {}, {Direction::Left})(), Undefined);
+  BOOST_CHECK_EQUAL(Dijkstra(matrix, {}, {}, {Direction::Up, Direction::Left})(), Undefined);
+  BOOST_CHECK_EQUAL(Dijkstra(matrix, {}, {}, {})(), Undefined);                       // no moves, and 0 != 3
+  BOOST_CHECK_EQUAL(Dijkstra(matrix, {1}, {1}, {})(), 1U);                            // no moves, but already there
+  BOOST_CHECK_EQUAL(Dijkstra(matrix, {}, {}, {Direction::Right, Direction::Down})(), 3U);
+}
+
+
+BOOST_AUTO_TEST_CASE(test_a_one_way_move_costs_more_than_two_ways) {
+  // From the bottom-left corner to the top-right corner the cheap way is up the right-hand 1s.
+  Matrix matrix(3, 3, {1, 1, 1, 9, 9, 1, 1, 1, 1});
+  BOOST_CHECK_EQUAL(Dijkstra(matrix)(), 5U);
+  BOOST_CHECK_EQUAL(Dijkstra(matrix, {6}, {2})(), 5U);
+  BOOST_CHECK_EQUAL(Dijkstra(matrix, {6}, {2}, {Direction::Left, Direction::Right, Direction::Down})(), Undefined);
+}
+
+
+BOOST_AUTO_TEST_CASE(test_a_start_or_target_that_is_not_a_cell_is_rejected) {
+  Matrix matrix(2, 3, {1, 2, 3, 4, 5, 6});
+  BOOST_CHECK_THROW(Dijkstra(matrix, {6}), std::invalid_argument);
+  BOOST_CHECK_THROW(Dijkstra(matrix, {0, 100}), std::invalid_argument);
+  BOOST_CHECK_THROW(Dijkstra(matrix, {}, {6}), std::invalid_argument);
+  BOOST_CHECK_THROW(Dijkstra(matrix, {}, {Undefined}), std::invalid_argument);
+  BOOST_CHECK_NO_THROW(Dijkstra(matrix, {5}, {0}));
+}
+
+
+BOOST_AUTO_TEST_CASE(test_a_repeat_call_with_options_gives_the_same_answer) {
+  Matrix matrix(5, 5, statement);
+  Dijkstra dijkstra(matrix, column(matrix, 5, 0), column(matrix, 5, 4), {Direction::Up, Direction::Down, Direction::Right});
+  BOOST_CHECK_EQUAL(dijkstra(), 994U);
+  BOOST_CHECK_EQUAL(dijkstra(), 994U);
+}
+
+
+BOOST_AUTO_TEST_CASE(test_options_agree_with_repeated_relaxation) {
+  // Random shapes, starts, targets and move sets, against relaxing every cell from the cells that may move into it.
+  std::mt19937 generator(82);
+  const Direction all[] = {Direction::Left, Direction::Right, Direction::Up, Direction::Down};
+  for (int trial = 0; trial < 100; ++trial) {
+    const unsigned int rows = std::uniform_int_distribution<unsigned int>(1, 6)(generator);
+    const unsigned int cols = std::uniform_int_distribution<unsigned int>(1, 6)(generator);
+    const unsigned int cells = rows * cols;
+    std::vector<unsigned int> values(cells);
+    for (auto& value : values) value = std::uniform_int_distribution<unsigned int>(1, 99)(generator);
+
+    std::vector<Direction> moves;
+    for (const auto direction : all) if (generator() % 2 == 0) moves.push_back(direction);
+    auto pick = [&] {
+      std::vector<unsigned int> names;
+      const auto count = std::uniform_int_distribution<unsigned int>(1, 3)(generator);
+      for (unsigned int i = 0; i < count; ++i) names.push_back(std::uniform_int_distribution<unsigned int>(0, cells - 1)(generator));
+      return names;
+    };
+    const auto starts = pick();
+    const auto targets = pick();
+
+    std::vector<unsigned int> best(cells, 1'000'000'000U);
+    for (const auto s : starts) best[s] = values[s];
+    for (bool changed = true; changed;) {
+      changed = false;
+      for (unsigned int r = 0; r < rows; ++r) {
+        for (unsigned int c = 0; c < cols; ++c) {
+          for (const auto direction : moves) {
+            // The cell that a move in this direction leaves to arrive at (r, c).
+            int pr = static_cast<int>(r), pc = static_cast<int>(c);
+            switch (direction) {
+              case Direction::Left: ++pc; break;    // moving left arrives from the right
+              case Direction::Right: --pc; break;
+              case Direction::Up: ++pr; break;
+              case Direction::Down: --pr; break;
+            }
+            if (pr < 0 || pc < 0 || pr >= static_cast<int>(rows) || pc >= static_cast<int>(cols)) continue;
+            const auto from = static_cast<unsigned int>(pr) * cols + static_cast<unsigned int>(pc);
+            if (const auto candidate = best[from] + values[r * cols + c]; candidate < best[r * cols + c]) {
+              best[r * cols + c] = candidate;
+              changed = true;
+            }
+          }
+        }
+      }
+    }
+    unsigned int expected = 1'000'000'000U;
+    for (const auto t : targets) expected = std::min(expected, best[t]);
+    if (expected == 1'000'000'000U) expected = Undefined;
+
+    Matrix matrix(rows, cols, values);
+    BOOST_CHECK_EQUAL(Dijkstra(matrix, starts, targets, moves)(), expected);
   }
 }
 
