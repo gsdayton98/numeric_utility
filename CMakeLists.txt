@@ -1,22 +1,25 @@
 cmake_minimum_required(VERSION 3.25)
 project(numeric_utility LANGUAGES CXX VERSION 2.1.0 DESCRIPTION "Numeric utility functions")
-# Defines the BUILD_TESTING option (default ON) and calls enable_testing().
-include(CTest)
+
+# Build the tests only when numeric_utility is the top-level project, so consumers using FetchContent don't need Boost.
+option(NUMERIC_UTILITY_BUILD_TESTING "Build the numeric_utility tests (requires Boost.Test)" ${PROJECT_IS_TOP_LEVEL})
+# The library installs outside the loader path by default (see the presets), so on macOS give the installed copy an
+# absolute install name. Embedding projects don't install it, so this defaults to the top-level project only.
+option(NUMERIC_UTILITY_ABSOLUTE_INSTALL_NAME "Give the installed library an absolute install name on macOS" ${PROJECT_IS_TOP_LEVEL})
+
+include(GNUInstallDirs)
+# The presets choose the prefix: `debug` installs to $HOME for development, `release` to /usr/local for delivery.
+# Without a preset, a top-level build still defaults to $HOME so a plain install needs no privileges. Pass --prefix
+# or -DCMAKE_INSTALL_PREFIX= to choose another. Never override the prefix of a parent project that embeds numeric_utility.
+if(PROJECT_IS_TOP_LEVEL AND CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
+    set(CMAKE_INSTALL_PREFIX "$ENV{HOME}" CACHE PATH "Install prefix" FORCE)
+endif()
 
 find_package(Boost REQUIRED CONFIG)
 
 # BOOST multiprecision supports up to C++20
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
-
-include(GNUInstallDirs)
-if(CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
-    set(CMAKE_INSTALL_PREFIX "$ENV{HOME}" CACHE PATH "Install prefix" FORCE)
-endif()
-
-set(BINDIR bin)
-set(LIBDIR lib)
-set(INCLUDEDIR include/numeric_utility)
 
 set(SOURCES src/amicable_numbers.cpp
         src/digits.cpp
@@ -86,18 +89,21 @@ set_target_properties(numeric_utility PROPERTIES SOVERSION ${PROJECT_VERSION_MAJ
 # The library installs to the user's home directory, which is on no loader path. On macOS an absolute install
 # name in the installed copy lets programs find it without DYLD_LIBRARY_PATH or an rpath of their own. The
 # build tree keeps @rpath. Linux has no equivalent; see the README.
-set_target_properties(numeric_utility PROPERTIES INSTALL_NAME_DIR "${CMAKE_INSTALL_PREFIX}/${LIBDIR}")
+if(NUMERIC_UTILITY_ABSOLUTE_INSTALL_NAME)
+    set_target_properties(numeric_utility PROPERTIES INSTALL_NAME_DIR "${CMAKE_INSTALL_FULL_LIBDIR}")
+endif()
 set_target_properties(numeric_utility PROPERTIES PUBLIC_HEADER "${HEADERS};${CMAKE_CURRENT_BINARY_DIR}/numeric_utility/numeric_utility_export.h")
 
 install(TARGETS ${PROJECT_NAME} EXPORT numeric_utility
-        ARCHIVE  DESTINATION "${LIBDIR}"
-        LIBRARY  DESTINATION "${LIBDIR}"
-        RUNTIME  DESTINATION "${BINDIR}"
-        PUBLIC_HEADER DESTINATION "${INCLUDEDIR}")
-install(EXPORT numeric_utility NAMESPACE utility:: DESTINATION "${LIBDIR}/cmake/numeric_utility")
+        ARCHIVE  DESTINATION "${CMAKE_INSTALL_LIBDIR}"
+        LIBRARY  DESTINATION "${CMAKE_INSTALL_LIBDIR}"
+        RUNTIME  DESTINATION "${CMAKE_INSTALL_BINDIR}"
+        PUBLIC_HEADER DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}/numeric_utility")
+install(EXPORT numeric_utility NAMESPACE utility:: DESTINATION "${CMAKE_INSTALL_LIBDIR}/cmake/numeric_utility")
 export(TARGETS ${PROJECT_NAME} NAMESPACE utility:: FILE numeric_utility.cmake)
 
-if(BUILD_TESTING)
+if(NUMERIC_UTILITY_BUILD_TESTING)
+    include(CTest)
     add_subdirectory(test)
 endif()
 
