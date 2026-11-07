@@ -22,7 +22,7 @@ jobs:
 
       - name: Build documentation
         run: |
-          cmake -S . -B build -DBUILD_TESTING=OFF -DNUMERIC_UTILITY_DOCS=ON
+          cmake -S . -B build -DNUMERIC_UTILITY_BUILD_TESTING=OFF -DNUMERIC_UTILITY_DOCS=ON
           cmake --build build --target docs
 
       - uses: actions/upload-pages-artifact@v3

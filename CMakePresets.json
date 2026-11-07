@@ -4,20 +4,30 @@
   "configurePresets": [
     {
       "name": "base",
+      "description": "Common settings. Builds go outside the source tree, in ../build/numeric_utility/<preset>.",
       "hidden": true,
-      "binaryDir": "${sourceDir}/../build/numeric_utility/presets/${presetName}"
+      "binaryDir": "${sourceDir}/../build/numeric_utility/${presetName}"
     },
     {
       "name": "debug",
       "displayName": "Debug",
       "inherits": "base",
-      "cacheVariables": { "CMAKE_BUILD_TYPE": "Debug" }
+      "description": "Development build. Installs to $HOME/{lib,include}.",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug",
+        "CMAKE_INSTALL_PREFIX": "$env{HOME}"
+      }
     },
     {
       "name": "release",
       "displayName": "Release",
       "inherits": "base",
-      "cacheVariables": { "CMAKE_BUILD_TYPE": "Release" }
+      "description": "Delivery build. Installs to /usr/local; run the install step with sudo if needed.",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Release",
+        "CMAKE_INSTALL_PREFIX": "/usr/local",
+        "NUMERIC_UTILITY_ABSOLUTE_INSTALL_NAME": "ON"
+      }
     },
     {
       "name": "asan",
@@ -51,7 +61,7 @@
       "displayName": "API documentation only",
       "inherits": "base",
       "cacheVariables": {
-        "BUILD_TESTING": "OFF",
+        "NUMERIC_UTILITY_BUILD_TESTING": "OFF",
         "NUMERIC_UTILITY_DOCS": "ON"
       }
     }

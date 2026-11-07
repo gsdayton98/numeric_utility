@@ -110,7 +110,10 @@ cmake --install build
 The library is a shared library that installs to your home directory by default; set
 `CMAKE_INSTALL_PREFIX` to change that. The CMake options are:
 
-  * `BUILD_TESTING`: build the tests. On by default.
+  * `NUMERIC_UTILITY_BUILD_TESTING`: build the tests. On by default when numeric_utility is the top-level project,
+    off when another project embeds it, so embedders don't need Boost.Test.
+  * `NUMERIC_UTILITY_ABSOLUTE_INSTALL_NAME`: give the installed library an absolute install name on macOS. On by
+    default for a top-level build.
   * `NUMERIC_UTILITY_WERROR`: treat warnings as errors. Off by default.
   * `NUMERIC_UTILITY_SANITIZERS`: build the library and tests with sanitizers, for example
     `-DNUMERIC_UTILITY_SANITIZERS="address;undefined"`.
@@ -128,12 +131,12 @@ The ContinuedFraction unit tests include exhaustive cases that are slow, so they
 ### CMake presets
 
 `CMakePresets.json` names the common configurations, so you need not remember the options. Each preset puts its
-build tree in `../build/numeric_utility/presets/<name>`, outside the source tree.
+build tree in `../build/numeric_utility/<name>`, outside the source tree.
 
 | Preset      | Configuration                                              |
 |-------------|------------------------------------------------------------|
-| `debug`     | Debug build.                                               |
-| `release`   | Release build.                                             |
+| `debug`     | Debug build; installs to `$HOME`.                          |
+| `release`   | Release build; installs to `/usr/local`.                   |
 | `asan`      | Debug with AddressSanitizer and UndefinedBehaviorSanitizer. |
 | `werror`    | Debug with warnings as errors.                             |
 | `benchmark` | Release with the benchmarks; needs `oscpp`.                |
@@ -154,7 +157,7 @@ To build it yourself: the headers' doc comments (Doxygen syntax, with LaTeX math
 [doxygen-awesome-css](https://github.com/jothepro/doxygen-awesome-css) theme when you configure.
 
 ```bash
-cmake -S . -B build -DBUILD_TESTING=OFF -DNUMERIC_UTILITY_DOCS=ON
+cmake -S . -B build -DNUMERIC_UTILITY_BUILD_TESTING=OFF -DNUMERIC_UTILITY_DOCS=ON
 cmake --build build --target docs
 open build/docs/html/index.html
 ```
