@@ -20,10 +20,10 @@ The items from the 2026-09-28 review are all done; see the git history for what 
 
 `Matrix` and `Dijkstra` (`matrix.hpp`, `dijkstra.hpp`) came from projecteuler's euler83 in version 2.0.
 
-- [ ] **Say "no cell" and "unreached" directly.** `Undefined` and `Infinity` are sentinels: a move off the grid
+- [x] **Say "no cell" and "unreached" directly.** `Undefined` and `Infinity` are sentinels: a move off the grid
   returns `{Undefined, Infinity}`, and an unreachable target returns `Undefined` as if it were a distance.
   `std::optional`, or a list of in-range neighbours, would say it, and `operator()` could return an optional or throw.
-- [ ] **Template the value type** (and maybe the distance type). Everything is `unsigned int`. A path sum that
+- [x] **Template the value type** (and maybe the distance type). Everything is `unsigned int`. A path sum that
   overflows is dropped now (the target then reads `Undefined`), so it is safe but limited.
 
 ## Ideas
