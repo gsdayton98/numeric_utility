@@ -23,9 +23,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 set(SOURCES src/amicable_numbers.cpp
         src/digits.cpp
-        src/dijkstra.cpp
         src/factor.cpp
-        src/matrix.cpp
         src/miller_rabin.cpp
         src/pow.cpp
         src/sieveprimes.cpp)
