@@ -1,5 +1,16 @@
 # CLAUDE.md
 
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+## Working environment
+
+- **Never commit, stage or push anything except `CLAUDE.md`, and `TODO.md`.  ** Every
+  other file is the owner's to review: leave code changes in the working tree and suggest a commit message (with the
+  `Co-Authored-By:` trailer) instead. Commit those four files yourself, and only those, on the current non-default branch.
+- Do not commit a code change together with a TODO change: commit the TODO file by itself (`git commit <file>`).
+
+- Open work is tracked in `TODO.md`
+
 ## Build directories
 
 Keep build trees out of the source tree. Claude's builds live in `../build/numeric_utility/claude/`:
